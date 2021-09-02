@@ -65,8 +65,11 @@
 \newcommand{\pad}{\vspace*{\fill}\par}
 \def\indep{\perp\!\!\!\perp}
 \newcommand{\disp}{\displaystyle}
-\newcommand{\rarr}{\rightarrow}
-\newcommand{\larr}{\leftarrow}
+\newcommand{\rar}{\rightarrow}
+\newcommand{\lar}{\leftarrow}
+\newcommand{\blue}{\color{blue}}
+\newcommand{\green}{\color{green}}
+\newcommand{\red}{\color{red}}
 
 
 \textwidth = 7.0 in

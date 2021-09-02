@@ -97,7 +97,7 @@
     $i=\log_2 n$, thus, $T(n)=T(1)+\log_2 n=\log_2 n + 1$.
 
     We can also visualize this recurrence with recursion tree:
-    (image from \url{https://cs61bl.org/su21/labs/lab10/})
+    (image from lecture note)
     \begin{center}
         \includegraphics[scale=0.35]{images/02-bs-tree.png}
     \end{center}
@@ -325,5 +325,104 @@
     it always break array down and then merge up.
 
     \section{Inversion Numbers}
+
+    Given an array $A[1\cdots n]$, we say two elements $A[i]$ and $A[j]$
+    are {\bf inverted} if $i<j$ but $A[i]>A[j]$, i.e., $A[i]$ appears
+    before $A[j]$ but is larger than $A[j]$. The number of inverted pairs
+    is called the {\bf inversion number} of array $A$. 
+    Actually this is a useful measure, it provides us with an intuitive
+    idea about how ``sorted'' an array is, larger inversion number implies
+    a more unsorted array.
+
+    What may surprise you is that inversion number has a close relation
+    to insertion sort, and more concretely, {\bf the number of swaps
+    used by insertion sort is equals to inversion number.}
+    We can prove it by induction:
+    
+    \begin{proof}
+        Assuming the array has size $n$. Basic case
+        $n=2$ obviously holds.
+
+        Inductive step: assume correct for an array of size $n-1$, i.e.,
+        the total number of swaps performed while insertion sorting
+        $A[1\cdots n-1]$ is equals to the inversion number of $A[1\cdots n-1]$.
+
+        Let $x=A[n]$. Now, the remaining work by insertion sort is that we swap 
+        $x$ with all items $A[j]$ such that $j<n$ and $A[j]>x$, 
+        notice that the number of those items is the same of inversions in which
+        {\bf $x$ participates}. Therefore, adding these new inversions gives
+        the full inversion number of $A[1\cdots n]$.
+    \end{proof}
+
+    Now we will consider how to compute the inversion number of a given 
+    array with size $n$. One possible method is we check all $(i,j)$
+    pairs of given array, this requires ${n\choose 2}=\Theta(n^2)$
+    running time. Another method uses the relation we proved above,
+    running insertion sort and count the number of swaps we perform,
+    but this also requires $\Theta(n^2)$ time since insertion sort 
+    requires $\Theta(n^2)$. How can we improve that? 
+    Come back to topic: divide and conquer!
+
+    Similar to previous problems, we divide array into two halves, 
+    and recursively count inversions in each half, but notice:
+    we are missing something: we still need to count inversions
+    where $a_i$ and $a_j$ are in different halves! We need 
+    to return the sum of those three quantities finally.
+
+    So the main problems is that, how we count the third quantity?
+    Consider below situation, the two halves of array are:
+    $[1,5,4,8,10,2]$ and $[6,9,12,11,3,7]$, how would you do that?
+    You may count by hand, and knowing there are $5-3, 4-3, 8-6, \cdots$
+    and in total 9 inversions with one item in 1st array and another in 
+    2nd. But, it's really time consuming and totally a mess! We have 
+    no efficient algorithm to do this but count one by one.
+
+    But, things will become much better if those two arrays are 
+    {\it sorted}. For example, $A=[3,7,10,14,18,19]$ and 
+    $B=[2,11,16,17,23,25]$. How will we do then? We can 
+    scan progressively through both lists, and for each item 
+    in $B$, we only need to find the smallest $A$ item 
+    larger than it. In the lists above, for example, $A[1]=3$
+    is larger than $B[1]=2$, so all items in $A$ form an inversion pair 
+    with $B[1]$; then we move to $B[2]=11$, we try to find the smallest 
+    item in $A$ larger than 11, so we move the pointer in $A$, 
+    $A[2]=7<11, A[3]=10<11$, until $A[4]=14>11$, so 
+    each item in $A[4]\cdots A[6]$ can form an inversion pair with $B[2]$.
+    If we continue the process, we will finally get the inversion 
+    number formed between $A$ and $B$, in $O(n)$ time. (Why is $O(n)$?
+    Since we only iterate each item once during the whole process.
+    You may find it quite similar to Merge operation in Merge Sort)
+
+    \begin{algorithm*}
+        \caption{Count($A$, $l$, $mid$, $r$)}
+        $L\lar A[l\cdots mid],\ R\lar A[mid+1\cdots r]$
+
+        (here assume) $L, R$ already sorted
+
+        $i\lar l,\ j\lar mid+1$\qquad \tcp{two pointers for $L$ and $R$}
+
+        $ans\lar 0$ \qquad \tcp{total inversion number}
+
+        \tcp{let $i,j$ iterator over two arrays}
+        \While{$i\le mid$ and $j\le r$}{
+            \tcp{looking for smallest $L$ item larger than $R$}
+            \eIf{$L[i]\le R[j]$}{ 
+                $i\lar i+1$
+            }{
+                \tcp{Found $L[i] > R[j]$!}
+
+                \tcp{then $L[i]\cdots L[mid]$ each can form an inversion pair with $R[j]$}
+
+                \tcp{so inversion num for $R[j]$ is $mid-i+1$}
+
+                $inv\lar (mid-i+1)$
+
+                $ans\lar ans+inv$
+
+                $j\lar j+1$
+            }
+        }
+        return $ans$
+    \end{algorithm*}
 \end{spacing}
 \end{document}

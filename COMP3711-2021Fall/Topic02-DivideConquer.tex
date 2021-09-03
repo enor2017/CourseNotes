@@ -546,6 +546,243 @@
     First call: Sort-and-Count($A$, 1, $n$)
 
     \section{The Maximum Subarray Problem}
+
+    {\bf Problem:} Given an array of size $n$, the task is
+    to find the largest possible sum of a contiguous subarray.
+    For example, given $[3,2,1,-7,5,2,-1,3,-1]$, 
+    subarray $[5,2,-1,3]$ has the largest sum among all subarrays,
+    we need to output $5+2+(-1)+3=9$.
+
+    We will provide a lot of algorithms to solve this problem.
+
+    \subsection{brute force algorithm}
+
+    The simplest idea is, for each pair $(i,j)$, we calculate
+    $A[i]+A[i+1]+\cdots+A[j]$, and record maximum value 
+    we have seen along the process.
+
+    \begin{algorithm}
+        \caption{Max-Subarray-Brute-Force($A$)}
+        $maxSum \lar A[1]$ \qquad \tcp{can also use -inf to initialize}
+
+        \For{$i\lar 1$ to $n$}{
+            \For{$j\lar i$ to $n$}{
+                \tcp{calculate $A[i]+\cdots+A[j]$}
+
+                $sum\lar 0$
+
+                \For{$k\lar i$ to $j$}{
+                    $sum \lar sum + A[k]$
+                }
+                \tcp{if current $sum$ is larger, update $maxSum$}
+                \If{$sum > maxSum$}{
+                    $maxSum \lar sum$
+                }
+            }
+        }
+        return $maxSum$
+    \end{algorithm}
+
+    This is a very simple algorithm, but requires $\Theta(n^3)$ running time.
+
+    \subsection{prefix sum}
+
+    In brute force algorithm, we notice that each time when we 
+    calculate $A[i]+A[i+1]+\cdots+A[j]$, we need to iterate through 
+    these items, and add them together, which requires a lot of 
+    redundant work. The {\bf prefix sum}, say $S[i]$, is defined 
+    as $\sum_{j=1}^{i} A[i]$, i.e., the sum of all items before(and include)
+    $A[i]$. If we have a table of all $S[i]$ values, we can now rewrite 
+    $\sum_{k=i}^{j} A[k]=S[j]-S[i-1]$. See? That's a $\Theta(1)$ job!
+
+    \vspace{0.2in}
+    \begin{algorithm}
+        \setstretch{1.5}
+        \caption{Get-Prefix-Sum($A$)}
+        \tcp{$S[]$ records the prefix sum of array $A$}
+        $S[0]=0$
+
+        \For{$i=1$ to $n$}{
+            $S[i]\lar S[i-1]+A[i]$
+        }
+        return $S$
+    \end{algorithm}
+
+    \begin{algorithm}[H]
+        \setstretch{1}
+        \caption{Max-Subarray-Prefix-Sum($A$)}
+        $maxSum \lar A[1]$ 
+
+        $S\lar$ Get-Prefix-Sum($A$) \qquad \tcp{get prefix sum}
+
+        \For{$i\lar 1$ to $n$}{
+            \For{$j\lar i$ to $n$}{
+                $sum\lar S[j]-S[i-1]$ \qquad \tcp{calculate $A[i]+\cdots+A[j]$}
+
+                \If{$sum > maxSum$}{
+                    $maxSum \lar sum$
+                }
+            }
+        }
+        return $maxSum$
+    \end{algorithm}
+
+    This reduces the running time of our algorithm to $\Theta(n^2)$.
+    (Calculating prefix sum only requires $\Theta(n)$, 
+    so overall $\Theta(n^2+n)=\Theta(n^2)$)
+
+    \subsection{divide and conquer}
+
+    Again, we return to our topic, and again, we try to cut 
+    the array into two halves. Similar to {\bf Inversion Number}
+    example, we classified all subarrays into three cases:
+    \begin{enumerate}
+        \item entirely in the first half
+        \item entirely in the second half
+        \item crosses the cut
+    \end{enumerate}
+    I think it will not surprise you that the third situation is 
+    the most difficult one, while the first two cases, can still 
+    be found recursively.
+
+    \begin{algorithm}
+        \caption{Max-Subarray-Divide-Conquer($A$, $l$, $r$)}
+
+        \If{$l=r$}{return $A[l]$}
+
+        $mid\lar \lfloor (l+r)/2 \rfloor$
+
+        $max_1\lar $ Max-Subarray-Divide-Conquer($A$, $l$, $mid$)
+
+        $max_2\lar $ Max-Subarray-Divide-Conquer($A$, $mid+1$, $r$)
+
+        $max_3\lar $ Max Subarray that crosses the cut
+
+        return $\max \{ max_1, max_2, max_3 \}$
+    \end{algorithm}
+
+    So how can we efficiently calculate $max_3$? Firstly, consider 
+    what do we mean by ``crosses the cut''? That should be, 
+    the subarray will {\it at least include both $A[mid]$ and $A[mid+1]$}
+    in order to ``cross''. Hence these kind of subarray can always be 
+    divided into two parts: $A[i\cdots mid]$ and $A[mid+1\cdots j]$
+    for some $i$ and $j$. So in order to find max $A[i]+\cdots +A[j]$,
+    we just find max $A[i]+\cdots +A[mid]$, and $A[mid+1]+\cdots +A[j]$,
+    and finally add them together, this will definitely give us 
+    the max value.
+
+    Alright, so how can we find $i$?(and can use exactly the same 
+    method to find $j$)
+    It should be the index that maximize $A[i]+\cdots +A[mid]$.
+    This is much easier since one end, say, $mid$, is fixed.
+    We initialize $maxSum$ to $-\infty$, then scan from $mid$ towards left,
+    each step we add an item to temporary $sum$, and update 
+    $maxSum$ if $sum$ is larger. When we reach $l$(left end), 
+    we will have already iterated all possible indices $i$ and 
+    stored the max sum in $maxSum$.
     
+    \begin{algorithm}
+        \caption{Max-Subarray-Divide-Conquer($A$, $l$, $r$)}
+
+        \If{$l=r$}{return $A[l]$}
+
+        $mid\lar \lfloor (l+r)/2 \rfloor$
+
+        $max_1\lar $ Max-Subarray-Divide-Conquer($A$, $l$, $mid$)
+
+        $max_2\lar $ Max-Subarray-Divide-Conquer($A$, $mid+1$, $r$)
+
+        \tcp{now let's count $max_3$}
+
+        $L_m\lar -\infty,\ R_m\lar -\infty$
+
+        $sum\lar 0$
+
+        \For{$i=mid$ down to $l$}{
+            $sum\lar sum + A[i]$
+
+            \If{$sum > L_m$}{$L_m\lar sum$}
+        }
+
+        $sum\lar 0$
+
+        \For{$i=mid+1$ to $r$}{
+            $sum\lar sum + A[i]$
+
+            \If{$sum > R_m$}{$R_m\lar sum$}
+        }
+
+        return $\max \{ max_1, max_2, L_m+R_m \}$
+    \end{algorithm}
+
+    First call {\bf Max-Subarray-Divide-Conquer($A$, 1, $n$)}.
+
+    It's not difficult to find out the process of finding $max_3$
+    requires $O(n)$ time, since we just scan throught the array.
+    If let $T(n)$ be the running time of whole algorithm, 
+    we will get:
+    $$T(n)=2T(n/2)+O(n)$$
+    This gives $T(n)=O(n\log n)$.
+
+    \subsection{linear time?}
+
+    Review the idea of calculating $max_3$ above, we said that 
+    finding max $A[i]+\cdots +A[mid]$ is much easier since $mid$
+    is a fixed ending point. This gives us an inspiration:
+    for a {\it fixed} $j$, finding largest $A[i]+\cdots +A[j]=
+    S[j]-S[i-1]$, is the same as finding the smallest $S[i-1]$
+    .(Recall that $S[]$ is the prefix sum)
+    If we can find the smallest $S[i-1]$ for each $j$,
+    we will able to find the max subarray.(here $i-1$ must 
+    be strictly smaller than $j$, otherwise the subarray is null)
+
+    The process of finding smallest $S[i-1]$ can be easily done 
+    during the iteration through array. More concretely, 
+    we only need to update $minS = \min\{minS, A[i]\}$ at each step.
+    Below shows the entire algorithm.
+    
+    \begin{algorithm}
+        \caption{Max-Subarray-Linear($A$)}
+        \tcp{Here we initialize $minS$ to 0 because {\it at least}
+        we can do $S[j]-S[0]$ to ensure the sum is {\it at least}
+        not smaller than $S[j]$}
+        $maxSum \lar -\infty,\ minS\lar 0$
+
+        \tcp{for each $j$, find $minS$, and then find $S[j]-minS$}
+        \For{$j\lar 1$ to $n$}{
+            \tcp{update overall answer}
+            \If{$S[j]-minS>maxSum$}{
+                $maxSum\lar S[j]-minS$
+            }
+            \tcp{update $minS$ so far}
+            \If{$S[j] < minS$}{
+                $minS\lar S[j]$
+            }
+        }
+        return $maxSum$
+    \end{algorithm}
+
+    This algorithm can also be written without calculating prefix sum 
+    before, since each time we only use $S[j]$, we only need one
+    variable to record $S[j]$ and accumulate it each time.
+
+    \begin{algorithm}
+        \caption{Max-Subarray-Linear2($A$)}
+        \tcp{$S$ will be all prefix sum so far, i.e., $A[1]+\cdots+A[j]$}
+        $maxSum \lar -\infty,\ minS\lar 0,\ S\lar 0$
+
+        \For{$j\lar 1$ to $n$}{
+            $S\lar S+A[j]$ \qquad \tcp{calculate prefix sum so far}
+            \If{$S-minS>maxSum$}{
+                $maxSum\lar S-minS$
+            }
+            \tcp{update $minS$ so far}
+            \If{$S < minS$}{
+                $minS\lar S[j]$
+            }
+        }
+        return $maxSum$
+    \end{algorithm}
+
 \end{spacing}
 \end{document}

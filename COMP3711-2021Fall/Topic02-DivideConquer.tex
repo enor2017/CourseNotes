@@ -53,7 +53,7 @@
     Then we continue this process, check middle item each time, and 
     abandon half items each time.
 
-    \begin{algorithm*}
+    \begin{algorithm}
         \caption{BinarySearch($a[]$, $left$, $right$, $x$)}
         \KwData{$a[]$: the array given, $x$: the item to find}
         \eIf{$left=right$}{
@@ -71,7 +71,7 @@
                 BinarySearch($a[]$, $mid+1$, $right$, $x$)
             }
         }
-    \end{algorithm*}
+    \end{algorithm}
 
     {\bf First call:} BinarySearch($a[]$, 1, $n$, $x$).
 
@@ -128,7 +128,7 @@
     move the $n-1$ discs from peg $B$(helper) to peg $C$(end).
     The following pseudocode shows this idea.
 
-    \begin{algorithm*}
+    \begin{algorithm}
         \caption{MoveTower($n$, $start$, $helper$, $end$)}
         \KwIn{$n$: num of discs}
         \eIf{$n=1$}{
@@ -146,7 +146,7 @@
             {\tcp {this time ``helper'' peg will be the old $start$ peg}}
             {\bf MoveTower($n-1$, $helper$, $start$, $end$)}
         }
-    \end{algorithm*}
+    \end{algorithm}
 
     Now we would like to analyze the time complexity of this algorithm,
     in other words, how many {\bf steps} are needed.
@@ -235,7 +235,7 @@
     empty, like (7) above. Though different implementation, 
     the idea is entirely the same)
     
-    \begin{algorithm*}
+    \begin{algorithm}
         \caption{Merge($A$, $left$, $mid$, $right$)}
         \tcp{merge two sorted list: $A[left\cdots mid]$ and $A[mid+1\cdots right]$}
         $L\lar A[left\cdots mid],\ R\lar A[mid+1\cdots right]$
@@ -256,7 +256,7 @@
                 $j\lar j + 1$
             }
         }
-    \end{algorithm*}
+    \end{algorithm}
 
     After learning how {\bf Merge} works, you now, hopefully,
     are able to understand how Merge Sort works, with the image below:
@@ -268,7 +268,7 @@
     We break down array recursively, until one element left,
     and then merge from bottom to up.
     The complete pseudocode for Merge Sort is given below:
-    \begin{algorithm*}
+    \begin{algorithm}
         \caption{MergeSort($A$, $left$, $right$)}
         \If{$left=right$}{return}
         $mid\lar \lfloor (left + right) / 2 \rfloor$
@@ -282,7 +282,7 @@
         \tcp{then merge from bottom to up}
 
         {\bf Merge($A$, $left$, $mid$, $right$)}
-    \end{algorithm*}
+    \end{algorithm}
 
     Firstly call {\bf MergeSort($A$, 1, $n$)} to sort array $A$.
     
@@ -375,9 +375,9 @@
     You may count by hand, and knowing there are $5-3, 4-3, 8-6, \cdots$
     and in total 9 inversions with one item in 1st array and another in 
     2nd. But, it's really time consuming and totally a mess! We have 
-    no efficient algorithm to do this but count one by one.
+    no efficient algorithm to do this but to count one by one.
 
-    But, things will become much better if those two arrays are 
+    Fortunately, things will become much better if those two arrays are 
     {\it sorted}. For example, $A=[3,7,10,14,18,19]$ and 
     $B=[2,11,16,17,23,25]$. How will we do then? We can 
     scan progressively through both lists, and for each item 
@@ -393,29 +393,37 @@
     Since we only iterate each item once during the whole process.
     You may find it quite similar to Merge operation in Merge Sort)
 
-    \begin{algorithm*}
+    \begin{algorithm}
         \caption{Count($A$, $l$, $mid$, $r$)}
+        \tcp{
+            $l$ means left, while $r$ means right.
+        }
+
+        \tcp{notice here, $L[1\cdots (mid-l+1)]$ is corresponding to 
+        $A[l\cdots mid]$, the subscript changes, try not be confused later.
+        $R$ also changes.}
         $L\lar A[l\cdots mid],\ R\lar A[mid+1\cdots r]$
 
         (here assume) $L, R$ already sorted
 
-        $i\lar l,\ j\lar mid+1$\qquad \tcp{two pointers for $L$ and $R$}
+        $i\lar 1,\ j\lar 1$\qquad \tcp{two pointers for $L$ and $R$}
 
         $ans\lar 0$ \qquad \tcp{total inversion number}
 
         \tcp{let $i,j$ iterator over two arrays}
-        \While{$i\le mid$ and $j\le r$}{
+        \While{$i\le mid-l+1$ and $j\le r-mid$}{
             \tcp{looking for smallest $L$ item larger than $R$}
             \eIf{$L[i]\le R[j]$}{ 
                 $i\lar i+1$
             }{
                 \tcp{Found $L[i] > R[j]$!}
 
-                \tcp{then $L[i]\cdots L[mid]$ each can form an inversion pair with $R[j]$}
+                \tcp{then $L[i]\cdots L[mid-l+1]$ each can form an inversion pair with $R[j]$,
+                remind here $L$ subscript is diff from $A$, as stated above}
 
-                \tcp{so inversion num for $R[j]$ is $mid-i+1$}
+                \tcp{so inversion num for $R[j]$ is $mid-l+1-i+1=mid-l-i+2$}
 
-                $inv\lar (mid-i+1)$
+                $inv\lar (mid-l-i+2)$
 
                 $ans\lar ans+inv$
 
@@ -423,6 +431,121 @@
             }
         }
         return $ans$
-    \end{algorithm*}
+    \end{algorithm}
+
+    And, the whole algorithm for counting the inversion number will be:
+
+    \begin{algorithm}
+        \caption{Count-Inversion($A$, $l$, $r$)}
+        \If{$l=r$}{
+            return 0
+        }
+        $mid \lar \lfloor (l+r)/2 \rfloor$
+
+        $c_1\lar$ Count-Inversion($A$, $l$, $mid$)
+
+        $c_2\lar$ Count-Inversion($A$, $mid+1$, $r$)
+
+        MergeSort($A$, $l$, $mid$) 
+
+        MergeSort($A$, $mid+1$, $r$) 
+
+        $c_3\lar$ Count($A$, $l$, $mid$, $r$)
+
+        return $c_1+c_2+c_3$
+    \end{algorithm}
+
+    First call: Count-Inversion($A$, 1, $n$).
+
+    So far, you may think this is an excellent algorithm since we 
+    only use $O(n)$ in each recursion step. However, it isn't! 
+    Remember, we have assumed each half is already sorted, but in fact 
+    they are random. If we firstly run some sort algorithm, say, 
+    Merge Sort, and then do the counting above, the whole 
+    running time will be:
+    $$T(n)=2T(n/2)+\Theta (n\log n+n)=2T(n/2)+\Theta (n\log n)$$
+    One can show $T(n)=\Theta(n\log^2 n)$.
+
+    This is, to a certain degree, acceptable, compared to previous $\Theta(n^2)$,
+    but we still want to improve that. 
+    We can easily notice the main problem lies in sorting, which 
+    uses $\Theta(n\log n)$ in each resursion step. How can we 
+    reduce, or even avoid this process? 
+
+    This is indeed hard to think about, but we can combine the sorting process 
+    (more concretely, Merge sort)
+    with the process which we count inversion pairs that form between the 
+    two halves. In other words, previously we only do counting between 
+    two halves, now we also perform Merge at the same time.
+    What will this lead to? Consider from recursion bottom(1 item), 
+    to top, each time we Merge the two halves, as what we did in 
+    Merge Sort, and at the same time, count inversion pairs that cross 
+    the two halves. And since we Merge from bottom to top, 
+    the two halves will always be sorted.(this is exactly the same 
+    Merge in Merge Sort)
+
+    The paragraph above is still so abstract, at least for myself, 
+    perhaps it's better to look at how the algorithm implements.\\
+
+    \begin{algorithm}[H]
+        \setstretch{1}
+        \caption{Merge-and-Count($A$, $l$, $mid$, $r$)}
+
+        \tcp{same as previous algorithm, subscripts for $L,R$ and $A$
+        are different, remember this}
+
+        $L\lar A[l\cdots mid],\ R\lar A[mid+1\cdots r]$
+
+        append $\infty$ at the end of $L$ and $R$
+
+        $i\lar 1,\ j\lar 1$ \qquad \tcp{two iteration pointers for $L$ and $R$}
+
+        $count \lar 0$  \qquad \tcp{counter for inversion number}
+
+        \For{$k\lar l$ to $r$}{
+            \eIf{$L[i]\le R[j]$}{
+                $A[k]\lar L[i]$
+
+                $i\lar i+1$
+            }{
+                $A[k]\lar R[j]$
+
+                $j\lar j+1$
+
+                $count \lar count + (mid-l-i+2)$
+            }
+        }
+        return $count$
+
+    \end{algorithm}
+
+    As you can find out above, apart from count inversion pairs 
+    between $L$ and $R$, we merge them into a new array $A$,
+    this is exactly what we did in merge sort, which maintain
+    the ``sorted'' invariant. With the function above, 
+    the complete algorithm for finding inversion number for an array is 
+    displayed below.
+
+    \begin{algorithm}
+        \caption{Sort-and-Count($A$, $l$, $r$)}
+
+        \If{$l=r$}{
+            return 0
+        }
+        $mid\lar \lfloor (l+r)/2\rfloor$
+
+        $c_1\lar $ Sort-and-Count($A$, $l$, $mid$)
+
+        $c_2\lar $ Sort-and-Count($A$, $mid+1$, $r$)
+
+        $c_3\lar $ Merge-and-Count($A$, $l$, $mid$, $r$)
+
+        return $c_1+c_2+c_3$
+    \end{algorithm}
+
+    First call: Sort-and-Count($A$, 1, $n$)
+
+    \section{The Maximum Subarray Problem}
+    
 \end{spacing}
 \end{document}

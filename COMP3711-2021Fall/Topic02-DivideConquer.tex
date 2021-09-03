@@ -784,5 +784,151 @@
         return $maxSum$
     \end{algorithm}
 
+    As you can see, this algorithm only requires linear $\Theta(n)$ time.
+    It is indeed a difficult progress that we optimize the algorithm 
+    from $\Theta(n^3)$ down to $\Theta(n)$, with lots of new ideas 
+    come out. We say this is ``More art than science''.
+
+    \subsection{dynamic programming}
+
+    By using {\bf dynamic programming} ideas, as we will formally 
+    introduce later, we can also design quite efficient algorithms,
+    but efficient always requires more thinking.
+    Here we just give you a first taste on DP.
+
+    We define $d[i]$ be the max sum of subarray that {\it 
+    ends with $A[i]$}. Here we must contain $A[i]$ in 
+    $d[i]$, otherwise, we cannot get $d[i+1]$ from $d[i]$,
+    because it will break the ``consecutive'' subarray requirement.
+    But if you ask me why we define in such a way, I cannot 
+    explain it, and that is the ``art of dynamic programming'' :).
+
+    So when we calculating $d[i]$, we only need to check $d[i-1]$
+    and $A[i]$, this is the basic idea of dynamic programming, 
+    that is, get value from previous values.
+    And if $d[i-1]\le 0$, which means $d[i-1]+A[i]$ is not larger than 
+    $A[i]$ itself! So why should we include $d[i-1]$ then, 
+    we just let $d[i]=A[i]$, this will be the max sum with 
+    $A[i]$ included.
+    On the contray, if $d[i-1]>0$, then we should let 
+    $d[i]=d[i-1]+A[i]$, since include $d[i-1]$ makes the sum 
+    larger, and that is exactly what we want.
+
+    \begin{algorithm}
+        \caption{Max-Subarray-DP($A$)}
+        $d[0]\lar 0$ \qquad \tcp{max sum of subarrays end with no item is 0}
+
+        $maxSum\lar A[1]$\qquad \tcp{used to record max sum so far, notice here cannot initialize to 0}
+        \For{$i=1$ to $n$}{
+            \eIf{$d[i-1]\le 0$}{
+                $d[i]\lar A[i]$
+            }{
+                $d[i]\lar d[i-1]+A[i]$
+            }
+            \If{$d[i]>maxSum$}{$maxSum=d[i]$}
+        }
+        return $maxSum$
+    \end{algorithm}
+
+    This is also a $\Theta(n)$ algorithm, but also, it is not easy 
+    to think. But, we can still reduce the space it takes, i.e., 
+    space complexity. Notice here we use an array $d[i]$ to record 
+    the max sum of subarrays end with $A[i]$, but each time, 
+    say, when we calculate $d[i]$, we only use the previous one,
+    say, $d[i-1]$. So it is no need that we use an array to track this:
+    we only need a variable to record the previous $d$ value,
+    that's enough! So we can slightly modify the algorithm as below:
+
+    \begin{algorithm}
+        \caption{Max-Subarray-DP($A$)}
+        $previousD\lar 0$ 
+
+        $maxSum\lar A[1]$
+
+        \For{$i=1$ to $n$}{
+            \eIf{$previousD\le 0$}{
+                $previousD\lar A[i]$
+            }{
+                $previousD\lar previousD+A[i]$
+            }
+            \If{$previousD>maxSum$}{$maxSum=previousD$}
+        }
+        return $maxSum$
+    \end{algorithm}
+
+    \section{The Master Theorem}
+
+    \subsection{Theorem and its proof}
+
+    {\bf The Master Theorem:} Let $a\ge 1, b>1, c\ge 0$
+    be constants, if $T(n)=aT(n/b)+n^d$, then:
+    \begin{align*}
+        \setstretch{0.7}
+        T(n)=\left\{ \begin{array}{ll}
+            O(n^d), & \text{if } d>\log_b{a}\\
+            O(n^d\log n), & \text{if } d = \log_b{a}\\
+            O(n^{\log_b{a}}), & \text{if } d < \log_b{a}\\
+        \end{array}\right.
+    \end{align*}
+
+    There is one kind of proof given in lecture slide, 
+    using expansion method. But personally, I like the method below.
+
+    \begin{proof}
+    Consider $T(n)=a\cdot T\left(\dfrac{n}{b}\right)+c\cdot n^{d}$,
+    for the 0th layer of recursion(since we haven't begun recursion),
+    running time is $c\cdot n^{d}$;
+    for the 1st layer, there are $a$ branches, and each
+    branch has running time $c\cdot \left(\dfrac{n}{b}\right)^d$, 
+    in total $c\cdot \left(\dfrac{a}{b^d}\right)\cdot n^d$;
+    for the 2nd layer, each branch in 1st layer has $a$ branches,
+    so there are $a^2$ branches now, with each requires 
+    $c\cdot \left(\dfrac{n}{b^2}\right)^d$, and 
+    $c\cdot \left(\dfrac{a}{b^d}\right)^2\cdot n^d$ in total.
+    We can easily find the pattern: 
+    the running time of $k$-th layer is 
+    $c\cdot \left(\dfrac{a}{b^d}\right)^k\cdot n^d$.
+
+    Add all of them together, we get 
+    $$T(n)=c\cdot n^d\cdot \left[ 1+ \left(\dfrac{a}{b^d}\right)+\cdots + \left(\dfrac{a}{b^d}\right)^k\right]$$
+
+    Recall the sum of geometric sequence: 
+    \begin{align*}
+        \setstretch{0.7}
+        1+p+p^2+\cdots +p^k=\left\{
+        \begin{array}{ll}
+            k+1, & \text{if } p=1\\
+            \dfrac{p^{k+1}-1}{p-1}, & \text{if } p\ne 1
+        \end{array}\right.
+    \end{align*}
+    Condition 1: when $a=b^d$, ratio is 1, so $T(n)=O(n^d\log n)$.
+
+    Condition 2: when $a<b^d$, the sequence is decreasing, 
+    so the sum is determined by the first item(you can also 
+    infer from the equation of sum above), then $T(n)=O(n^d)$.
+
+    Condition 3: when $a>b^d$, the sequence is increasing, 
+    the sum is determined by the last item, this gives 
+    $T(n)=n^{d}\left(\dfrac{a}{b^{d}}\right)^{\log _{b} n}=
+    n^{d}\left(\dfrac{a^{\log _{b} n}}{\left(b^{\log _{b} n}\right)^{d}}\right)=
+    a^{\log _{b} n}=
+    \left(n^{\log_n{a}}\right)^{\log_b{n}}=
+    n^{\left(\frac{\ln a}{\ln n}\cdot \frac{\ln n}{\ln b}\right)}=
+    n^{\log _{b} a}$.
+    \end{proof}
+
+    \subsection{equalities, inequalities and more}
+
+    {\Large\color{red} to be added.}
+
+    \section{Integer Multiplication}
+
+    You may first think of using primary school method: 
+    i.e., ``long multiplication'', and this requires $\Theta(n^2)$
+    time. We will show that we can do better than this, but 
+    the ideas are quite difficult to think of, and actually 
+    people used quite a long time to invent the algorithms.
+
+
 \end{spacing}
 \end{document}

@@ -485,7 +485,7 @@
     Merge in Merge Sort)
 
     The paragraph above is still so abstract, at least for myself, 
-    perhaps it's better to look at how the algorithm implements.\\
+    perhaps it's better to look at how the algorithm is implemented.\\
 
     \begin{algorithm}[H]
         \setstretch{1}
@@ -521,7 +521,7 @@
 
     As you can find out above, apart from count inversion pairs 
     between $L$ and $R$, we merge them into a new array $A$,
-    this is exactly what we did in merge sort, which maintain
+    this is exactly what we did in merge sort, which maintains
     the ``sorted'' invariant. With the function above, 
     the complete algorithm for finding inversion number for an array is 
     displayed below.
@@ -791,7 +791,7 @@
 
     \subsection{dynamic programming}
 
-    By using {\bf dynamic programming} ideas, as we will formally 
+    By using {\bf dynamic programming} ideas, which we will formally 
     introduce later, we can also design quite efficient algorithms,
     but efficient always requires more thinking.
     Here we just give you a first taste on DP.
@@ -801,7 +801,7 @@
     $d[i]$, otherwise, we cannot get $d[i+1]$ from $d[i]$,
     because it will break the ``consecutive'' subarray requirement.
     But if you ask me why we define in such a way, I cannot 
-    explain it, and that is the ``art of dynamic programming'' :).
+    explain it, and that is the ``art of dynamic programming'' :)
 
     So when we calculating $d[i]$, we only need to check $d[i-1]$
     and $A[i]$, this is the basic idea of dynamic programming, 
@@ -830,7 +830,7 @@
         return $maxSum$
     \end{algorithm}
 
-    This is also a $\Theta(n)$ algorithm, but also, it is not easy 
+    This is also a $\Theta(n)$ algorithm, and as usual, it is not easy 
     to think. But, we can still reduce the space it takes, i.e., 
     space complexity. Notice here we use an array $d[i]$ to record 
     the max sum of subarrays end with $A[i]$, but each time, 
@@ -840,7 +840,7 @@
     that's enough! So we can slightly modify the algorithm as below:
 
     \begin{algorithm}
-        \caption{Max-Subarray-DP($A$)}
+        \caption{Max-Subarray-DP2($A$)}
         $previousD\lar 0$ 
 
         $maxSum\lar A[1]$
@@ -919,7 +919,7 @@
 
     \subsection{equalities, inequalities and more}
 
-    {\Large\color{red} to be added.}
+    {\Large\color{red} to be added. (2021/09/05)}
 
     \section{Integer Multiplication}
 
@@ -928,6 +928,194 @@
     time. We will show that we can do better than this, but 
     the ideas are quite difficult to think of, and actually 
     people used quite a long time to invent the algorithms.
+
+    \subsection{divide and conquer: first attempt}
+
+    For example, we would like to calculate $3711\times 4021$,
+    we can divide each number into two parts: {\bf high} part 
+    and {\bf low} part, say, $x_h=37, y_h=40$, and $x_l=11, y_l=21$.
+    Then, $x\times y=x_h\times y_h\cdot 10^n+(x_l\times y_h+x_h\times 
+    y_l)\cdot 10^{n/2}+x_l\times y_l$, where $n$ is the length of 
+    two numbers. One thing worths mentioning is that we can always 
+    take $n$ as a perfect square of 2, and if it is not, we just 
+    put some 0s in front of the number.
+    So now, there are four multiplications and we can use recursion 
+    to calculate each of them. And for multiplying power of 10, 
+    we can just think of it as adding some 0s after the number, so 
+    this takes $O(n)$ time.
+
+    \begin{algorithm}
+        \caption{multiply-DC($A$, $B$)}
+        \tcp{$A[1\cdots n]$ and $B[1\cdots n]$ are two arrays storing 
+        string of base 10. $A[1], B[1]$ are least siginificant bits.(LSB)}
+
+        $n\lar $ size of $A$ and $B$
+
+        \If{$n=1$}{return $A[1]\cdot B[1]$}
+
+        $mid\lar \lfloor n/2 \rfloor$
+
+        $M_1\lar $multiply-DC($A[mid+1\cdots n]$, $B[mid+1\cdots n]$)
+        \qquad \tcp{$x_h\times y_h$}
+
+        $M_2\lar $multiply-DC($A[1\cdots mid]$, $B[mid+1\cdots n]$)
+        \qquad \tcp{$x_l\times y_h$}
+
+        $M_3\lar $multiply-DC($A[mid+1\cdots n]$, $B[1\cdots mid]$)
+        \qquad \tcp{$x_h\times y_l$}
+
+        $M_4\lar $multiply-DC($A[1\cdots mid]$, $B[1\cdots mid]$)
+        \qquad \tcp{$x_l\times y_l$}
+
+        \tcp{Below we can put numbers in array directly, or 
+        append 0 at the end and add them together.
+        Assume $res[]$ is filled with 0 at the beginning.}
+
+        $res[1\cdots n]\lar M_4$
+
+        $res[mid+1\cdots ]\lar res[mid+1\cdots] + M_2+M_3$
+
+        $res[n+1\cdots]\lar res[n+1\cdots]+M_1$
+
+        return $res$
+    \end{algorithm}
+
+    This will require a running time as $T(n)=4T(n/2)+O(n)$, 
+    hence $T(n)=O(n^2)$, which doesn't improve our algorithm 
+    at all. One may think of using binary representation(base 2)
+    instead of decimal, but this doesn't help either, 
+    though multiply by power of 2 can be done in $O(1)$ time, 
+    with the help of left shift($<<$), write the result into 
+    the array still takes $O(n)$, regardless of the time 
+    converting an integer of base 10 into base 2. 
+    So basically, we need to reduce the time we call recursion 
+    to reduce the running time.
+
+    \subsection{Karatsuba's method}
+
+    As shown above, we need to calculating 4 multiplications,
+    which makes us to call 4 recursions. Trying to improve that, 
+    Karatsuba noticed that we only need $x_h\times y_l+x_l\times y_h$(the sum),
+    instead of calculating each of the multiplication result.
+    He suggested we only need to calculate 3 times, and they are:
+    $M_1=x_h\times y_h, M_2=x_l\times y_l, M_3=(x_h+x_l)\times 
+    (y_h+y_l)$, then we can get $x_h\times y_l+x_l\times y_h$ 
+    by doing $M_3-M_1-M_2$. This successfully reduce the 
+    running time of multiplication algorithm, with only 3 
+    recursion calls:
+    $T(n)=3T(n/2)+O(n)$, gives $T(n)=n^{\log_2 3}\approx n^{1.585}$.
+
+    \begin{algorithm}
+        \caption{Karatsuba($A$, $B$)}
+        \tcp{$A[1\cdots n]$ and $B[1\cdots n]$ are two arrays storing 
+        string of base 10. $A[1], B[1]$ are LSB.}
+
+        $n\lar $ size of $A$ and $B$
+
+        \If{$n=1$}{return $A[1]\cdot B[1]$}
+
+        $mid\lar \lfloor n/2 \rfloor$
+
+        $M_1\lar $Karatsuba($A[mid+1\cdots n]$, $B[mid+1\cdots n]$)
+        \qquad \tcp{$x_h\times y_h$}
+
+        $M_2\lar $Karatsuba($A[1\cdots mid]$, $B[1\cdots mid]$)
+        \qquad \tcp{$x_l\times y_l$}
+
+        $A'\lar A[mid+1\cdots n]+A[1\cdots mid]$
+
+        $B'\lar B[mid+1\cdots n]+B[1\cdots mid]$
+
+        $M_3\lar $Karatsuba($A'$, $B'$)
+        \qquad \tcp{$(x_h+x_l)\times (y_h+y_l)$}
+
+        \tcp{Assume $res[]$ is filled with 0 at the beginning.}
+
+        $res[1\cdots n]\lar M_2$
+
+        $res[mid+1\cdots ]\lar res[mid+1\cdots] +M_3-M_1-M_2$
+
+        $res[n+1\cdots]\lar res[n+1\cdots]+M_1$
+
+        return $res$
+    \end{algorithm}
+
+    \subsection{So far...}
+
+    Inspired by Karatsuba, people can improve his algorithm by 
+    ``dividing each integer into 3 parts, and solve 5 multiplications'',
+    or ``divide into $n$ parts, and solve $2n-1$ multiplications'' etc.
+    Later on, in 1971, Strassen solved this problem in 
+    $O(n\log n\log \log n)$, using {\bf Fast Fourier Transformation(FFT)}.
+    In 2007, $O(n\log n\cdot 8^{\log ^* n})$ algorithm was found 
+    and in 2019, finally, $O(n\log n)$ algorithm was found.
+
+    However, Karatsuba's algorithm isn't always faster than 
+    our primary school $O(n^2)$ method, since it has a larger 
+    constant. In practice, people find that for integers with
+    length less than 20, using our $O(n^2)$ method is better;
+    while Karatsuba's algorithm is better for length $20\sim 2000$,
+    FFT is better for $>2000$. And for your reference, Python 
+    uses 70 as a critical value to judge whether to perform 
+    primary school method or Karatsuba's method.
+
+    \section{Matrix Multiplication}
+
+    Given two $n\times n$ matrices $A, B$, how can we compute 
+    $C=AB$?
+    
+    Since $c_{ij}=\sum_{k=1}^{n}a_{ik}b_{kj}$, 
+    we can use three nested loops to calculate each items in $C$,
+    in $\Theta(n^3)$ time. This is our brute force algorithm.
+
+    \subsection{divide and conquer?}
+
+    Much similar to integer multiplication, we try to divide 
+    $A$ and $B$ into $\frac{1}{2}n\times \frac{1}{2}n$ matrices 
+    and call recursion to multiply each part.
+    \begin{align*}
+        \setstretch{0.5}
+        \left[ \begin{array}{cc}
+            C_{11} & C_{12} \\
+            C_{21} & C_{22}
+        \end{array} \right]
+        =
+        \left[ \begin{array}{cc}
+            A_{11} & A_{12} \\
+            A_{21} & A_{22}
+        \end{array} \right]
+        \left[ \begin{array}{cc}
+            B_{11} & B_{12} \\
+            B_{21} & B_{22}
+        \end{array} \right]
+    \end{align*}
+    and,
+    \begin{align*}
+        C_{11} &= (A_{11}\times B_{11}) + (A_{12}\times B_{21}) \\
+        C_{12} &= (A_{11}\times B_{12}) + (A_{12}\times B_{22}) \\
+        C_{21} &= (A_{21}\times B_{11}) + (A_{22}\times B_{21}) \\
+        C_{22} &= (A_{21}\times B_{12}) + (A_{22}\times B_{22}) 
+    \end{align*}
+    This algorithm requires $T(n)=8T(n/2)+O(n^2)$, notice 
+    here add matrices is $O(n^2)$. We can easily know 
+    $T(n)=O(n^3)$, from Master's Theorem.
+
+    \subsection{Strassen's method}
+
+    This is not easy to improve. But inspired by integer multiplication,
+    Strassen managed to calculate that with only 7 multiplications:
+    \begin{center}
+        \includegraphics[scale=0.23]{images/02-matrix-mult.jpg}
+    \end{center}
+    
+    And this reduce the running time down to 
+    $O(n^{\log_2 7})\approx O(n^{2.807})$.
+
+    Again, many people are trying to reduce the time complexity 
+    and another competition arose. 
+    We would not go into details here.
+
+    {\it This is the end of class note. Last modified: Sep 05, 2021.}
 
 
 \end{spacing}

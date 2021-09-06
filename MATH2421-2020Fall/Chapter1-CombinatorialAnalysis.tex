@@ -1,0 +1,184 @@
+\documentclass[11pt, a4paper]{MATH2421}
+\usepackage{verbatim}
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage{setspace}
+\usepackage{amsmath,mathrsfs}
+\usepackage{multicol}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{mathcomp}
+\usepackage{tabularx}
+\usepackage{wasysym}
+\usepackage{pbox}
+\usepackage{tikz}
+\usepackage{mathtools}
+\usetikzlibrary{matrix}
+\usepackage[normalem]{ulem}
+\usepackage{multirow}
+\usepackage[linesnumbered, ruled, boxed]{algorithm2e}
+\SetKwRepeat{Do}{do}{while}
+
+\title{Chapter 1}
+\subtitle{Combinatorial Analysis}
+
+\newtheorem*{theorem}{Theorem}
+\newcommand{\eg}{{\bf {Example: }}}
+\newcommand{\sol}{{\bf {Solution: }}}
+\renewcommand\qedsymbol{$\blacksquare$}
+
+\begin{document}
+\begin{spacing}{1.3}
+
+    \section{Principle of Counting}
+
+    \begin{theorem}
+        (basic principle of counting) two experiments: 
+        one has $m$ outcomes, the other has $n$ outcomes, 
+        then together there are $mn$ outcomes of the two 
+        experiments.
+    \end{theorem}
+
+    \begin{proof}
+        prove by enumerating all $(i,j)$ pairs of 
+        possible outcomes.
+    \end{proof}
+
+    \begin{theorem}
+        (generalized BPOC) $r$ experiments: 
+        each has $n_1,n_2\cdots n_r$ outcomes, in total 
+        $n_1\cdot n_2\cdots n_r$ outcomes.
+    \end{theorem}
+
+    \eg How many different 7-place license plates are possible, 
+        if first 3 are letters, final 4 are numbers, don't allow 
+        repetition?
+
+    \sol $26\times 25\times 24\times 10\times 9\times 8
+    \times 7=78,624,000$
+
+    \section{Permutation}
+
+    \begin{theorem}
+        Permutation: different ordered arrangements.
+        $n$ distinct objects, total number of different 
+        arrangement is $n!$, with the convention $0!=1$.
+    \end{theorem}
+
+    \begin{theorem}
+        $n$ objects, of which $n_1$ are alike, $n_2$ are alike, 
+        $\cdots$, $n_r$ are alike, there are
+        $$\frac{n!}{n_1!n_2!\cdots n_r!}$$ 
+        different permutations.
+    \end{theorem}
+
+    \eg Ways to rearrange ``Mississippi''?
+
+    \sol $\dfrac{11!}{1!4!4!2!}=34,650$.
+
+    \begin{theorem}
+        For $n$ people sitting in a circle: there are 
+        $$\frac{n!}{n}=(n-1)!$$
+        different arrangements.
+    \end{theorem}
+
+    \eg How many different ways can $n$ different pearls 
+    string in a necklace?
+
+    \sol $\dfrac{(n-1)!}{2}$, since the necklace can be 
+    flipped.(mirrored)
+
+    \section{Combinations}
+
+    \begin{theorem}
+        $n$ distinct objects, choose $r$ to form a group:
+        $$_nC_r={n\choose r}=\frac{n!}{r!(n-r)!}$$
+    \end{theorem}
+
+    {\bf Some properties:}
+    $${n\choose r}={n\choose n-r},\ 
+    {n\choose 0}={n\choose n}=1$$
+    And by convention, when $n\ge 0$ and 
+    $r<0$ or $r>n$, ${n\choose r}=0$.
+
+    \eg From a party of 3 from 20 people?
+
+    \sol ${20\choose 3}=1140$
+
+    \eg What if $A$ and $B$ can't be chosen together?
+
+    \sol (1) minus the situation that they are both chosen: 
+    ${20\choose 3}-{18\choose 1}{2\choose 2}=1122$,
+    or (2) neither of them are chosen plus one of them chosen: 
+    ${18\choose 3}+{18\choose 2}{2\choose 1}=1122$.
+
+    \eg $m$ antennas are defective and $n-m$ are functional.
+    The system works if no two defectives are consecutive.
+    How many different linear orderings?
+
+    \sol Consider inserting $m$ defective ones into 
+    the space of $n-m$ functional ones. 
+    $n-m$ antennas provide $n-m+1$ spaces, 
+    so we just choose $m$ of them: ${n-m+1\choose m}$.
+
+    \begin{theorem}
+        For $1\le r\le n$, 
+        $${n\choose r}={n-1\choose r-1}+{n-1\choose r}$$.
+    \end{theorem}
+
+    \begin{proof}
+        (Algebra proof) 
+        $$RHS=\frac{(n-1)!}{(r-1)!(n-r)!}+
+        \frac{(n-1)!}{r!(n-r-1)!}
+        =\frac{(n-1)!{\red{r}}}{(r-1)!(n-r)!{\red{r}}}+
+        \frac{(n-1)!{\red{(n-r)}}}{r!(n-r-1)!{\red{(n-r)}}}
+        =\frac{(n-1)!\cdot \red{[r+(n-r)]}}{r!(n-r)!}=LHS$$
+
+        (Combinatorial proof)
+
+        LHS: number of choosing $r$ balls from $n$ balls. 
+        ${n\choose r}$
+
+        RHS: consider whether to choose the 1st ball:
+        \begin{itemize}
+            \item choose 1st ball, then choose $r-1$ from remaining
+            $n-1$ balls
+            \item don't choose 1st ball, then choose $r$ from remaining
+            $n-1$ balls
+        \end{itemize}
+        combine the two situations, $\disp {n-1\choose r-1}+{n-1\choose r}$.
+
+    \end{proof}
+
+    \begin{theorem}
+        (Binomial Theorem) 
+        $n$ be nonnegative integer, then
+        $$(x+y)^n=\sum_{k=0}^{n}{n\choose k}x^ky^{n-k}$$
+    \end{theorem}
+
+    \begin{proof}
+        (Combinatorial Proof) for $x^ky^{n-k}$, it means 
+        there are $k$ brackets contribute $x$, while 
+        remaining $n-k$ brackets contribute $y$.
+    \end{proof}
+
+    \eg How many subsets does a set of size $n$ have?
+
+    \sol There are ${n\choose k}$ subsets of size $k$,
+    so add them together:
+    $$\sum_{k=0}^{n}{n\choose k}=(1+1)^n=2^n.$$
+
+    \eg Proof: $\disp \sum_{k=0}^{n}(-1)^k{n\choose k}=0.$
+
+    \sol Let $x=-1, y=1,$ the problem $=[(-1)+1]^n=0$.
+    
+
+    \section{Multinomial Coefficients}
+\end{spacing}
+\end{document}

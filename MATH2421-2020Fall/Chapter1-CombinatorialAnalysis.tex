@@ -180,5 +180,93 @@
     
 
     \section{Multinomial Coefficients}
+
+    \eg $n$ distinct items is to be divided into $r$ distinct
+    groups of size $n_1, n_2,\cdots ,n_r$, where 
+    $\sum n_i=n$. How many different divisions are possible?
+
+    \sol First choose $n_1$ from $n$ items, then $n_2$ from 
+    remaining $n-n_1$ items, etc., we will get:
+    \begin{align*}
+        &{n\choose n_1}\cdot {n-n_1\choose n_2}\cdots 
+        {n-n_1-\cdots -n_{r-1}\choose n_r}\\
+        &=\frac{n!}{n_1!(n-n_1)!}\cdot \frac{(n-n_1)!}{n_2!(n-n_1-n_2)!}
+        \cdots \frac{(n-n_1-\cdots-n_{r-1})!}{n_r!(n-n_1-\cdots-n_r)!}\\
+        &=\frac{n!}{n_1!n_2!\cdots n_r!}
+    \end{align*}
+
+    {\bf Notation:} If $n_1+n_2+\cdots+n_r=n$, we define 
+    ${n \choose n_1,n_2,\cdots,n_r}$ by
+    $${n\choose n_1,n_2,\cdots,n_r}=\frac{n!}{n_1!n_2!\cdots n_r!}$$
+
+    \eg 10 children are to be divided into $A$ team and $B$ team,
+    of 5 each. Team $A$ will play in one league and $B$ in another.
+    How many different divisions?
+
+    \sol $\dfrac{10!}{5!5!}=252$
+
+    \eg 10 children are to be divided into two teams of 5 each.
+    How many different divisions?
+
+    \sol Note that this example is different from the previous one,
+    since now the two teams are not distinguishable, no 
+    $A$ or $B$ team. So the order of the two teams is irrelevant.
+    $$\frac{10!}{5!5!}\cdot \frac{1}{2!}=126$$
+
+    \begin{theorem}
+        (Multinomial Theorem) 
+        $$(x_1+x_2+\cdots +x_r)^n=
+        \sum_{(n_1,\cdots,n_r):n_1+\cdots+n_r=n}
+        {n\choose n_1,n_2,\cdots,n_r}x_1^{n_1}x_2^{n_2}
+        \cdots x_r^{n_r}$$
+    \end{theorem}
+
+    \begin{proof}
+        Basically the same idea as Binomial Theorem, 
+        there are $n$ brackets in total, and we can choose 
+        $n_1,\cdots,n_r$ of them to be $x_1,\cdots, x_r$.
+    \end{proof}
+
+    \eg Distinct positive integer vectors $(x_1,x_2,\cdots,x_r)$
+    satisfies $\sum x_i=n$?
+
+    \sol Consider $n$ balls, since positive required, 
+    we insert $r-1$ boards in {\it between} them(not both sides),
+    then there will be $n-1$ spaces. 
+    The answer is ${n-1\choose r-1}$.
+
+    \eg Distinct non-negative integer vectors $(x_1,x_2,\cdots,x_r)$
+    satisfies $\sum x_i=n$?
+
+    \sol {\bf Method 1: } Let $y_i=x_i+1$, then
+    $$x_1+x_2+\cdots+x_r=n$$
+    can be changed into:
+    $$(y_1-1)+(y_2-1)+\cdots+(y_r-1)=n$$
+    that is,
+    $$y_1+y_2+\cdots+y_r=n+r$$
+    which is ${n+r-1\choose r-1}$.
+
+    {\bf Method 2:} We mix $n$ balls with $r-1$ boards,
+    among those $n+r-1$ items, we choose $r-1$ items 
+    to be boards. After boards are chosen, they will 
+    automatically divide balls into $r$ parts.
+    This also gives $n+r-1\choose r-1$.
+
+    \eg 20 balls to put into 4 boxes. All balls must be 
+    put into boxes, but boxes can be empty. How many 
+    different divisions?
+
+    \sol $n=20, r=4$, answer is ${20+4-1\choose 4-1}={23\choose 3}$.
+
+    \eg 20 balls to put into 4 boxes. You can choose not put some 
+    balls into boxes, and boxes can be empty. How many 
+    different divisions?
+
+    \sol Consider the balls that not put into boxes as another 
+    box. 
+    $n=20, r=5$, answer is ${20+5-1\choose 5-1}={24\choose 4}$.
+
+
+    {\it This is the end of lecture note. Last modified: Sep 6.}
 \end{spacing}
 \end{document}

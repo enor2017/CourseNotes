@@ -181,6 +181,24 @@
         \item depletion of natural and environmental resources.
     \end{itemize}
 
+    Actually, GDP or its rate cannot precisely reflect the living 
+    standard of a country/region. Like the data of Macau as shown below.
+    Therefore, unemployment rate is introduced.
+    \begin{center}
+        \includegraphics[scale=0.4]{images/0102-macau-gdp.png}
+    \end{center}
+
+    {\it Yet the gross national product does not allow for the health of 
+    our children, the quality of their education or the joy of their play. 
+    It does not include the beauty of our poetry or the strength of our marriages, 
+    the intelligence of our public debate or the integrity of our public officials. 
+    It measures neither our wit nor our courage, neither our wisdom nor our learning, 
+    neither our compassion nor our devotion to our country, it measures everything 
+    in short, except that which makes life worthwhile.}
+    \begin{flushright}
+        —— Robert F. Kennedy
+    \end{flushright}
+
     \section{Unemployment Rate}
 
     \begin{itemize}
@@ -188,8 +206,10 @@
         \item {\bf unemployment:($U$) } the number of people who do not 
         have a job but {\bf are looking for one.} (those who do not have a 
         job and are not looking for one are counted as {\bf not in the labor force})
-        \item {\bf labor force:($L$) } sum of employment and unemployment.
+        \item {\bf labor force:($L=N+U$) } sum of employment and unemployment.
         \item {\bf unemployment rate: } $u=\dfrac{U}{L}$
+        \item {\bf participation rate: } 
+        $=\dfrac{L}{total\ population\ of\ working\ age}$.
     \end{itemize}
 
     However, this number is hard to calculate, since it's difficult
@@ -206,7 +226,9 @@
     \begin{itemize}
         \item has direct effect on the welfare of the unemployed: 
         if unemployment increases, it becomes more {\bf widespread} 
-        and more {\bf painful}
+        and more {\bf painful}.
+        {\bf Discouraged workers: } without jobs who give up looking 
+        for work.(low partic rate)
         \item it provides a signal that the economy may not be 
         using some of its resources efficiently
     \end{itemize}
@@ -214,7 +236,8 @@
     \section{Inflation Rate}
 
     \begin{itemize}
-        \item {\bf inflation}: a sustained rise in the general level of {\bf prices}
+        \item {\bf inflation}: a sustained rise in the general level of {\bf prices} 
+        ({\bf price level})
         \item {\bf deflation}: a sustained decline in the price level
         \item {\bf inflation rate}: the rate at which the price level increases.
     \end{itemize}
@@ -230,7 +253,7 @@
     If we see nominal GDP increase faster than real GDP, the difference 
     must come from an {\bf increase in prices.} This motivates the 
     definition of the GDP deflator.
-    $$P_t=\frac{\text{Nominal GDP}_t}{\text{Real GDP}_t}=\frac{\$ P_t}{P_t}$$
+    $$P_t=\frac{\text{Nominal GDP}_t}{\text{Real GDP}_t}=\frac{\$ Y_t}{Y_t}$$
 
     The GDP deflator is called an {\bf index number}. Its level has no economic 
     interpretation. But its rate of change, $\pi_t=\dfrac{P_t-P_{t-1}}{P_{t-1}}$, 
@@ -239,7 +262,7 @@
 
     Moreover, this also implies a simple relation among nominal GDP, 
     real GDP, and the GDP deflator:
-    $$Y_t = P_t\cdot Y_t$$
+    $$\$Y_t = P_t\cdot Y_t$$
     Thus, the {\bf rate of growth of nominal GDP} is equal to the 
     {\bf rate of inflation} plus the {\bf rate of growth of real GDP}.
 
@@ -279,5 +302,53 @@
         \item inflation leads to other distortions. e.g. firms more uncertain 
         about future investment; bracket creep: higher tax.
     \end{itemize}
+
+    But what about deflation?
+
+    We expect the price to be lower and lower in the future, 
+    so we just wait, instead of buying it now. 
+    Firms, also, lose motivations to buy machines, and 
+    their goods are cheaper and cheaper, therefore have 
+    no incentives to improve, don't want to make investment.
+    All those cause a {\bf worse} economy.
+
+    \section{Okun's Law}
+
+    {\bf negative} relationship between {\bf GDP growth}
+    and {\bf change in unemployment rate}. 
+    (if output growth is high, unemployment will decrease)
+    \begin{center}
+        \includegraphics[scale=0.3]{images/0102-okun-law.png}
+    \end{center}
+
+    This vertical line crosses the horizontal axis at the 
+    point where output growth is roughly equal to 3\%: 
+    It takes a growth rate of about 3\% to keep unemployment 
+    constant. Two reasons:
+    \begin{itemize}
+        \item population, thus labor force, increase over time.
+        \item output per worker is also increasing with time,
+        implies that output growth is higher than employment growth.
+    \end{itemize}
+
+    \section{The Phillips Curve}
+
+    {\bf negative} relationship between {\bf unemployment rate}
+    and {\bf change in inflation rate}. 
+    (when unemployment becomes very low, the economy is likely 
+    to overheat, and that this will lead to upward pressure 
+    on inflation.)
+    \begin{center}
+        \includegraphics[scale=0.3]{images/0102-phillips-curve.png}
+    \end{center}
+
+    When unemployment has been below 6\%, inflation has 
+    typically increased, suggesting that the economy was 
+    {\bf overheating}, operating above its potential. 
+
+    Notice, this curve is not always true, there are exceptions.
+
+    {\it This is the end of lecture note. Last modified: Sep 8.}
+
 \end{spacing}
 \end{document}

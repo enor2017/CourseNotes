@@ -94,9 +94,9 @@
     on these inputs, then the result running time is called 
     {\bf average case}.
 
-    Gerenally, average case analysis is rather complicated.
+    Generally, average case analysis is rather complicated.
     In insertion sort, we assume each of the $n!$ permutations
-    is distrubuted equally likely. With some probability 
+    is distributed equally likely. With some probability 
     knowledge we will know it's $\Theta(n^2)$. I will 
     give brief proof in last page of this note if you are interested.
 
@@ -127,7 +127,8 @@
     $\frac{n(n-1)}{2}$ time if items are reversed, 
     so it is $\Omega(n^2)$. To combine, it runs in $\Theta(n^2)$ time.
 
-    {\it This is the end of class note. Last modified: Aug 29}
+    {\it This is the end of class note. Last modified: Sep 9\\
+    Sep 9: Fixed some typos.}
 
 
     \newpage
@@ -143,11 +144,11 @@
     an inversion and 0 otherwise. So an given input of size $n$
     will have $n(n-1)/2$ different $X_{ij}$s.\\
     Now, we can express $I$ as: $I=\sum X_{ij}$. But 
-    remember we are insterested in the {\bf expected number 
+    remember we are interested in the {\bf expected number 
     of inversions} in the array, since we're looking for average 
     running time of all inputs. This is also simple by 
     linearity of expectation: $E(I)=E(\sum X_{ij})=\sum E(X_{ij})$.\\
-    That's a good one, $E(X_{ij})$ is the expeted value
+    That's a good one, $E(X_{ij})$ is the expected value
     of $X_{ij}$, of course it is $1\cdot P(X_{ij}=1)=0.5$, 
     since we have assumed $n!$ permutations are equally likely.\\
     Thus, $E(I)=\sum (1/2)$, and there are $n(n-1)/2$ terms,

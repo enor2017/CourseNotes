@@ -293,7 +293,7 @@
     when $n>1$ and $T(1)=O(1)$.
 
     Here we are actually able to simplify the equation. Firstly 
-    we can replace $\le $ with $=$, since we are insterested
+    we can replace $\le $ with $=$, since we are interested
     in big-$O$ upper bound of $T(n)$; and with the same 
     reason, we can replace $O(n)$ with $n$, $O(1)$ with 1;
     finally, we can assume $n$ is a power of 2 for the sake of 
@@ -469,7 +469,7 @@
     This is, to a certain degree, acceptable, compared to previous $\Theta(n^2)$,
     but we still want to improve that. 
     We can easily notice the main problem lies in sorting, which 
-    uses $\Theta(n\log n)$ in each resursion step. How can we 
+    uses $\Theta(n\log n)$ in each recursion step. How can we 
     reduce, or even avoid this process? 
 
     This is indeed hard to think about, but we can combine the sorting process 
@@ -718,7 +718,7 @@
     First call {\bf Max-Subarray-Divide-Conquer($A$, 1, $n$)}.
 
     It's not difficult to find out the process of finding $max_3$
-    requires $O(n)$ time, since we just scan throught the array.
+    requires $O(n)$ time, since we just scan throughout the array.
     If let $T(n)$ be the running time of whole algorithm, 
     we will get:
     $$T(n)=2T(n/2)+O(n)$$
@@ -810,7 +810,7 @@
     $A[i]$ itself! So why should we include $d[i-1]$ then, 
     we just let $d[i]=A[i]$, this will be the max sum with 
     $A[i]$ included.
-    On the contray, if $d[i-1]>0$, then we should let 
+    On the contrary, if $d[i-1]>0$, then we should let 
     $d[i]=d[i-1]+A[i]$, since include $d[i-1]$ makes the sum 
     larger, and that is exactly what we want.
 
@@ -1115,7 +1115,8 @@
     and another competition arose. 
     We would not go into details here.
 
-    {\it This is the end of class note. Last modified: Sep 05, 2021.}
+    {\it This is the end of class note. Last modified: Sep 09, 2021.\\
+    Sep 09: Fixed some typos.}
 
 
 \end{spacing}

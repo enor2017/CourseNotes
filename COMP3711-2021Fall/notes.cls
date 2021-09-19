@@ -70,6 +70,8 @@
 \newcommand{\blue}{\color{blue}}
 \newcommand{\green}{\color{green}}
 \newcommand{\red}{\color{red}}
+\newcommand{\E}{\mathbb{E}}
+% \newcommand{\Pr}{\mathbb{P}}
 
 
 \textwidth = 7.0 in

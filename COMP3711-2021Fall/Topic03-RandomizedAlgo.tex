@@ -294,6 +294,123 @@
         \includegraphics[scale=0.165]{images/03-partition-eg.jpeg}
     \end{center}
 
+    Now we would like to analyze the running time of Quick Sort.
+    Firstly, for the best case, where we {\it can always 
+    select median element as pivot}, we can divide the array 
+    into two parts every time, which gives $\Theta(n\log n)$.
+    However, for the worst case, for example, if we always select 
+    the smallest(or largest) element as pivot, then 
+    it will be $\Theta(n^2)$.
+
+    Thus, in reality, we {\bf randomly} choose a pivot in the 
+    array, and this is {\bf randomized algorithm}: making 
+    a random choice each time it chooses a pivot.
+
+    For quick sort, or a randomized algorithm, we often care about 
+    its {\bf expected running time}, denote as $\E[T(I,R)]$, 
+    where $I$ is the input(the array in quick sort), while $R$ is 
+    a random string or numbers that decide what we choose as 
+    random each time.
+
+    Without loss of generality, we can assume all elements are 
+    distinct, since if this is not the case, we can regard 
+    original input $A[1\cdots n]$ as $B[1\cdots n]$, where 
+    $B[i]=\{A[i], i\}$. Then all elements in $B$ are distinct 
+    and we can just manipulate on $B[]$ instead. 
+    Also, remember the running time is {\it proportional to}
+    number of comparisons. Notice that for any two items, 
+    they will either not be compared, or be compared only once,
+    that is when one of them is the pivot.
+    Since any two items can {\it at most compare once},
+    we can define indicator random variable: 
+    \begin{align*}
+        \setstretch{0.5}
+        X_{ij}=\left\{ 
+            \begin{array}{ll}
+                1 &, {\rm if\ } i{\rm -th\ smallest\ item\ is\ ever\ compared 
+                \ with\ }j{\rm -th\ smallest\ item}\\
+                0 &, otherwise
+            \end{array}
+        \right.
+    \end{align*}
+
+    Then,
+    \begin{align*}
+        \E(runtime)&\le \E\left(c\cdot \left(\sum_{i<j}X_{ij}\right)\right)\\
+        &=c\cdot \sum_{i<j} \E(X_{ij})\\
+        &=c\cdot \sum_{i<j} \Pr(X_{ij}=1)
+    \end{align*}
+    
+    So now we consider how to find $\Pr(X_{ij}=1)$, that is, 
+    the probability of $i$-th smallest and $j$-th smallest 
+    elements are ever compared. 
+    (In the image below, assume items are arranged in 
+    ascending order)
+    \begin{center}
+        \includegraphics[scale=0.3]{images/03-quicksort-exp.pdf}
+    \end{center}
+    In the image above, we divide the array into two color regions,
+    where between $i$ and $j$(including $i$ and $j$) are colored 
+    with yellow.
+    \begin{itemize}
+        \item if pivot is in {\bf blue region}, then $i$ and $j$
+        will be then allocated to the same subpart of array,
+        during this process, they cannot be compared to each other.
+        \item if pivot is in {\bf yellow region}, then this 
+        level is the last chance for $i$ and $j$ to be compared.
+        And moreover, $i$ and $j$ will be compared {\it if and 
+        only if} $i$ or $j$ is chosen to be the pivot this level.
+    \end{itemize}
+    Thus, either they will be compared or not is {\it decided 
+    at the level which pivot is chosen in yellow region}.
+    And at that level, they will be compared if and only if 
+    one of them is chosen as the pivot. Therefore,
+    $$\Pr(X_{ij}=1)=\frac{2}{j-i+1}$$
+
+    Now we can calculate:
+    $$\E(runtime)=c\cdot \sum_{i<j}\E(X_{ij})=c\cdot 
+    \sum_{i=1}^{n-1}\sum_{j=2}^{n} \frac{2}{j-i+1}$$
+
+    The summation is hard to calculate directly, but let's make a table: 
+
+    When $i=1$, $\disp \frac{1}{2}+\frac{1}{3}+\frac{1}{4}+
+    \cdots+\frac{1}{n-2}+\frac{1}{n-1}+\frac{1}{n}$
+
+    When $i=2$, $\disp \frac{1}{2}+\frac{1}{3}+\frac{1}{4}+
+    \cdots+\frac{1}{n-2}+\frac{1}{n-1}$
+
+    When $i=3$, $\disp \frac{1}{2}+\frac{1}{3}+\frac{1}{4}+
+    \cdots+\frac{1}{n-2}$
+
+    $\cdots$
+
+    When $i=n-1$, $\disp \frac{1}{2}$
+
+    To sum up {\it by column}, we get: 
+    $$(n-1)\cdot \frac{1}{2}+(n-2)\cdot \frac{1}{3}+
+    (n-3)\cdot \frac{1}{4}+\cdots +1\cdot \frac{1}{n}$$
+
+    And with some tricks: 
+    \begin{align*}
+        &\quad (n-1)\cdot \frac{1}{2}+(n-2)\cdot \frac{1}{3}+
+        (n-3)\cdot \frac{1}{4}+\cdots +1\cdot \frac{1}{n}\\
+        &\le n\cdot \frac{1}{2}+n\cdot \frac{1}{3}+
+        n\cdot \frac{1}{4}+\cdots +n\cdot \frac{1}{n}\\
+        &= n\cdot \left(\frac{1}{2}+\frac{1}{3}+
+        \frac{1}{4}+\cdots \frac{1}{n} \right)\\
+        &\le n\cdot \int_1^{n} \frac{1}{x}\ dx= n\ln n
+    \end{align*}
+    Despite the constant $c$, the expected running time 
+    for quick sort is still $\Theta(n\log n)$.
+
+    \section{Randomized Selection}
+
+    {\bf Problem: }Given an array $A$ of $n$ distinct 
+    elements, found the $i$-th smallest element in $A$.
+
+
+    \vspace{0.5in}
+    {\it This is the end of lecture note. Last modified: Sep 20.}
 
 
 \end{spacing}

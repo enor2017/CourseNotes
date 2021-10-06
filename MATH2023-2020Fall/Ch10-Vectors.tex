@@ -240,29 +240,25 @@
 
     {\bf Point to Line:} 
 
-    \begin{wrapfigure}{l}{0.4\textwidth}\centering
+    \begin{center}
         \includegraphics[scale=0.4]{images/Ch10-dist-point-line.png}
-    \end{wrapfigure}
+    \end{center}
     \begin{align*}
         d &= ||\vct{r_1}-\vct{r_0}||\cdot \sin\theta \cdot 1\\
          &= ||\vct{r_1}-\vct{r_0}||\cdot \sin\theta \cdot ||\hat{\vv}||\\
          &= ||(\vct{r_1}-\vct{r_0})\times \hat{\vv}||
     \end{align*}
 
-    \vspace{0.8in}
-
     {\bf Point to Plane:} 
-
-    \begin{wrapfigure}{l}{0.4\textwidth}\centering
-        \includegraphics[scale=0.3]{images/Ch10-dist-point-plane-2.jpeg}
-    \end{wrapfigure}
     \begin{align*}
         d &= ||\vct{r_1}-\vct{r_0}||\cdot \cos\theta \cdot 1\\
          &= ||\vct{r_1}-\vct{r_0}||\cdot \cos\theta \cdot ||\hat{\vct{n}}||\\
          &= | (\vct{r_1}-\vct{r_0})\cdot \hat{\vct{n}} |
     \end{align*}
+    \begin{center}
+        \includegraphics[scale=0.3]{images/Ch10-dist-point-plane-2.jpeg}
+    \end{center}
 
-    \vspace{0.8in}
 
     {\bf Line to Plane(parallel): } Take any point on the line $\rar$ point to plane.
 
@@ -270,9 +266,10 @@
 
     {\bf Skew Lines:} 
 
-    \begin{wrapfigure}{l}{0.4\textwidth}\centering
+    \begin{center}
         \includegraphics[scale=0.3]{images/Ch10-dist-line-line.jpeg}
-    \end{wrapfigure}
+    \end{center}
+
     Make $L_1$ and $L_1$ inside the same plane, then normal vector of 
     the plane is $\vct{n}=\vct{v_1}\times \vct{v_2}$.
 
@@ -282,9 +279,46 @@
          &= | (\vct{r_1}-\vct{r_0})\cdot \widehat{(\vct{v_1}\times \vct{v_2})} |
     \end{align*}
 
-    \vspace{1in}
     
     {\bf Plane to Plane(parallel):} same as point to plane. 
+
+
+    \section{Quadric Surfaces}
+
+
+    {\bf Spheres}: $(x-x_0)^2+(y-y_0)^2+(z-z_0)^2=a^2$.
+
+    {\bf Cylinders:} $x^2+y^2=a^2$. (left below)
+
+    {\bf Cones:} $z^2=x^2+y^2$. (right below)
+    
+    \begin{center}
+        \includegraphics[scale=0.3]{images/Ch10-cylinder.png}
+        \hspace{1in}
+        \includegraphics[scale=0.3]{images/Ch10-cone.png}
+    \end{center}
+    
+
+    {\bf Ellipsoid:} $\disp \frac{x^2}{a^2}+\frac{y^2}{b^2}+\frac{z^2}{c^2}=1$. (left below)
+
+    {\bf Elliptic paraboloid:} $\disp z=\frac{x^2}{a^2}+\frac{y^2}{b^2}$. (right below)
+
+    \begin{center}
+        \includegraphics[scale=0.3]{images/Ch10-ellipsoid.png}
+        \hspace{1in}
+        \includegraphics[scale=0.3]{images/Ch10-elliptic-paraboloid.png}
+    \end{center}
+
+    {\bf Hyperbolic paraboloid :} $\disp z=\frac{x^2}{a^2}-\frac{y^2}{b^2}$.
+
+    \begin{center}
+        \includegraphics[scale=0.3]{images/Ch10-hyperbolic-paraboloid.png}
+    \end{center}
+
+    {\bf Hyperboloids:}
+    \begin{center}
+        \includegraphics[scale=0.37]{images/Ch10-hyperboloid.png}
+    \end{center}
 
 \end{spacing}
 \end{document}

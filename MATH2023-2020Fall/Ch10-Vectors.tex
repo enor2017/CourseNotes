@@ -320,5 +320,43 @@
         \includegraphics[scale=0.37]{images/Ch10-hyperboloid.png}
     \end{center}
 
+    \section{Cylindrical and Spherical Coordinates}
+
+    {\bf Cylindrical Coordinate:} $(r,\theta,z)$
+    \begin{align*}
+        x &= r\cos\theta\\ y&=r\sin\theta\\z&=z
+    \end{align*}
+    where $r\ge 0,\ 0\le \theta<2\pi$, and 
+    \begin{align*}
+        r &= \sqrt{x^2+y^2}\\
+        \theta &= \left\{ \begin{array}{ll}
+            \tan^{-1}(y/x) & {\rm if}\ x\ge 0\\
+            \tan^{-1}(y/x)+\pi & {\rm if}\ x<0
+        \end{array}\right.
+    \end{align*}
+
+    \begin{center}
+        \includegraphics[scale=0.4]{images/Ch10-cylindrical-coor.png}
+        \hspace{1in}
+        \includegraphics[scale=0.4]{images/Ch10-spherical-coor.png}
+    \end{center}
+
+    {\bf Spherical Coordinates: } $(\rho, \theta,\phi)$
+    \begin{align*}
+        x &= r\cos\theta=\rho\sin\phi\cos\theta\\
+        y &= r\sin\theta=\rho\sin\phi\sin\theta\\
+        z &= \rho\cos\phi
+    \end{align*}
+    where $\rho\ge 0,\ 0\le \theta<2\pi,\ 0\le \phi\le \pi$, and 
+    \begin{align*}
+        \rho &= \sqrt{x^2+y^2+z^2}\\
+        \theta &= \left\{ \begin{array}{ll}
+            \tan^{-1}(y/x) & {\rm if}\ x\ge 0\\
+            \tan^{-1}(y/x)+\pi & {\rm if}\ x<0
+        \end{array}\right.\\
+        \phi &= \cos^{-1}(z/\rho)
+    \end{align*}
+
+
 \end{spacing}
 \end{document}

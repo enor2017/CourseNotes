@@ -50,7 +50,36 @@
 
     \section{Curves and Parametrizations}
 
-    
+    \eg The plane $x + y = 1$ intersects the paraboloid $z = x^2 + y^2$({\blue recall this is rice bowl})
+    in a parabola. Parametrize the whole parabola using $t = x$ as parameter. 
+
+    \sol Since $y=1-x$ and $z=x^2+y^2=1-2t+2t^2$, thus the required Parametrization is: 
+    $$\rr(t)=t\ii+(1-t)\jj+(1-2t+2t^2)\kk,\ -\infty < t < \infty$$ 
+
+
+    {\bf Parametrize the Curve of Intersection of Two Surfaces:}
+
+    \eg Parametrize the curve of intersection of the plane $x +2y +4z = 4$ 
+    and the elliptic cylinder $x^2 + 4y^2 = 4$.
+
+    \sol We begin with the equation $x^2 +4y^2 = 4$, which is independent of $z$,
+    $$x=2\cos t,\ y=\sin t,\ \ \red{(0\le t\le 2\pi)}$$
+    then we can solve the equation for $z$: 
+    $$z=\frac{1}{4}(4-x-2y)=1-\frac{1}{2}(\cos t+\sin t)$$
+    thus the intersection of the given two surfaces is: 
+    $$\rr (t)=2\cos t\ii + \sin t\jj+ \left(1-\frac{\cos t+\sin t}{2}\right)\kk,
+    \ \ \red{(0\le t\le 2\pi)}$$
+
+    \eg Find the parametric equations of the curve of intersection of the surfaces 
+    $z=f(x,y)=a-x^2$ and $z=g(x,y)=a-y^2$.
+
+    \sol Equal them to eliminate $a$, we get $y=\pm x$. Then let $x=t$, $y=\pm t$,
+    $z=a-t^2$, so the equations will be: 
+    $$\rr(t)=(t,t,a-t^2),\ \ {\rm or}\ \  \rr(t)=(t,-t,a-t^2)$$
+    \begin{center}
+        \includegraphics[scale=0.42]{images/Ch11-parametric-intersection-surfaces.png}
+    \end{center}
+
 
 
     \section{Calculus of vector-valued functions}

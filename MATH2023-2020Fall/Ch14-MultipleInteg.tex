@@ -232,6 +232,159 @@
         \includegraphics[scale=0.55]{images/Ch14-jacobians-polar-mapping.png}
     \end{center}
 
+    \newpage
+    \eg Find a change of variable.
+
+    \includegraphics[scale=0.25]{images/Ch14-change-var-eg.jpeg}
+
+    Now, to find $\disp \iint_R f(x,y) dxdy$, if we make the change of variables $x=g(u,v), y=h(u,v)$,
+    then {\it we are mapping things in uv-plane onto things in xy-plane}. For mapping function 
+    $T(u,v)=(g(u,v), h(u,v))=(x,y)$, and assume the area $S$ in $uv$-plane corresponds 
+    to region $R$ in $xy$-plane, as shown below.
+
+    \begin{center}
+        \includegraphics[scale=0.33]{images/Ch14-jacobian-mapping.jpeg}
+    \end{center}
+
+    We still use the method that integrate all ``small rectangles'', $\Delta$, as shown in $uv$-plane.
+    Assume $\Delta$ locates at $(u_0,v_0)$ and has area $dA=dudv$. Let
+
+    $\bf I$ be the vector from $\left(u_{0}, v_{0}\right)$ to $\left(u_{0}+d u, v_{0}\right)$ and\\
+    $\mathbf{J}$ be the vector from $\left(u_{0}, v_{0}\right)$ to $\left(u_{0}, v_{0}+d v\right)$. 
+    
+    Then mapping $T$ ``takes'' $\bf I$ to the vector $T(\mathbf{I})$ from 
+    $\left(g\left(u_{0}, v_{0}\right), h\left(u_{0}, v_{0}\right)\right)$ to 
+    $\left(g\left(u_{0}+d u, v_{0}\right), h\left(u_{0}+d u, v_{0}\right)\right)$. 
+    Notice the vector $T({\bf I})$ is {\it not necessary a straight vector}. Now
+    $$
+    \begin{aligned}
+    T(\mathbf{I}) &=\left(g\left(u_{0}+d u, v_{0}\right)-g\left(u_{0}, v_{0}\right), h\left(u_{0}+d u, v_{0}\right)-h\left(u_{0}, v_{0}\right)\right) \\
+    &=\left(\frac{g\left(u_{0}+d u, v_{0}\right)-g\left(u_{0}, v_{0}\right)}{d u}, \frac{h\left(u_{0}+d u, v_{0}\right)-h\left(u_{0}, v_{0}\right)}{d u}\right) d u \\
+    &=\left(\frac{\partial g}{\partial u}, \frac{\partial h}{\partial u}\right) d u 
+    \ \ {\rm \blue (for\ } {\blue  du\rightarrow 0)}
+    \end{aligned}
+    $$
+    Similarly, $\disp T(\mathbf{J})=\left(\frac{\partial g}{\partial v}, \frac{\partial h}{\partial v}\right) dv$. 
+    
+    Then the area of $T(\Delta)$ is
+    $$
+    d x d y =\left\| T({\rm I})\cdot T({\rm J}) \right\|=\left| \left|\begin{array}{ll}
+    \frac{\partial x}{\partial u} & \frac{\partial y}{\partial u} \\
+    \frac{\partial x}{\partial v} & \frac{\partial y}{\partial v}
+    \end{array}\right| d u d v\right|=\left| \frac{\partial x}{\partial u} \frac{\partial y}{\partial v}-\frac{\partial x}{\partial v} \frac{\partial y}{\partial u} \right| d u d v
+    $$
+
+    which means, $dA_{xy}=|J|\ dA_{uv}$, where $|J|$ is the ``additional factor'' caused by this substitution,
+    and it is called the {\bf Jacobian} of mapping $T$, given by: 
+    \begin{center}
+        \boxed{$$\disp T=\frac{\partial(x, y)}{\partial(u, v)}
+        =\frac{\partial x}{\partial u} \frac{\partial y}{\partial v}-\frac{\partial x}{\partial v} \frac{\partial y}{\partial u}
+        =\left|\begin{array}{ll}\frac{\partial x}{\partial u} & \frac{\partial x}{\partial v} \\ \frac{\partial y}{\partial u} & \frac{\partial y}{\partial v}\end{array}\right|$$}
+    \end{center}
+
+    Therefore, the formula of {\it change of variable for two variables} is: 
+    \begin{center}
+        \boxed{
+            $$\disp \iint_{R=T(S)} f(x, y) d x d y=\iint_{S} f(T(u, v))\left|\frac{\partial(x, y)}{\partial(u, v)}\right| d u d v$$
+        }
+    \end{center}
+    
+
+    while for {\it three variables}, 
+    \begin{center}
+        \boxed{
+            $$\disp \iiint_{R=T(S)} f(x, y, z) d x d y d z=
+            \iiint_{S} f(T(u, v, w))\left|\frac{\partial(x, y, z)}{\partial(u, v, w)}\right| d u d v d w$$
+        }
+    \end{center}
+
+    \newpage
+    \eg Find the area of $\disp \frac{x^2}{a^2}+\frac{y^2}{b^2}=1$.
+
+    \sol {\bf Method 1:} directly integrate 
+    \begin{align*}
+        \frac{1}{4}A &= \int_{0}^{a} \int_{0}^{b\sqrt{1-\frac{x^2}{a^2}}}\ dydx\\
+         &= \int_0^a b\sqrt{1-\frac{x^2}{a^2}}\ dx
+    \end{align*}
+
+    We are familiar with substitution in single variable integration, let $x=a\sin\theta$,
+    when $x=0$, $\theta=0$, and when $x=a$, $\theta=\dfrac{\pi}{2}$. Then,
+    \begin{align*}
+        \frac{1}{4}A &= \int_0^{\frac{\pi}{2}} b(1-\sin^2\theta)^{\frac{1}{2}} a\cos\theta\ d\theta \\ 
+        &= ab\int_0^{\frac{\pi}{2}} \cos^2\theta\ d\theta\\
+        &= ab\int_0^{\frac{\pi}{2}} \frac{1}{2}(1-\cos2\theta)\ d\theta\\
+        &= \frac{1}{4}ab\pi
+    \end{align*}
+
+    {\bf Method 2:} Mapping the ellipse to a disk.
+
+    Let $x=au,\ y=bv$, then $\disp \frac{x^2}{a^2}+\frac{y^2}{b^2}=1$ becomes $u^2+v^2=1$.
+
+    The Jacobian of this mapping 
+    $$J=\left|\begin{array}{ll}\frac{\partial x}{\partial u} & \frac{\partial x}{\partial v} \\ \frac{\partial y}{\partial u} & \frac{\partial y}{\partial v}\end{array}\right|
+    =\left| \begin{array}{cc}
+        a & 0 \\ 0 & b
+    \end{array} \right|=ab$$
+
+    Therefore, the area of ellipse 
+    $$\iint_R\ dA_{xy}=\iint_S\ J\cdot dA_{xy}=\iint_S\ ab\ dA_{uv}=ab\pi$$
+
+    We observe that method 2 is much easier than method 1.
+
+    \newpage
+    \eg Find the area bounded by $\sqrt[4]{x}+\sqrt[4]{y}=1$ and the $x$ and $y$ axes.
+
+    \sol
+
+    \includegraphics[scale=0.24]{images/Ch14-jacobian-eg2.jpeg}
+
+    \vspace{0.2in}
+    Sometimes, it's not easy to calculate $\dfrac{\partial(x, y)}{\partial(u, v)}$, 
+    since usually we substitute $u$ and $v$ as functions of $x$ and $y$, so we always need to find the inverse 
+    function in order to calculate $\dfrac{\partial(x, y)}{\partial(u, v)}$. So we consider the relationship 
+    between  $\dfrac{\partial(x, y)}{\partial(u, v)}$ and $\dfrac{\partial(u, v)}{\partial(x, y)}$.
+
+    Because of $\det A \det B=\det(AB)$, 
+    \begin{align*}
+        \frac{\partial(x, y)}{\partial(u, v)} \cdot \frac{\partial(u, v)}{\partial(x, y)} 
+        &= \left|\begin{array}{ll}\frac{\partial x}{\partial u} & \frac{\partial x}{\partial v} \\ 
+            \frac{\partial y}{\partial u} & \frac{\partial y}{\partial v}\end{array} \right| 
+            \left|  \begin{array}{ll}\frac{\partial u}{\partial x} & \frac{\partial u}{\partial y} \\ 
+                \frac{\partial v}{\partial x} & \frac{\partial v}{\partial y}\end{array}\right|\\
+        &= \left|\begin{array}{ll}\frac{\partial x}{\partial u} \frac{\partial u}{\partial x}+\frac{\partial x}{\partial v} \frac{\partial v}{\partial x} & 
+            \frac{\partial x}{\partial u} \frac{\partial u}{\partial y}+\frac{\partial x}{\partial v} \frac{\partial v}{\partial y} \\ 
+            \frac{\partial y}{\partial u} \frac{\partial u}{\partial x}+\frac{\partial y}{\partial v} \frac{\partial v}{\partial x} & 
+            \frac{\partial y}{\partial u} \frac{\partial u}{\partial y}+\frac{\partial y}{\partial v} \frac{\partial v}{\partial y}\end{array}\right| \\ 
+        &=\left|\begin{array}{ll}\frac{\partial x}{\partial x} & \frac{\partial x}{\partial y} \\ 
+                \frac{\partial y}{\partial x} & \frac{\partial y}{\partial y}\end{array}\right|
+        =\left|\begin{array}{cc}1 & 0 \\ 0 & 1\end{array}\right|=1
+    \end{align*}
+
+    Therefore, if $x(u,v)$ and $y(u,v)$ have continuous first partial derivatives, and that 
+    $$\frac{\partial(x, y)}{\partial(u, v)} \neq 0 \quad \text { at } \quad(u, v) \quad \text { (one-to-one map). }$$
+    Then
+    \begin{center}
+        \boxed{$$\disp \frac{\partial(x, y)}{\partial(u, v)}=\frac{1}{\dfrac{\partial(u, v)}{\partial(x, y)}}$$}
+    \end{center}
+
+    \newpage
+    \eg Find $\disp \iint_{A}\left(x^{2}+y^{2}\right) d x d y$, 
+    where $A=\left[(x, y) \mid x, y>0, \quad 2 \leqslant x^{2}-y^{2} \leqslant 4, \quad \frac{1}{2} \leqslant x y \leqslant \frac{3}{2}\right]$
+
+    \sol 
+    
+    \includegraphics[scale=0.25]{images/Ch14-jacobian-eg3.jpeg}
+
+
+    \newpage
+    Sometimes, though the given region is a relatively good one, but it's still difficult to directly
+    integrate, maybe because the integrand is too complicated. See the below example:
+
+    \eg 
+    
+    \includegraphics[scale=0.77]{images/Ch14-jacobian-eg4.png}
+    
+
 
     \newpage
     \section{Surface Area}
@@ -241,7 +394,7 @@
     on an arbitrary surface. So, we think about {\it projecting the area onto xy-plane}.
 
     \begin{center}
-        \includegraphics[scale=0.25]{images/Ch14-surface-area.jpeg}
+        \includegraphics[scale=0.24]{images/Ch14-surface-area.jpeg}
     \end{center}
 
     As shown above, we want to find the area of region $S$ in a surface. The first thing to do 
@@ -302,7 +455,10 @@
     +\Delta x\Delta y {\bf k}||=\sqrt{(f_x)^2+(f_y)^2+1} \cdot \Delta x\Delta y$$
 
     When $\Delta x, \Delta y \rightarrow 0$, the area of $S$ is given by: 
-    $$A=\iint_R \sqrt{(f_x)^2+(f_y)^2+1}\ dA$$
+    \begin{center}
+        \boxed{$$\disp A=\iint_R \sqrt{(f_x)^2+(f_y)^2+1}\ dA$$}
+    \end{center}
+    
 
     \eg Given a plane $ax+by+cz=d$, where $a,b,c,d>0$. Find the area of the triangle bounded 
     by the intersections of the plane and axes.(As the red shaded area shown)

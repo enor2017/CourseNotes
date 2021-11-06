@@ -299,6 +299,8 @@
     \end{center}
 
     \newpage
+    {\blue This example shows substitution can be easy for some integrations.}
+
     \eg Find the area of $\disp \frac{x^2}{a^2}+\frac{y^2}{b^2}=1$.
 
     \sol {\bf Method 1:} directly integrate 
@@ -368,6 +370,8 @@
     \end{center}
 
     \newpage
+    {\blue This example shows the situation when $\dfrac{\partial(x, y)}{\partial(u, v)}$ is difficult to compute.}
+    
     \eg Find $\disp \iint_{A}\left(x^{2}+y^{2}\right) d x d y$, 
     where $A=\left[(x, y) \mid x, y>0, \quad 2 \leqslant x^{2}-y^{2} \leqslant 4, \quad \frac{1}{2} \leqslant x y \leqslant \frac{3}{2}\right]$
 
@@ -383,6 +387,227 @@
     \eg 
     
     \includegraphics[scale=0.77]{images/Ch14-jacobian-eg4.png}
+
+
+    \newpage
+    \section{Triple Integrals in Cylindrical \& Spherical Coordinates}
+
+    {\bf Cylindrical} coordinates are suited to problems {\it with axial symmetry}(the shape 
+    is around the $z$-axis)
+
+    The basic unit of cylindrical coordinate is shown below, and it's volume is $r\ drd\theta dz$
+    \begin{center}
+        \includegraphics[scale=0.43]{images/Ch14-int-cylind.png}
+    \end{center}
+    We can also find Jacobian in order to find the relation. For $x=r\cos \theta, y=r\sin\theta,z=z$, we have
+    $$\frac{\partial(x,y,z)}{\partial(r,\theta,z)}=
+    \left|\begin{array}{ccc}
+        \cos\theta & -r\sin\theta & 0\\
+        \sin\theta & r\cos\theta & 0\\
+        0 & 0 & 1
+    \end{array}\right|=r$$
+    that is, $dxdydz\rightarrow r\ drd\theta dz$
+
+    \vspace{0.2in}
+    \begin{center}
+        \boxed{$$\disp V_{c}=\iiint_{V} f d V=\iiint_{V(x, y, z)} f(x, y, z) d x d y d z
+        =\iiint_{V(r, \theta, z)} f(r, \theta, z) r d r d \theta d z$$}
+    \end{center}
+
+    \newpage
+    Moreover, same as before, we can freely change the {\it order of integration}.
+    Below show three examples.
+    \begin{center}
+        \includegraphics[scale=0.20]{images/Ch14-int-cylind-ways-1.JPG}
+
+        \includegraphics[scale=0.17]{images/Ch14-int-cylind-ways-2.JPG}
+    \end{center}
+
+    \newpage
+    {\blue This example shows integration in cylindrical coordinates brings convenience sometimes.}
+
+    \eg Find the volume of a circular cone with altitude $h$ and a base of radius $a$.
+    
+    \sol To find the volume of the cone, we need to know the equation of its surface.
+
+    \begin{center}
+        \includegraphics[scale=0.25]{images/Ch14-int-cylind-eg1.JPG}
+    \end{center}
+
+    In $(x,y,z), \disp z=\frac{h}{a}(x^2+y^2)^{1/2}$. \quad 
+    In $\disp (r,\theta,z), z=\frac{h}{a}r$.
+
+    {\bf Method 1:} Do the question by $(x,y,z)$, and $dV=dzdydx$
+    $$V=4\int_{0}^a\int_0^{\sqrt{a^2-x^2}}\int_{\frac{h}{a}(x^2+y^2)^{1/2}}^{h}\ dz\ dy\ dx$$
+
+    {\bf Method 2:} Do the question by $(r,\theta,z)$, and $dV=r\ dzdrd\theta$
+    $$V=\int_0^{2\pi} \int_0^a \int_{\frac{h}{a}r}^h\ r\ dz\ dr\ d\theta=\dfrac{1}{3}\pi a^2h$$
+
+    \newpage
+    {\blue This example provides interpretation for triple integrals.}
+
+    \eg Sketch the solid whose volume is given by the integral.
+
+    (a) $\disp \int_0^{2\pi} \int_0^2 \int_0^{4-r^2}\ r\ dzdrd\theta$.
+
+    (b) $\disp \int_1^3 \int_0^{\frac{\pi}{2}} \int_r^3\ r\ dzd\theta dr$.
+
+    \sol Recall that for $\disp \int_a^b \int_{g_1(x)}^{g_2(x)} \int_{\phi_1(x)}^{\phi_2(x)}\ dzdydx$,
+    we can infer the volume of integration based on these six limits: 
+
+    $z=\phi_1$ to $z=\phi_2$, (surfaces)\\
+    $y=g_1$ to $y=g_2$, (curves)\\
+    $x=a$ to $x=b$, (points)
+
+    We can interpret the last two as ``{\it area on the $xy$-plane}''.
+    
+    (a)
+
+    $z: z=0$ to $z=4-r^2$, (surfaces)
+
+    $\left.\begin{array}{ccc}
+        r: r=0 & {\rm to} & r=2\\
+        \theta: \theta=0 & {\rm to} & \theta = 2\pi 
+    \end{array}\right\}$  (area on $xy$-plane)
+
+    The area on $xy$-plane is shown below left. We move the disk upward, hitting $z=4-r^2$, 
+    and the volume bounded is what we are looking for, as shown below right.
+    \begin{center}
+        
+    \begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+    %uncomment if require: \path (0,221); %set diagram left start at 0, and has height of 221
+
+    %Shape: Axis 2D [id:dp35767444761973244] 
+    \draw  (26.67,96.18) -- (154.33,96.18)(89.22,32.33) -- (89.22,160) (147.33,91.18) -- (154.33,96.18) -- (147.33,101.18) (84.22,39.33) -- (89.22,32.33) -- (94.22,39.33)  ;
+    %Shape: Circle [id:dp0770483128463828] 
+    \draw  [fill={rgb, 255:red, 74; green, 144; blue, 226 }  ,fill opacity=0.54 ] (58.81,96.18) .. controls (58.81,79.38) and (72.42,65.76) .. (89.22,65.76) .. controls (106.02,65.76) and (119.64,79.38) .. (119.64,96.18) .. controls (119.64,112.98) and (106.02,126.6) .. (89.22,126.6) .. controls (72.42,126.6) and (58.81,112.98) .. (58.81,96.18) -- cycle ;
+
+    % Text Node
+    \draw (74.67,22.73) node [anchor=north west][inner sep=0.75pt]    {$y$};
+    % Text Node
+    \draw (155.33,87.4) node [anchor=north west][inner sep=0.75pt]    {$x$};
+    % Text Node
+    \draw (118.64,99.58) node [anchor=north west][inner sep=0.75pt]  [font=\small]  {$2$};
+    % Text Node
+    \draw (89.67,51.4) node [anchor=north west][inner sep=0.75pt]  [font=\small]  {$2$};
+    % Text Node
+    \draw (44,165.07) node [anchor=north west][inner sep=0.75pt]  [font=\small]  {$ \begin{array}{l}
+    r=0\ to\ r=2\\
+    \theta =0\ to\ \theta =2\pi 
+    \end{array}$};
+    \end{tikzpicture}
+    \includegraphics[scale=0.3]{images/Ch14-int-cylid-eg2-2.png}
+
+    \end{center}
+
+    (b)
+
+    $z: z=r$ to $z=3$, (surfaces)
+
+    $\left.\begin{array}{ccc}
+        \theta: \theta=0 & {\rm to} & \theta = \frac{\pi}{2} \\
+        r: r=1 & {\rm to} & r=3
+    \end{array}\right\}$  (area on $xy$-plane)
+
+    The procedure is similar to (a), we first draw the region on $xy$-plane, and 
+    move it from surface $z=r$ upwards to $z=3$. The bounded region is what we're looking for.
+    \begin{center}
+        \includegraphics[scale=0.16]{images/Ch14-int-cylind-eg3-1.JPG}
+        \includegraphics[scale=0.1]{images/Ch14-int-cylind-eg3-2.JPG}
+    \end{center}
+    
+
+    \vspace{0.5in}
+    {\bf Spherical} coordinates are suited to problems {\it involving spherical symmetry}, 
+    and in particular, to regions bounded by {\it spheres} centered at the origin, {\it circular 
+    cones} with axes along the $z-$axis, {\it vertical planes} containing $z-$axis.
+
+    The basic unit of spherical coordinate is shown below, and it's volume is 
+    $dV=\rho^2 \sin\phi \ d\theta d\rho d\phi$
+    \begin{center}
+        \includegraphics[scale=0.35]{images/Ch14-int-sphere-1.png}
+        \includegraphics[scale=0.2]{images/Ch14-int-sphere-2.jpeg}
+    \end{center}
+    We can also find Jacobian in order to find the relation. 
+
+    For spherical coordinates $x=\rho \sin \phi \cos \theta, y=\rho \sin \phi \sin \theta$ and $z=\rho \cos \phi$, then
+    $$
+    \frac{\partial(x, y, z)}{\partial(\rho, \phi, \theta)}=\left|\begin{array}{ccc}
+    \sin \phi \cos \theta & \rho \cos \phi \cos \theta & -\rho \sin \phi \sin \theta \\
+    \sin \phi \sin \theta & \rho \cos \phi \sin \theta & \rho \sin \phi \cos \theta \\
+    \cos \phi & -\rho \sin \phi & 0
+    \end{array}\right|=\rho^{2} \sin \phi
+    $$
+    i.e. $d x d y d z=\rho^{2} \sin \phi d \rho d \theta d \phi$.
+
+    \vspace{0.5in}
+    Again, different integration orders have different interpretations.
+
+    \begin{center}
+        \includegraphics[scale=0.2]{images/Ch14-int-sphere-ways.JPG}
+    \end{center}
+
+    \newpage
+    {\blue This example shows the choice of coordinate system can greatly affect the difficulty of 
+    computation of a multiple integral.}
+
+    \eg Find the volume of the solid that lies above the cone $z=\sqrt{x^2+y^2}$ and between the 
+    sphere $x^2+y^2+z^2=z$.
+
+    \sol The equation of sphere can be written as 
+    $$x^{2}+y^{2}+\left(z-\frac{1}{2}\right)^{2}=\left(\frac{1}{2}\right)^{2} 
+    \Rightarrow {\rm centre} \left(0,0, \frac{1}{2}\right),\ {\rm radius} =\frac{1}{2}$$
+
+    {\bf Method 1:} Use Cartesian Coordinate: 
+    \begin{center}
+        \includegraphics[scale=0.25]{images/Ch14-ex6.10-xy.jpg}
+    \end{center}
+    
+    {\bf Cone:} $z=\sqrt{x^2+y^2}$\\
+    {\bf Sphere:} $\disp z=\frac{1}{2}+\sqrt{\frac{1}{4}-x^2-y^2}$
+
+    $$V=4\int_0^{\frac{1}{2}}\int_0^{\sqrt{\frac{1}{4}-x^2}} \int_{\sqrt{x^2+y^2}}^{\frac{1}{2}+\sqrt{\frac{1}{4}-x^2-y^2}}
+    \ dzdydx$$
+
+    {\bf Method 2:} Use Cylindrical Coordinate: 
+    \begin{center}
+        \includegraphics[scale=0.3]{images/Ch14-ex6.10-cylind.jpg}
+    \end{center}
+    
+    {\bf Cone:} $z=\sqrt{x^2+y^2}=r$\\
+    {\bf Sphere:} $\disp z=\frac{1}{2}+\sqrt{\frac{1}{4}-x^2-y^2}=\frac{1}{2}+\sqrt{\frac{1}{4}-r^2}$
+
+    $$V=\int_0^{2\pi} \int_0^2 \int_r^{\frac{1}{2}+\sqrt{\frac{1}{4}-r^2}}\ r\ dzdrd\theta$$
+
+    {\bf Method 3:} Use Spherical Coordinate: 
+    \begin{center}
+        \includegraphics[scale=0.28]{images/Ch14-ex6.10-sphere.JPG}
+    \end{center}
+    
+    {\bf Cone:} $z=\sqrt{x^2+y^2}=\rho \sin\phi$\\
+    {\bf Sphere:} $x^2+y^2+z^2=z \Rightarrow \rho^2 = \rho \cos\phi \Rightarrow \rho=\cos\phi$, (since $\rho\ne 0$)
+
+    $$dV=\int_0^{\frac{\pi}{4}} \int_0^{2\pi} \int_0^{\cos\phi}\ \rho^2 \sin\phi \ d\rho d\theta d\phi$$
+
+    \newpage
+    {\blue This example shows the situation when we need to integrate two parts.}
+
+    \eg Find the volume of a cylinder with radius $a$ and height $h$.
+
+    \sol {\bf Method 1:} Use Cylindrical Coordinate: 
+    $$V=\int_0^{2\pi} \int_0^a \int_0^h\ r\ dzdrd\theta$$
+
+    This is really simple by cylindrical coordinate, but things become different when using spherical.
+
+    {\bf Method 2:} Use Spherical Coordinate: 
+
+    
+
+
+
+
+    
+
     
 
 
@@ -515,6 +740,8 @@
 
 
     \newpage
+    {\blue This example uses substitution while evaluating integral.}
+
     \eg Find the surface of a sphere with radius $a$.
     \begin{center}
         \includegraphics[scale=0.25]{images/Ch14-surface-area-eg4.jpeg}

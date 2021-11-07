@@ -601,7 +601,21 @@
 
     {\bf Method 2:} Use Spherical Coordinate: 
 
-    
+    Notice that for different $\phi$, the $\rho$ is bounded by two different equations.
+    So we cannot do it in one integration, instead, we need to separate these two situations.
+    \begin{center}
+        \includegraphics[scale=0.25]{images/Ch14-int-sphere-cylinder.JPG}
+    \end{center}
+    For the above cone, the upper red surface is $z=h\Rightarrow \rho\cos\phi=h\Rightarrow \rho=h/{\cos\phi}$,
+    $$V_1=\int_0^{\phi'}\int_0^{2\pi}\int_0^{\frac{h}{\cos\phi}}\ \rho^2\sin\phi\ d\rho d\theta d\phi$$
+
+    For the bottom part, $\rho$ moves along the green line, from 0 to $x^2+y^2=a^2\Rightarrow \rho\sin\phi=a$,
+    $$V_2=\int_{\phi'}^{\frac{\pi}{2}} \int_0^{2\pi} \int_0^{\frac{a}{\sin\phi}}\ \rho^2\sin\phi\ d\rho d\theta d\phi$$
+
+
+    For the bolded black line(the threshold), $\disp \tan\phi'=\frac{a}{h}\Rightarrow \phi=\tan^{-1}\frac{a}{h}$.
+
+    $$V=V_1+V_2$$
 
 
 

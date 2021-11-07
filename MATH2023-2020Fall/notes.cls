@@ -60,7 +60,9 @@
   \begin{center}
     {\huge {#2}\hspace{2em} \textbf{#1}}
   \end{center}
+  \renewcommand\arraystretch{1.2}
 }
+\renewcommand\arraystretch{1.2}
 
 \newcommand{\pad}{\vspace*{\fill}\par}
 \def\indep{\perp\!\!\!\perp}

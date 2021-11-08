@@ -220,6 +220,161 @@
     \subsection{Interpretation of Curl}
 
     Curl is something related to rotation. Consider a small object flying in strong wind,
-    the speed and direction of wind can be treated as a vector field, and 
+    where the speed and direction of wind can be treated as a vector field $\FF$. If the object 
+    locates at position $\rr$, then its rotation has some relation with $\curl \FF$.
+
+    Actually, the object will rotate about the direction $\nabla \times \FF(\rr)$(direction 
+    is determined by right-hand rule), and with speed $\omega = \dfrac{1}{2} ||\nabla \times \FF(\rr)||$.
+    \begin{center}
+        \includegraphics[scale=0.13]{images/Ch15-curl-rotation.png}
+    \end{center}
+
+    {\blue The rest of this page prove the relation above.}
+
+    Consider a disk in $xy-$plane, in $y$ direction, the differential velocity 
+    {\it normal to }$\Delta x$ is: 
+    $$u_2(x+\Delta x)-u_2(x)=\dfrac{\pt u_2}{\pt x}\Delta x$$
+    \begin{center}
+        \begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+        %uncomment if require: \path (0,176); %set diagram left start at 0, and has height of 176
+
+        %Shape: Circle [id:dp5225638015157492] 
+        \draw   (51.33,105.83) .. controls (51.33,77.21) and (74.54,54) .. (103.17,54) .. controls (131.79,54) and (155,77.21) .. (155,105.83) .. controls (155,134.46) and (131.79,157.67) .. (103.17,157.67) .. controls (74.54,157.67) and (51.33,134.46) .. (51.33,105.83) -- cycle ;
+        %Straight Lines [id:da39474822982601077] 
+        \draw  [dash pattern={on 4.5pt off 4.5pt}]  (103.17,105.83) -- (155,105.83) ;
+        \draw [shift={(155,105.83)}, rotate = 0] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]      (0, 0) circle [x radius= 2.34, y radius= 2.34]   ;
+        \draw [shift={(103.17,105.83)}, rotate = 0] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]      (0, 0) circle [x radius= 2.34, y radius= 2.34]   ;
+        %Straight Lines [id:da7639586630423449] 
+        \draw [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,draw opacity=1 ]   (103.17,105.83) -- (103.17,82.36) ;
+        \draw [shift={(103.17,80.36)}, rotate = 450] [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,draw opacity=1 ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+        %Straight Lines [id:da012693447516093803] 
+        \draw [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,draw opacity=1 ]   (155,105.83) -- (155,43.69) ;
+        \draw [shift={(155,41.69)}, rotate = 450] [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,draw opacity=1 ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+        %Shape: Axis 2D [id:dp8368267344724862] 
+        \draw  (31,158.28) -- (52.4,158.28)(31.99,138.36) -- (31.99,159.69) (45.4,153.28) -- (52.4,158.28) -- (45.4,163.28) (26.99,145.36) -- (31.99,138.36) -- (36.99,145.36)  ;
+        %Shape: Circle [id:dp5099823978536693] 
+        \draw   (350.03,162.49) .. controls (321.4,162.5) and (298.19,139.31) .. (298.18,110.68) .. controls (298.17,82.05) and (321.37,58.84) .. (349.99,58.83) .. controls (378.62,58.82) and (401.83,82.02) .. (401.84,110.64) .. controls (401.85,139.27) and (378.66,162.48) .. (350.03,162.49) -- cycle ;
+        %Straight Lines [id:da7840728663323955] 
+        \draw  [dash pattern={on 4.5pt off 4.5pt}]  (350.01,110.66) -- (349.99,58.83) ;
+        \draw [shift={(349.99,58.83)}, rotate = 269.98] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]      (0, 0) circle [x radius= 2.34, y radius= 2.34]   ;
+        \draw [shift={(350.01,110.66)}, rotate = 269.98] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][fill={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]      (0, 0) circle [x radius= 2.34, y radius= 2.34]   ;
+        %Straight Lines [id:da7720976544639997] 
+        \draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (350.01,110.66) -- (326.54,110.67) ;
+        \draw [shift={(324.54,110.67)}, rotate = 359.98] [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+        %Straight Lines [id:da7249887830259147] 
+        \draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (349.99,58.83) -- (287.85,58.85) ;
+        \draw [shift={(285.85,58.85)}, rotate = 359.98] [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+
+        % Text Node
+        \draw (118,107.07) node [anchor=north west][inner sep=0.75pt]  [font=\small,color={rgb, 255:red, 74; green, 144; blue, 226 }  ,opacity=1 ]  {$\Delta x$};
+        % Text Node
+        \draw (84,110.4) node [anchor=north west][inner sep=0.75pt]  [font=\footnotesize]  {$( x,y)$};
+        % Text Node
+        \draw (152.67,108.4) node [anchor=north west][inner sep=0.75pt]  [font=\footnotesize]  {$( x+\Delta x,y)$};
+        % Text Node
+        \draw (73.33,65.07) node [anchor=north west][inner sep=0.75pt]  [font=\small,color={rgb, 255:red, 74; green, 144; blue, 226 }  ,opacity=1 ]  {$u_{2}( x,y)$};
+        % Text Node
+        \draw (126.67,26.4) node [anchor=north west][inner sep=0.75pt]  [font=\small,color={rgb, 255:red, 74; green, 144; blue, 226 }  ,opacity=1 ]  {$u_{2}( x+\Delta x,y)$};
+        % Text Node
+        \draw (53.33,152.73) node [anchor=north west][inner sep=0.75pt]  [font=\footnotesize]  {$u_{1}$};
+        % Text Node
+        \draw (25.33,122.73) node [anchor=north west][inner sep=0.75pt]  [font=\footnotesize]  {$u_{2}$};
+        % Text Node
+        \draw (353.17,79.23) node [anchor=north west][inner sep=0.75pt]  [font=\small,color={rgb, 255:red, 208; green, 2; blue, 27 }  ,opacity=1 ]  {$\Delta y$};
+        % Text Node
+        \draw (352.01,114.06) node [anchor=north west][inner sep=0.75pt]  [font=\footnotesize]  {$( x,y)$};
+        % Text Node
+        \draw (341.65,39.06) node [anchor=north west][inner sep=0.75pt]  [font=\footnotesize]  {$( x,y+\Delta y)$};
+        % Text Node
+        \draw (264.35,103.41) node [anchor=north west][inner sep=0.75pt]  [font=\small,color={rgb, 255:red, 208; green, 2; blue, 27 }  ,opacity=1 ]  {$-u_{1}( x,y)$};
+        % Text Node
+        \draw (235.49,36.92) node [anchor=north west][inner sep=0.75pt]  [font=\small,color={rgb, 255:red, 208; green, 2; blue, 27 }  ,opacity=1 ]  {$-u_{1}( x,y+\Delta y)$};
+        \end{tikzpicture}
+
+    \end{center}
+    Recall that $v=\omega r$, so the angular velocity is $\omega_1 = \dfrac{\pt u_2}{\pt x}$
+
+    Similarly, in the $y-$direction, (notice the negative sign)
+    $$-u_1(x,y+\Delta y)+u_1(x,y)=-\dfrac{\pt u_1}{\pt y}\Delta y,\qquad 
+    \omega_2 = -\dfrac{\pt u_1}{\pt y}$$
+
+    Thus the {\it averaged angular velocity} is: $\disp \omega = \frac{1}{2} 
+    \left(\frac{\pt u_2}{\pt x} - \frac{\pt u_1}{\pt y}\right)$
+
+    The curl of this vector field is: 
+    $$
+    \operatorname{curl} \mathbf{F}=\nabla \times \mathbf{F}=\left|\begin{array}{ccc}
+    \mathbf{i} & \mathbf{j} & \mathbf{k} \\
+    \dfrac{\partial}{\partial x} & \dfrac{\partial}{\partial y} & \dfrac{\partial}{\partial z} \\
+    u_1 & u_2 & 0
+    \end{array}\right|= \left(\frac{\pt u_2}{\pt x} - \frac{\pt u_1}{\pt y}\right)\kk =2\omega \kk
+    $$
+    Thus prove the result.
+
+
+    \vspace{0.5in}
+    {\blue Below example is used to explain the meaning of curl, it's the same example in intro.}
+
+    \eg Assume a vector field: ${\bf F}(x,y)=\dfrac{y\ii -x\jj}{\sqrt{x^2+y^2}}$.
+
+    \sol
+    \begin{align*}
+        {\vec{\omega}} &= \nabla \times \FF = \left|\begin{array}{ccc}
+            \ii & \jj & \kk \\ \dfrac{\partial}{\partial x} & \dfrac{\partial}{\partial y} & \dfrac{\partial}{\partial z} \\
+            \dfrac{y}{\sqrt{x^2+y^2}} & \dfrac{-x}{\sqrt{x^2+y^2}} & 0
+        \end{array} \right|\\
+        &= \left[ -\dfrac{\pt}{\pt x}\left( \dfrac{x}{\sqrt{x^2+y^2}} \right)
+                -\dfrac{\pt}{\pt y}\left( \dfrac{y}{\sqrt{x^2+y^2}}\right) \right] \kk \\
+        &= {\bf 0}   
+    \end{align*}
+
+    Consider a small object in the vector field, it doesn't rotate(since $\curl \FF={\bf 0}$ everywhere),
+    it just move in circular, along the vector field.
+
+    \begin{center}
+        \includegraphics[scale=0.4]{images/Ch15-ex1.2.png}
+    \end{center}
+
+    \newpage
+    {\blue This definition is optional.}
+    
+    {\bf Laplacian Operator}
+    $$
+    \begin{aligned}
+    \nabla^{2} &=\nabla \cdot \nabla=\left(\mathbf{i} \frac{\partial}{\partial x}+\mathbf{j} \frac{\partial}{\partial y}+\mathbf{k} \frac{\partial}{\partial z}\right) \cdot\left(\mathbf{i} \frac{\partial}{\partial x}+\mathbf{j} \frac{\partial}{\partial y}+\mathbf{k} \frac{\partial}{\partial z}\right) \\
+    &=\frac{\partial^{2}}{\partial x^{2}}+\frac{\partial^{2}}{\partial y^{2}}+\frac{\partial^{2}}{\partial z^{2}}
+    \end{aligned}
+    $$
+    $\nabla^{2}$ is a {\bf scalar} differential operator. Note that
+    $$
+    \begin{aligned}
+    \nabla^{2} f &=\frac{\partial^{2} f}{\partial x^{2}}+\frac{\partial^{2} f}{\partial y^{2}}+\frac{\partial^{2} f}{\partial z^{2}} \\
+    \nabla^{2} \mathbf{F} &=\nabla^{2} F_{1} \mathbf{i}+\nabla^{2} F_{2} \mathbf{j}+\nabla^{2} F_{3} \mathbf{k}
+    \end{aligned}
+    $$
+
+    \newpage
+    \subsection{Vector differential identities}
+    Let $\phi, \psi$ are scalar fields and $\mathbf{F}$ and $\mathbf{G}$ are vector fields, then
+
+    (a) $\nabla(\phi \psi)=\phi \nabla \psi+\psi \nabla \phi$
+
+    (b) $\nabla \cdot(\phi \mathbf{F})=\nabla \phi \cdot \mathbf{F}+\phi(\nabla \cdot \mathbf{F})$
+
+    (c) $\nabla \times(\phi \mathbf{F})=\nabla \phi \times \mathbf{F}+\phi(\nabla \times \mathbf{F})$
+
+    (d) $\nabla \cdot(\mathbf{F} \times \mathbf{G})=(\nabla \times \mathbf{F}) \cdot \mathbf{G}-\mathbf{F} \cdot(\nabla \times \mathbf{G})$
+    
+    (e) $\nabla \cdot(\nabla \times \mathbf{F})=0$
+    
+    (f) $\nabla \times(\nabla \phi)=0$
+    
+    (g) $\nabla \times(\nabla \times \mathbf{F})=\nabla(\nabla \cdot \mathbf{F})-\nabla^{2} \mathbf{F}$
+
+    \vspace{0.2in}
+    {\bf [Proof.]}
+
+    
+
 \end{spacing}
 \end{document}

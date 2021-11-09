@@ -63,6 +63,9 @@
         \end{array}\right.$$
     {\bf Summary:} {\it dimension of ${\bf F}$ must be the same as ${\bf r}$.}
 
+    \vspace{0.5in}
+    {\blue This is an example of vector field.}
+
     \eg Assume a vector field: ${\bf F}(x,y)=\dfrac{y\ii -x\jj}{\sqrt{x^2+y^2}}$.
 
     \sol Notice that $||{\bf F}||=\dfrac{y^2}{x^2+y^2}+\dfrac{x^2}{x^2+y^2}=1$, all vectors 
@@ -82,21 +85,20 @@
 
     If $\FF (\rr)=F_1(\rr)\ii +F_2(\rr) \jj +F_3(\rr) \kk$, then we define: 
     \begin{itemize}
-        \item {\bf divergence} of $\FF$, written $\div \FF$: 
-        $$
+        \item {\bf divergence} of $\FF$, written $\div \FF$:   
+        $$\boxed{
         \operatorname{div} \mathbf{F}=\nabla \cdot \mathbf{F}=\frac{\partial F_1}{\partial x}+\frac{\partial F_2}{\partial y}+\frac{\partial F_3}{\partial z}
-        $$
+        }$$
         \item {\bf curl} of $\FF$, written $\curl \FF$: 
-        $$
+        $$\boxed{
         \operatorname{curl} \mathbf{F}=\nabla \times \mathbf{F}=\left|\begin{array}{ccc}
         \mathbf{i} & \mathbf{j} & \mathbf{k} \\
         \dfrac{\partial}{\partial x} & \dfrac{\partial}{\partial y} & \dfrac{\partial}{\partial z} \\
         F_1 & F_2 & F_3
         \end{array}\right|=\left(\frac{\partial h}{\partial y}-\frac{\partial g}{\partial z}\right) \mathbf{i}-\left(\frac{\partial h}{\partial x}-\frac{\partial f}{\partial z}\right) \mathbf{j}+\left(\frac{\partial g}{\partial x}-\frac{\partial f}{\partial y}\right) \mathbf{k}
-        $$
+        }$$
     \end{itemize}
 
-    \vspace{0.2in}
     {\blue This example shows basic computation of {\bf divergence} and {\bf curl}.}
 
     \eg Let $\mathbf{r}=x \mathbf{i}+y \mathbf{j}+z \mathbf{k}$ and $\mathbf{u}=a \mathbf{i}+b \mathbf{j}+c \mathbf{k}$, where $a, b$ and $c$ are constants, show that
@@ -108,8 +110,7 @@
 
     \sol 
     (a) $\disp \nabla \cdot \mathbf{r}=\left(\mathbf{i} \frac{\partial}{\partial x}+\mathbf{j} \frac{\partial}{\partial y}+\mathbf{k} \frac{\partial}{\partial z}\right) \cdot(x \mathbf{i}+y \mathbf{j}+z \mathbf{k})=
-    \frac{\partial x}{\partial x}+\frac{\partial y}{\partial y}+\frac{\partial z}{\partial z}=3$
-
+    \frac{\partial x}{\partial x}+\frac{\partial y}{\partial y}+\frac{\partial z}{\partial z}=3$\\
     (b) $\disp \nabla \times \mathbf{r}=\left|\begin{array}{ccc}
             \mathbf{i} & \mathbf{j} & \mathbf{k} \\ 
             \frac{\partial}{\partial x} & \frac{\partial}{\partial y} & \frac{\partial}{\partial z} \\ 
@@ -224,7 +225,7 @@
     locates at position $\rr$, then its rotation has some relation with $\curl \FF$.
 
     Actually, the object will rotate about the direction $\nabla \times \FF(\rr)$(direction 
-    is determined by right-hand rule), and with speed $\omega = \dfrac{1}{2} ||\nabla \times \FF(\rr)||$.
+    is determined by right-hand rule), and with angular speed $\omega = \dfrac{1}{2} ||\nabla \times \FF(\rr)||$.
     \begin{center}
         \includegraphics[scale=0.13]{images/Ch15-curl-rotation.png}
     \end{center}
@@ -373,6 +374,126 @@
 
     \vspace{0.2in}
     {\bf [Proof.]}
+
+
+
+    \newpage
+    \section{Line Integral}
+    {\bf Motivation:} given a rope(parametrized space curve) $\rr(t), a\le t\le b$, if the density at 
+    point $(x,y,z)$ is given by function $\rho =f(x,y,z)$, we want to find the mass of this rope.
+    $$\int_a^b f(x,y,z)\ ds=\int_C f(x,y,z)\ ds$$
+
+    Recall when we computing arc length in Chapter 11, we knew that: 
+    $$ds=||\rr'(t)|| dt$$
+
+    Therefore, to calculate line integral $\disp \int_C f(x,y,z)\ ds$, we only need to know: 
+    \begin{enumerate}
+        \item $f(x,y,z)$
+        \item Region $C:\ \rr(t)=(x(t), y(t), z(t)),\ a\le t\le b$
+    \end{enumerate}
+
+    {\blue This example shows how to find line integral.}
+
+    \eg Find $\disp \int_{C} x y^{4} d s, C$ is the right half of the circle $x^{2}+y^{2}=16$.
+
+    \sol In order to do this integral, we need the parametric form of the path $C$.
+    Let $x=4\cos t, t=4\sin t$, the right half of the circle means $t \in[-\pi / 2, \pi / 2]$.
+
+    Hence the parametric equation of the curve $C$ is
+    4
+    $\mathbf{r}(t)=4 \cos t \mathbf{i}+4 \sin t \mathbf{j}$ with $t \in[-\pi / 2, \pi / 2]$, then
+    $$\mathbf{r}^{\prime}(t)=-4 \sin t \mathbf{i}+4 \cos t \mathbf{j} \quad \text { and } \quad\left\|\mathbf{r}^{\prime}(t)\right\|=4$$
+
+    Thus with $ds=||\rr'(t)|| dt$,
+    $$\int_{C} x y^{4} d s =\int_{-\pi / 2}^{\pi / 2} f(\mathbf{r})\left\|\mathbf{r}^{\prime}(t)\right\| d t=
+    \int_{-\pi / 2}^{\pi / 2}\left[4^{5} \cos t \sin ^{4} t\right](4) d t =\frac{2\cdot 4^6}{5}$$
+
+    {\blue Note that there are infinitely many ways to parametrize the curve $C$, }
+    for example, if we had parameterized $C$ as
+    $$\mathbf{r}(t)=\sqrt{16-t^{2}} \mathbf{i}+t \mathbf{j} \quad \text { where } \quad-4 \leqslant t \leqslant 4$$
+    Then
+    $$\mathbf{r}^{\prime}(t) =-\frac{t}{\sqrt{16-t^{2}}} \mathbf{i}+\mathbf{j}, \qquad
+    \left\|\mathbf{r}^{\prime}(t)\right\| =\sqrt{\frac{16}{16-t^{2}}} $$
+
+    $$ \int_{C} x y^{4} d s =\int_{C} f(\mathbf{r})\left\|\mathbf{r}^{\prime}(t)\right\| d t
+    =\int_{-4}^{4} \sqrt{16-t^{2}} \times t^{4} \times \sqrt{\frac{16}{16-t^{2}}} d t=\frac{2\cdot 4^6}{5}$$
+    Thus the line integral is {\it \blue independent of parametrization} of the curve C.
+
+    So far, we have been doing integration w.r.t. $s$, but we can also carry the integration w.r.t. $x$,
+    $$\int_C f(\rr(t))\ dx$$
+
+    \vspace{0.3in}
+    {\blue This example shows how to integrate w.r.t. $x,y,z$}
+
+    \eg $f(\rr(t))=f(x,y,z)=xy+z$, $C: \rr(t)=(x(t), y(t), z(t)) = (t^2, t^3, t), 0\le t\le 1$
+
+    \sol Since $dx=2t\ dt,\ dy=3t^2\ dt,\ dz=dt$,
+    \begin{align*}
+        \int_C f(\rr(t))\ {\blue dx} &= \int_0^1 (t^2\cdot t^3+t)(2t)\ dt=\int_0^1 (2t^6-2t^2)\ dt=\cdots\\
+        \int_C f(\rr(t))\ {\blue dy} &= \int_0^1 (t^5+t)(3t^2)\ dt=\cdots\\
+        \int_C f(\rr(t))\ {\blue dz} &= \int_0^1 (t^5+t)\ dt=\cdots
+    \end{align*}
+
+    \vspace{0.8in}
+    But why are we doing this? Consider given $f(\rr(t))$ and $C: \rr(t)$, we integrate w.r.t. $x,y,z$, respectively: 
+    $$\int_C f(\rr(t))\ dx\qquad \int_C g(\rr(t))\ dy\qquad \int_C h(\rr(t))\ dz$$
+    The summation of above three gives: 
+    \begin{align*}
+        & \int_C \left[f(\rr(t))\ dx + g(\rr(t))\ dy + h(\rr(t))\ dz\right]\\
+        =& \int_C (f, g, h) \cdot (dx, dy, dz)\\
+        =& \boxed{\int_C \FF \cdot d\rr}
+    \end{align*}
+    where $\FF(\rr)=\left(f(\rr), g(\rr), h(\rr)\right)$ is the given vector field.
+
+
+    \newpage
+    {\blue The following two examples shows usage of integration w.r.t. $x, y, z$.}
+
+    \eg $\disp \int_{C} x y d x+(x-y) d y, C$ consists of line segments from $(0,0)$ to $(2,0)$ and from $(2,0)$ to $(3,2)$.
+    \begin{center}
+        \includegraphics[scale=0.38]{images/Ch15-wrt-eg1.png}
+    \end{center}
+
+    \sol We need the parametric function of $C_1$ and $C_2$, they are straight lines.
+    Recall in Chapter 10 we know the parameterized curve of straight lines can be written as: 
+    $$\rr(t)=(1-t)\rr_1+t\rr_2, \ 0\le t\le 1$$
+
+    Hence 
+    \begin{align*}
+        C1: \ \rr(t) &= (1-t)(0, 0) + t(2, 0) = (2t, 0) = (x(t), y(t)),\ 0\le t\le 1\\
+        C2: \ \rr(t) &= (1-t)(2, 0) + t(3, 2) = (2+t, 2t) = (x(t), y(t)),\ 0\le t\le 1
+    \end{align*}
+    Thus the integration is: 
+    \begin{align*}
+        \int_C xydx+(x-y)dy &= \int_{C_1} xydx+(x-y)dy + \int_{C_2} xydx+(x-y)dy\\
+                    &= \int_0^1 (2t)(0) 2dt+(2t-0)(0) +\int_0^1 (2+t)(2t)dt + (2+t-2t) 2dt\\
+                    &= \int_0^1 (4t+2t^2+2+t-2t) dt =\cdots
+    \end{align*}
+    {\blue Notice that: } if $\FF(\rr)=(xy, x-y)$, and $\rr_1=(2t, 0), \rr_2=(2+t,2t)$, 
+    the result above is exactly 
+    $$\int_{C_1} \FF\cdot d\rr + \int_{C_2} \FF\cdot d\rr$$
+
+    {\blue Again, there are many ways to parameterized the curve, } for example,
+
+    $C_{1}: (x, 0),\  0 \le x \le 2, \qquad C_{2}: (x, 2x-4),\  2 \le x \le 3 .$ 
+    
+    Then
+    \begin{align*}
+        \int_{C} x y d x+(x-y) d y 
+        &=\int_{C_{1}}[x y d x+(x-y) d y]+\int_{C_{2}}[x y d x+(x-y) d y] \\
+        &=\int_{0}^{2} 0 d x+\int_{2}^{3}\left(2 x^{2}-4 x\right) d x+\int_{2}^{3}(-x+4) 2 d x = \cdots
+    \end{align*}
+
+    \newpage
+    \eg 
+    \begin{center}
+        \includegraphics[scale=0.52]{images/Ch15-wrt-eg2.png}
+    \end{center}
+
+    \newpage
+    \section{Line Integration in Vector Fields}
+    We have talked so much about line integration above. However, this Chapter is called ``Vector Field'',
+    so how does line integration relate to vector field?
 
     
 

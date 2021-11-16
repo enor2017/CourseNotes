@@ -495,6 +495,320 @@
     We have talked so much about line integration above. However, this Chapter is called ``Vector Field'',
     so how does line integration relate to vector field?
 
+    {\blue The following two examples show that sometimes the line integral depends on path,
+    while sometimes it does not.}
+
+    \eg Find $\disp \int_{C} \mathbf{F} \cdot d \mathbf{r}$, where $\mathbf{F}(x, y)=e^{x-1} \mathbf{i}+x y \mathbf{j}$ 
+    and $C$ is given by
+
+    (a) $\mathbf{r}(t)=t^{2} \mathbf{i}+t^{3} \mathbf{j} ; \quad 0 \leqslant t \leqslant 1$.\\
+    (b) $\mathbf{r}(t)=t \mathbf{i}+t \mathbf{j} ; \quad 0 \leqslant t \leqslant 1 .$
+
+    \sol 
+
+    (a)
+    $$\begin{aligned}
+    \int_{C} \mathbf{F} \cdot d \mathbf{r} &=\int_{0}^{1} \mathbf{F}(\mathbf{r}(t)) \cdot \mathbf{r}^{\prime}(t) d t=\int_{0}^{1} \mathbf{F}\left(t^{2}, t^{3}\right) \cdot \mathbf{r}^{\prime}(t) d t \\
+    &=\int_{0}^{1}\left(e^{t^{2}-1} \mathbf{i}+t^{5} \mathbf{j}\right) \cdot\left(2 t \mathbf{i}+3 t^{2} \mathbf{j}\right) d t \\
+    &=\int_{0}^{1}\left(2 t e^{t^{2}-1}+3 t^{7}\right) d t =\left[e^{t^{2}-1}+\frac{3}{8} t^{8}\right]_{0}^{1}=\frac{11}{8}-\frac{1}{e}
+    \end{aligned}$$
+
+    (b)
+    $$\begin{aligned}
+    \int_{C} \mathbf{F} \cdot d \mathbf{r} &=\int_{0}^{1} \mathbf{F}(\mathbf{r}(t)) \cdot \mathbf{r}^{\prime}(t) d t=\int_{0}^{1} \mathbf{F}(t, t) \cdot \mathbf{r}^{\prime}(t) d t \\
+    &=\int_{0}^{1}\left(e^{t-1} \mathbf{i}+t^{2} \mathbf{j}\right) \cdot(\mathbf{i}+\mathbf{j}) d t \\
+    &=\int_{0}^{1}\left(e^{t-1}+t^{2}\right) d t =\frac{4}{3}-\frac{1}{e}
+    \end{aligned}$$
+
+    {\blue Note that the line integral depends on the path.}
+    
+    \vspace{0.2in}
+    \eg Find $\disp \int_{C} \mathbf{F} \cdot d \mathbf{r}$, where $\mathbf{F}(x, y)=y \mathbf{i}+x \mathbf{j}$ and $C$ is given by
+    
+    (a) $\mathbf{r}(t)=t \mathbf{i}+t \mathbf{j} ; \quad 0 \leqslant t \leqslant 1$.\hspace{0.2in}
+    (b) $\mathbf{r}(t)=t \mathbf{i}+t^{2} \mathbf{j} ; \quad 0 \leqslant t \leqslant 1$\hspace{0.2in}
+    (c) $\mathbf{r}(t)=t \mathbf{i}+t^{3} \mathbf{j} ; \quad 0 \leqslant t \leqslant 1$.
+
+    \sol
+
+    (a) $\disp \int_{C} \mathbf{F} \cdot d \mathbf{r}=\int_{0}^{1}(t \mathbf{i}+t \mathbf{j}) \cdot(\mathbf{i}+\mathbf{j}) d t=\int_{0}^{1} 2 t d t=1$
+    
+    (b) $\disp \int_{C} \mathbf{F} \cdot d \mathbf{r}=\int_{0}^{1}\left(t^{2} \mathbf{i}+t \mathbf{j}\right) \cdot(\mathbf{i}+2 \mathbf{j}) d t=\int_{0}^{1} 3 t^{2} d t=1$
+    
+    (c) $\disp \int_{C} \mathbf{F} \cdot d \mathbf{r}=\int_{0}^{1}\left(t^{3} \mathbf{i}+t \mathbf{j}\right) \cdot\left(\mathbf{i}+3 t^{2} \mathbf{j}\right) d t=\int_{0}^{1} 4 t^{3} d t=1$
+
+    {\blue Note that this integral does not depend on path.}
+
+    \newpage
+    \section{Conservative Vector Fields}
+
+    {\blue So why different vector field cause different results in above examples?}
+    
+    Recall that if $\disp \int_a^b f(x) dx=F(b)-F(a)$ (that the integral only depends on the 
+    {\it end points}) only if {\it anti-derivative } exists, otherwise, we cannot integrate it
+    and hence cannot express it only with end points.
+
+    For example, $\disp \int_1^2 e^x dx = e^2-e^1$, but for $\disp \int_1^2 e^{x^2} dx$,
+    we cannot find it.
+
+    \vspace{0.3in}
+    Similarly, if $\FF(\rr)=f(\rr)\ii +g(\rr)\jj +h(\rr)\kk$ is the gradient of a function 
+    $\phi(\rr)$ on $S$, i.e.,
+    $$\FF(\rr)=\nabla \phi(\mathbf{r}) \quad \Rightarrow \quad 
+    f(\mathbf{r})=\frac{\partial \phi}{\partial x}, \quad g(\mathbf{r})=\frac{\partial \phi}{\partial y} \quad 
+    \text { and } \quad h(\mathbf{r})=\frac{\partial \phi}{\partial z}$$
+
+    In that case, we say $\mathbf{F}(\mathbf{r})$ is a {\bf conservative field} and $\phi$ is a 
+    {\it (scaler) potential function} of $\FF$ on $S$.
+    
+    Then
+    $$\begin{aligned}
+    \int_{C} \mathbf{F}(\mathbf{r}) \cdot d \mathbf{r} &=\int_{a}^{b} \nabla \phi(\mathbf{r}(t)) \cdot \mathbf{r}^{\prime}(t) d t \\
+    &=\int_{a}^{b}\left(\frac{\partial \phi}{\partial x} \frac{d x}{d t}+\frac{\partial \phi}{\partial y} \frac{d y}{d t}+\frac{\partial \phi}{\partial z} \frac{d z}{d t}\right) d t \\
+    &=\int_{a}^{b} \frac{d \phi}{d t} d t=\phi(x(b), y(b), z(b))-\phi(x(a), y(a), z(a)) \\
+    &=\phi(\mathbf{r}(b))-\phi(\mathbf{r}(a))
+    \end{aligned}$$
+
+    This depends only {\it on the endpoints} $\mathbf{r}(b)$ and $\mathbf{r}(a)$, not on the curve $C.$
+
+    \vspace{0.5in}
+    This can also be expressed in circular integration, $\disp \int_C \FF\cdot d\rr$ is {\it independent} of 
+    path in $S$ if and only if $\disp \oint_C \FF\cdot d\rr =0$ for {\it every closed path} $C$ in $S$.
+    Since if the integration depends only on end points, then integrate from $a$ to $b$ and then from $b$
+    back to $a$ will certainly gives result 0.
+    \begin{center}
+        \includegraphics[scale=0.4]{images/Ch15-circular-integ.png}
+    \end{center}
+    $$\oint_{C} \FF \cdot d \rr =\int_{C_{1}} \FF \cdot d \rr+\int_{C_{2}} \mathbf{F} \cdot d \mathbf{r} 
+    =\int_{C_{1}} \mathbf{F} \cdot d \mathbf{r}-\int_{-C_{2}} \mathbf{F} \cdot d \mathbf{r}=0 $$
+
+    \newpage
+    {\blue How to determine whether a vector field is {\it conservative} or not?}
+
+    A continuously vector field $\mathbf{F}$ defined in a {\bf simply-connected domain} $S$ is conservative 
+    if and only if, it possesses {\it any one} of the following properties.
+    
+    (i) It is the gradient of a scalar function, $\mathbf{F}(\mathbf{r})=\nabla \phi(\mathbf{r})$.
+    
+    (ii) Its line integral along any regular curve extending from a point $P$ to a point $Q$ is independent of the path.
+    $$
+    \int_{C_{1}} \mathbf{F} \cdot d \mathbf{r}=\int_{C_{2}} \mathbf{F} \cdot d \mathbf{r}=\int_{C_{3}} \mathbf{F} \cdot d \mathbf{r}=\cdots
+    $$
+    (iii) Its line integral around any regular closed curved is zero, i.e. $\disp \oint_{C} \mathbf{F} \cdot d \mathbf{r}=0$.
+
+    (iv) $\nabla \times \FF ={\bf 0}$. (since $\nabla \times (\nabla\times \phi)={\bf 0}$)
+
+    {\blue Note that $(i)\Rightarrow (ii)\Rightarrow (iii)$, and it's trivial that $(iii)\Rightarrow (ii)$}
+
+    \vspace{0.2in}
+    {\bf For $(ii)\Rightarrow (i)$}, this can be proved only if $\FF$ us continuous on an {\it open connected region}.
+    Proof is not required here.
+
+    {\bf For $(iv)$}, this is a {\bf necessary} condition for the existence of a potential function $\phi$,
+    in other words, this is {\bf not sufficient}, we also need to guarantee that the domain $S$ 
+    must be {\bf open and simply connected.}
+
+    \vspace{0.3in}
+    What is {\bf open and simply-connected} region?
+
+    Firstly, it must be {\it connected}, it cannot be divided into two parts that are separate. For example,
+
+    (1) $\disp \FF(\rr)=\left(\frac{x}{x^2+y^2+z-1}, \frac{y}{x^2+y^2+z-1}, \frac{z^2}{x^2+y^2+z-1}\right)$
+    is defined on $\mathbb{R}^3\backslash \{x^2+y^2+z=1\}$. This is not connected, because the region 
+    is divided into two parts by a ``rice bowl''.
+
+    (2) Also, $\mathbb{R}^3\backslash \{x^2+y^2+z^2=1\}$ is not connected, because the region 
+    is divided into two parts by a ball shell.
+
+    Then, for {\it any curve} inside the region, if {\it at least one surface} inside the region
+    with the curve {\it as boundary}
+    does not have a hole on it, then the region is simply-connected. For example,
+
+    (1) $\mathbb{R}^2\backslash \{(0,0)\}$ is not simply-connected. Consider any curve surround the origin,
+    the only surface that with the curve as boundary is the ``disk'' bounded by the curve, and unfortunately 
+    it has a hole in the middle.
+
+    (2) $\mathbb{R}^3\backslash \{(0,0,0)\}$ is simply-connected. For any curve inside the region, even if 
+    you choose a curve on $xy$-plane and contains $(0,0,0)$, we can easily find a surface bounded by the 
+    curve that does not contain the origin, for example a downside ``rice bowl''.
+
+    (3) $\mathbb{R}^3\backslash \{x=y=0\}$ is not simply-connected. For example, if we choose a circle on 
+    $xy-$plane, like $x^2+y^2=1$, then {\it any} surface bounded by the curve must through $z-$axis,
+    and since we've removed the $z-$axis, all those surfaces always have a hole on it.
+
+    (4) A donut is not simply-connected, we can choose any curve that surround the middle ``hole''.
+
+
+    {\blue This example shows how to find potential for a conservative vector field.}
+
+    \eg Determine whether or not $\mathbf{F}(x, y)=(2 x-3 y) \mathbf{i}+(2 y-3 x) \mathbf{j}$ 
+    is a conservative vector field. If it is, find a function $\phi$ such that $\mathbf{F}=\nabla \phi$.
+
+    \sol Notice that the curl of $\FF$:
+    $$\nabla \times \FF=\left|\begin{array}{ccc}
+        \ii & \jj & \kk \\
+        \dfrac{\pt}{\pt x} & \dfrac{\pt}{\pt x} & 0\\
+        2x-3y & 2y-3x & 0
+    \end{array} \right|={\bf 0}$$
+    And, $\FF(x,y)$ is defined in $\mathbb{R}^2$, which is {\bf open and simply-connected} domain.
+    Therefore, $\FF$ is conservative and $\FF=\nabla \phi$ for some potential function $\phi$.
+
+    To find $f$,
+    \begin{align*}
+        \frac{\pt \phi}{\pt x} &= 2x-3y\qquad (1)\\
+        \frac{\pt \phi}{\pt y} &= 2y-3x\qquad (2)
+    \end{align*}
+    For (1), integrate w.r.t. $x$, $\phi(x,y)=x^2-3xy+g(y)$, differentiate it w.r.t. $y$,
+    $\disp \frac{\pt \phi}{\pt y}=0-3x+g'(y)$.
+
+    Compare this equation with (2), we have $g'(y)=2y \Rightarrow g(y)=y^2+C$
+
+    Therefore $$\phi(x, y)=x^2-3xy+y^2+C.$$
+
+    \newpage
+    {\blue This example shows $\curl \FF={\bf 0}$ is not sufficient for $\FF$ to be conservative.}
+
+    \eg Let $\disp \mathbf{F}(x, y)=\frac{-y \mathbf{i}+x \mathbf{j}}{x^{2}+y^{2}}=f(x, y) \mathbf{i}+g(x, y) \mathbf{j}$ (see also Ex. 1.2).
+    
+    (a) Show that $\disp \frac{\partial f}{\partial y}=\frac{\partial g}{\partial x}$.
+
+    (b) Show that $\disp \int_{C} \mathbf{F} \cdot d \mathbf{r}$ is not independent of path.
+    
+    \sol (a)$$\frac{\partial f}{\partial y}=\frac{y^{2}-x^{2}}{\left(x^{2}+y^{2}\right)^{2}}=\frac{\partial g}{\partial x}$$
+
+    (b) Notice $\FF$ is defined on $\mathbb{R}^2\backslash \{{\bf 0}\}$, so it is not conservative.
+    To show that it is dependent of path, we only need to given an counterexample. Consider on these two paths:
+    \begin{center}
+        \includegraphics[scale=0.4]{images/Ch15-ex2.3.png}
+    \end{center}
+    $C_{1}: \quad x=\cos \theta, \quad y=\sin \theta$, with $\theta = 0$ to $\theta = \pi$\\
+    $C_{2}: \quad x=\cos \theta, \quad y=\sin \theta$, with $\theta = 2\pi$ to $\theta = \pi$
+
+    $$\int_{C_{1}} \mathbf{F} \cdot d \mathbf{r}=\int_{0}^{\pi}(-\sin \theta, \cos \theta) \cdot(-\sin \theta, \cos \theta) d \theta=\int_{0}^{\pi} d \theta=\pi$$
+    $$\int_{C_{2}} \mathbf{F} \cdot d \mathbf{r}=\int_{2 \pi}^{\pi} d \theta=-\pi \neq \int_{C_{1}} \mathbf{F} \cdot d \mathbf{r}$$
+
+    Therefore, $\disp \int_{C} \mathbf{F} \cdot d \mathbf{r}$ is not independent of path.
+
+    \vspace{0.3in}
+    {\blue But if $\FF$ is defined on $x>0$, it will become a conservative field. ($x>0$ is open and simply-connected.)}
+
+
+    \newpage
+    {\blue In summary, to find a line integral, you have following methods:}
+    \begin{enumerate}
+        \item Carry out the integration directly: 
+        $$\int_C \FF\cdot d\rr=\int_z^b g(t) dt\cdots$$
+        \item If $\nabla \times \FF \ne {\bf 0}$, nothing you can do, except for 
+        carrying the integration as above.
+        \item If $\nabla \times \FF = {\bf 0}$, there are two simpler ways:
+        \begin{enumerate}
+            \item Find $\phi$ such that $\FF =\nabla \phi$, then 
+            $$\int_C \FF \cdot d\rr=\phi (\rr(b))-\phi (\rr(a))$$
+            \item Carry the integration along a straight line path, i.e. 
+            $$\rr(t)=(1-t)\rr_1+t\rr_2,\ 0\le t\le 1$$
+        \end{enumerate}
+    \end{enumerate}
+
+    \newpage
+    {\blue This is a past final question in year 1994.}
+
+    \eg For what values of $b$ and $c$ will
+    $$\mathbf{F}(x, y, z)=\left(y^{2}+2 c z x\right) \mathbf{i}+y(b x+c z) \mathbf{j}+\left(y^{2}+c x^{2}\right) \mathbf{k}$$
+    have potential functions? For each pair of these values of $b$ and $c$, find a potential function for $\mathbf{F}$.
+
+    \sol 
+    For $\mathbf{F}(\mathbf{r})$ to have a potential function, iff $\nabla \times \mathbf{F}(\mathbf{r})=\mathbf{0}$.
+    $$\nabla \times \mathbf{F}=\left|\begin{array}{ccc}
+        \mathbf{i} & \mathbf{i} & \mathbf{k} \\
+        \dfrac{\partial}{\partial x} & \dfrac{\partial}{\partial y} & \dfrac{\partial}{\partial z} \\
+        y^{2}+2 c z x & y(b x+c z) & y^{2}+c x^{2}
+    \end{array}\right|$$
+
+    For the $\ii$ component, $2 y=y c \quad \Rightarrow \quad c=2$
+
+    For the $\jj$ component, $2 c x=2 c x \quad \Rightarrow \quad c \text { cannot be determined. }$
+    
+    For the $\kk$ component, $b y=2 y \quad \Rightarrow \quad b=2$
+
+    $\therefore b=2$ and $c=2 .$ In the case, we have
+    $$\mathbf{F}(\mathbf{r})=\left(y^{2}+4 z x\right) \mathbf{i}+y(2 x+2 z) \mathbf{j}+\left(y^{2}+2 x^{2}\right) \mathbf{k}=\nabla \phi$$
+    
+    Therefore
+    $$\begin{aligned}
+    &\frac{\partial \phi}{\partial x}=y^{2}+4 z x \qquad (1)\\
+    &\frac{\partial \phi}{\partial y}=2 x y+2 y z \qquad (2)\\
+    &\frac{\partial \phi}{\partial z}=y^{2}+2 x^{2} \qquad (3)
+    \end{aligned}$$
+    From $(1)$, we have
+    $$\begin{aligned}
+    \phi(x, y, z) &=x y^{2}+2 x^{2} z+p(y, z) \qquad (4)\\
+    \phi_{y}(x, y, z) &=2 x y+p_{y}(y, z) \qquad (5)
+    \end{aligned}$$
+    Comparing $(2)$ and $(5)$, we have $p_{y}(y, z)=2 y z \Rightarrow p(y, z)=y^{2} z+q(z) .$ From $(4)$, we have
+    $$\begin{aligned}
+    \phi(x, y, z) &=x y^{2}+2 x^{2} z+y^{2} z+q(z) \qquad(6)\\
+    \phi_{z}(x, y, z) &=2 x^{2}+y^{2}+q^{\prime}(z) \qquad(7)
+    \end{aligned}$$
+    Comparing $(7)$ and $(3)$, we have $q^{\prime}(z)=0 \quad \Rightarrow \quad q(z)=k$ (constant).
+    $$\therefore \quad \phi(x, y, z)=x y^{2}+2 x^{2} z+y^{2} z+k$$
+
+    \newpage
+    \section{Surface Integrals of Vector Fields}
+    \subsection{Surface Integrals}
+
+    {\blue Recall in Chapter 14, we discussed about Surface Integrals:}
+    \begin{center}
+        \includegraphics[scale=0.24]{images/Ch14-surface-area.jpeg}
+    \end{center}
+    The area of region $S$ is given by:
+    \begin{center}
+        \boxed{$$\disp A=\iint_R \sqrt{(f_x)^2+(f_y)^2+1}\ dA$$}
+    \end{center}
+    If we have a density function $\rho (x,y,z)$ defined on every point of the surface,
+    then the mass of the surface is given by:
+    \begin{center}
+        \boxed{$$\disp M=\iint_R \rho (x,y, f(x,y)) \sqrt{(f_x)^2+(f_y)^2+1}\ dA$$}
+    \end{center}
+
+    
+
+    \newpage
+    {\blue This example shows basic computation of surface integration with density function.}
+    
+    \eg Find the mass of a thin funnel in the shape of a cone $z=\sqrt{x^2+y^2}, z\in [1,4]$,
+    if its density function if $\rho(x,y,z)=10-z$.
+
+    \sol 
+    The cone bounded by $z=1$ and $z=4$ and its projection onto $xy-$plane is shown below:
+    \begin{center}
+        \includegraphics[scale=0.3]{images/Ch15-ex5.6.png}   
+        \begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+        %uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+        %Shape: Axis 2D [id:dp2853296481227898] 
+        \draw  (422.33,148.48) -- (608.33,148.48)(514.71,60.03) -- (514.71,238.03) (601.33,143.48) -- (608.33,148.48) -- (601.33,153.48) (509.71,67.03) -- (514.71,60.03) -- (519.71,67.03)  ;
+        %Shape: Donut [id:dp2986115185015372] 
+        \draw  [color={rgb, 255:red, 65; green, 117; blue, 5 }  ,draw opacity=1 ][fill={rgb, 255:red, 74; green, 144; blue, 226 }  ,fill opacity=0.34 ,even odd rule] (500.34,148.48) .. controls (500.34,140.54) and (506.77,134.1) .. (514.71,134.1) .. controls (522.65,134.1) and (529.09,140.54) .. (529.09,148.48) .. controls (529.09,156.42) and (522.65,162.86) .. (514.71,162.86) .. controls (506.77,162.86) and (500.34,156.42) .. (500.34,148.48)(450.57,148.48) .. controls (450.57,113.05) and (479.29,84.34) .. (514.71,84.34) .. controls (550.14,84.34) and (578.86,113.05) .. (578.86,148.48) .. controls (578.86,183.9) and (550.14,212.62) .. (514.71,212.62) .. controls (479.29,212.62) and (450.57,183.9) .. (450.57,148.48) ;
+
+        % Text Node
+        \draw (552,82.4) node [anchor=north west][inner sep=0.75pt]  [font=\footnotesize]  {$x^{2} +y^{2} =4$};
+        % Text Node
+        \draw (522.67,155.07) node [anchor=north west][inner sep=0.75pt]  [font=\footnotesize]  {$x^{2} +y^{2} =1$};
+        \end{tikzpicture}
+    \end{center}
+
+    $z=f(x,y)=(x^2+y^2)^{\frac{1}{2}},\ f_x=\dfrac{x}{\sqrt{x^2+y^2}},\ f_y=\dfrac{y}{\sqrt{x^2+y^2}}$,
+
+    hence $ds=\sqrt{1+(f_x)^2+(f_y)^2}dA=\sqrt{2} dA$,
+    \begin{align*}
+        \iint_S \rho(x,y,z) dS &= \iint_R \left(10-\sqrt{x^2+y^2}\right)\sqrt{1+(f_x)^2+(f_y)^2}dA\\
+         &= \sqrt{2} \iint_R (10-\sqrt{x^2+y^2}) dA\\
+         &= \sqrt{2} \int_0^{2\pi} \int_1^4 (10-r)\ r dr d\theta = 108\sqrt{2} \pi
+    \end{align*}
+
+    \newpage
+    \subsection{Surface Integrals of vector fields: flux}
+
     
 
 \end{spacing}

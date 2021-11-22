@@ -373,7 +373,7 @@
     (g) $\nabla \times(\nabla \times \mathbf{F})=\nabla(\nabla \cdot \mathbf{F})-\nabla^{2} \mathbf{F}$
 
     \vspace{0.2in}
-    {\bf [Proof.]}
+    {\bf [Proof.]} {\blue to be added.}
 
 
 
@@ -489,12 +489,89 @@
     \begin{center}
         \includegraphics[scale=0.52]{images/Ch15-wrt-eg2.png}
     \end{center}
+    The final answer is $-3$.
 
     \newpage
     \section{Line Integration in Vector Fields}
     We have talked so much about line integration above. However, this Chapter is called ``Vector Field'',
-    so how does line integration relate to vector field?
+    so how does line integration relate to vector field? Consider a force pulling a box on the ground:
+    \begin{center}
+        \begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+        %uncomment if require: \path (0,138); %set diagram left start at 0, and has height of 138
 
+        %Shape: Rectangle [id:dp13468888662436473] 
+        \draw   (59.33,50) -- (141.67,50) -- (141.67,92.03) -- (59.33,92.03) -- cycle ;
+        %Straight Lines [id:da8245492229390465] 
+        \draw    (21.67,92.03) -- (175,92.03) ;
+        %Straight Lines [id:da37267387561993925] 
+        \draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (100.5,71.01) -- (175.19,35.55) ;
+        \draw [shift={(177,34.69)}, rotate = 154.6] [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+        %Straight Lines [id:da9870860257051601] 
+        \draw  [dash pattern={on 0.84pt off 2.51pt}]  (101,102.03) -- (169.67,102.03) ;
+        \draw [shift={(169.67,102.03)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (0,5.59) -- (0,-5.59)   ;
+        \draw [shift={(101,102.03)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (0,5.59) -- (0,-5.59)   ;
+        %Straight Lines [id:da7826570345730552] 
+        \draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ] [dash pattern={on 0.84pt off 2.51pt}]  (100.5,71.01) -- (173.67,71.01) ;
+        %Curve Lines [id:da7661947783358809] 
+        \draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (127.67,58.69) .. controls (134.33,55.36) and (135.67,70.03) .. (130.33,70.03) ;
+        %Shape: Rectangle [id:dp9033140482918862] 
+        \draw   (374,47) -- (456.33,47) -- (456.33,89.03) -- (374,89.03) -- cycle ;
+        %Straight Lines [id:da893186675041477] 
+        \draw    (336.33,89.03) -- (489.67,89.03) ;
+        %Straight Lines [id:da1763122299357358] 
+        \draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (415.17,68.01) -- (489.86,32.55) ;
+        \draw [shift={(491.67,31.69)}, rotate = 154.6] [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+        %Straight Lines [id:da6294960270823786] 
+        \draw  [dash pattern={on 0.84pt off 2.51pt}]  (415.67,99.03) -- (432.33,99.03) ;
+        \draw [shift={(432.33,99.03)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (0,5.59) -- (0,-5.59)   ;
+        \draw [shift={(415.67,99.03)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (0,5.59) -- (0,-5.59)   ;
+        %Straight Lines [id:da9800913887509657] 
+        \draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ] [dash pattern={on 0.84pt off 2.51pt}]  (415.17,68.01) -- (488.33,68.01) ;
+        %Curve Lines [id:da359101772395376] 
+        \draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (442.33,55.69) .. controls (449,52.36) and (450.33,67.03) .. (445,67.03) ;
+
+        % Text Node
+        \draw (180.67,22.73) node [anchor=north west][inner sep=0.75pt]  [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,opacity=1 ]  {$\mathbf{F}$};
+        % Text Node
+        \draw (130,99.73) node [anchor=north west][inner sep=0.75pt]    {$x$};
+        % Text Node
+        \draw (140.75,56.25) node [anchor=north west][inner sep=0.75pt]  [font=\small]  {$\textcolor[rgb]{0.82,0.01,0.11}{\theta }$};
+        % Text Node
+        \draw (495.33,19.73) node [anchor=north west][inner sep=0.75pt]  [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,opacity=1 ]  {$\mathbf{F}(\mathbf{r})$};
+        % Text Node
+        \draw (415.67,102.43) node [anchor=north west][inner sep=0.75pt]  [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,opacity=1 ]  {$d\mathbf{r}$};
+        % Text Node
+        \draw (455.42,53.25) node [anchor=north west][inner sep=0.75pt]  [font=\small]  {$\textcolor[rgb]{0.82,0.01,0.11}{\theta }$};
+        % Text Node
+        \draw (192.67,50.07) node [anchor=north west][inner sep=0.75pt]  [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,opacity=1 ]  {$ \begin{array}{l}
+        W=||\mathbf{F} ||\cos \theta \cdotp x\\
+        \ \ \ \ =\mathbf{F} \cdot \mathbf{r}
+        \end{array}$};
+        % Text Node
+        \draw (106,117.07) node [anchor=north west][inner sep=0.75pt]  [font=\small]  {$\mathbf{r} =( x,0)$};
+        % Text Node
+        \draw (518,46.73) node [anchor=north west][inner sep=0.75pt]  [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,opacity=1 ]  {$ \begin{array}{l}
+        dW=\mathbf{F}(\mathbf{r}) \cdot d\mathbf{r}\\
+        W=\int _{a}^{b}\mathbf{F}(\mathbf{r}) \cdot d\mathbf{r}
+        \end{array}$};
+        \end{tikzpicture}
+
+    \end{center}
+    On the left side, if the force is always the same, then total work done is $W=\FF\cdot \rr$,
+    where $\rr$ represents the direction and distance of moving. However, if the force is changing,
+    i.e., $\FF(\rr)$ varies for different $\rr$, then the total work done is the integration given on the right.
+
+    You may have noticed the total work done is just the line integration we have discussed above.
+
+    Moreover, for a plane flying from one place to another, if we know the directions and speed of wind
+    at any point on the map, the line integration on its path $\rr$ is the total work done on plane,
+    or, approximately how much oil is required.
+    \begin{center}
+        \includegraphics[scale=0.14]{images/Ch15-plane-oil.JPG}
+    \end{center}
+
+
+    \newpage
     {\blue The following two examples show that sometimes the line integral depends on path,
     while sometimes it does not.}
 
@@ -808,8 +885,145 @@
 
     \newpage
     \subsection{Surface Integrals of vector fields: flux}
-
     
+    Consider when sun light shines on a solar panel, only the energy that 
+    perpendicular to the panel will be received.(blue arrow below)
+    \begin{center}
+        \begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+        %uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+        %Shape: Rectangle [id:dp6051872656121531] 
+        \draw   (175.85,50.27) -- (97.6,162.73) -- (90.49,157.78) -- (168.73,45.32) -- cycle ;
+        %Straight Lines [id:da9646848130550723] 
+        \draw [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ]   (61,87.69) -- (139,87.69) ;
+        \draw [shift={(100,87.69)}, rotate = 180] [fill={rgb, 255:red, 208; green, 2; blue, 27 }  ,fill opacity=1 ][line width=0.08]  [draw opacity=0] (8.93,-4.29) -- (0,0) -- (8.93,4.29) -- cycle    ;
+        %Shape: Rectangle [id:dp6360989153400143] 
+        \draw  [color={rgb, 255:red, 245; green, 166; blue, 35 }  ,draw opacity=1 ][fill={rgb, 255:red, 245; green, 166; blue, 35 }  ,fill opacity=1 ] (149.84,85.78) -- (140.89,98.64) -- (135.42,94.84) -- (144.36,81.97) -- cycle ;
+        %Straight Lines [id:da7744840242725002] 
+        \draw    (146.33,103.03) -- (155.67,90.36) ;
+        \draw [shift={(155.67,90.36)}, rotate = 126.38] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (0,5.59) -- (0,-5.59)   ;
+        \draw [shift={(146.33,103.03)}, rotate = 126.38] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (0,5.59) -- (0,-5.59)   ;
+        %Straight Lines [id:da5825576857471104] 
+        \draw [color={rgb, 255:red, 0; green, 0; blue, 0 }  ,draw opacity=1 ]   (61,87.69) -- (86.48,53.3) ;
+        \draw [shift={(87.67,51.69)}, rotate = 126.53] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ,draw opacity=1 ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+        %Straight Lines [id:da5517396221258506] 
+        \draw [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,draw opacity=1 ]   (61,87.69) -- (96.02,111.89) ;
+        \draw [shift={(97.67,113.03)}, rotate = 214.64] [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,draw opacity=1 ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+        %Curve Lines [id:da0018958898014163061] 
+        \draw    (77.67,87.69) .. controls (83.67,89.03) and (79.67,98.36) .. (75.67,97.69) ;
+
+        % Text Node
+        \draw (153.33,97.4) node [anchor=north west][inner sep=0.75pt]  [font=\footnotesize]  {$dS$};
+        % Text Node
+        \draw (147.33,28.33) node [anchor=north west][inner sep=0.75pt]   [align=left] {{\footnotesize solar panel}};
+        % Text Node
+        \draw (5.33,78) node [anchor=north west][inner sep=0.75pt]   [align=left] {{\footnotesize \textcolor[rgb]{0.82,0.01,0.11}{Sun light}}};
+        % Text Node
+        \draw (85.33,68.73) node [anchor=north west][inner sep=0.75pt]  [font=\small,color={rgb, 255:red, 208; green, 2; blue, 27 }  ,opacity=1 ]  {$\mathbf{F}\mathnormal{(}\mathbf{r})$};
+        % Text Node
+        \draw (79.67,91.09) node [anchor=north west][inner sep=0.75pt]  [font=\footnotesize]  {$\theta $};
+        \end{tikzpicture}
+    \end{center}
+
+    \newcommand{\nm}{\widehat{\bf{n}}}
+    For a small area $dS$, the solar energy that it receives is:
+    \begin{align*}
+        &||\FF(\rr)||\cos\theta\cdot dS \\
+        =& ||\FF||\cos\theta\cdot dS\cdot ||\nm||\\
+        =& (\FF\cdot \nm) dS
+    \end{align*}
+    Thus the {\it total} solar energy on this panel is: 
+    \begin{center}
+        \boxed{$$\disp \iint_S (\FF\cdot \nm) dS$$}
+    \end{center}
+    Suppose $\FF(x,y,z)$ is a continuous vector field defined on a smooth, {\it oriented}
+    surface $S$, the integral above is called the {\bf flux} of $\FF$ across $S$.
+
+    \vspace{0.4in}
+    How to determine the {\bf orientation} of the surface $S$, or, 
+    which $\bf{n}$ should we choose?
+
+    A non-closed surface $S$(i.e., the surface {\it not close a volume}) bounded by 
+    a {\it closed smooth curve }$C$, and the {\bf positive orientation} around $C$ means 
+    the surface will always be on your {\it left}, then your head pointing in the direction of $\bf{n}$.
+    \begin{center}
+        \includegraphics[scale=0.43]{images/Ch15-oriented-surf.png}
+    \end{center}
+
+    \newpage
+    {\blue This page summarize the steps to find flux.}
+
+    {\bf (1)} Find the normal vector to the surface $S: z=f(x,y)$.
+
+    Let $G(x,y,z)=z-f(x,y)=0$ (constant), so this is a level set in 3D, hence 
+    \begin{align*}
+        {\bf n} &=\nabla G = (G_x, G_y, G_z)\\
+                &= (-f_x, -f_y, 1)\\
+        {\nm}   &= \frac{(-f_x, -f_y, 1)}{\sqrt{1+(f_x)^2+(f_y)^2}}             
+    \end{align*}
+
+    {\bf (2)} Using $ds=\sqrt{1+(f_x)^2+(f_y)^2} dA$.
+
+    \begin{align*}
+        \iint_S(\FF\cdot \nm) dS &= \iint_R (F_1,F_2,F_3)\cdot 
+                        \frac{(-f_x, -f_y, 1)}{\sqrt{1+(f_x)^2+(f_y)^2}} \cdot \sqrt{1+(f_x)^2+(f_y)^2} dA\\
+                        &= \iint_R (F_1,F_2,F_3)\cdot (-f_x, -f_y, 1) dA
+    \end{align*}
+
+    \vspace{0.4in}
+    {\blue This is an complete example of computing flux.}
+
+    \eg Find the flux of $\mathbf{F}=y^{3} \mathbf{i}+z^{2} \mathbf{j}+x \mathbf{k}$ downward through 
+    the part of the surface $z=4-x^{2}-y^{2}$ that lies above the plane $z=2 x+1$.
+    
+    \sol First we need to find the curve of intersection between 
+    $z=4-x^2-y^2$ and the plane $z=2x+1$,
+    \begin{align*}
+        4-x^2-y^2 &= 2x+1\\
+        x^2+2x+1+y^2 &= 4\\
+        (x+1)^2+y^2 &= 2^2
+    \end{align*}
+
+    Next, find the normal to the surface $S$, let $G(x,y,z)=4-x^2-y^2-z=0$ (constant),
+    this is a level set in 3D, hence 
+    \begin{align*}
+        {\bf n} &= \nabla G =(G_x, G_y, G_z) =(-2x, -2y, -1)\\
+        {\nm } &= \frac{(-2x, -2y, -1)}{\sqrt{1+4x^2+4y^2}}
+    \end{align*}
+
+    Then, using $ds=\sqrt{1+(f_x)^2+(f_y)^2} dA=\sqrt{1+4x^2+4y^2} dA$
+    \begin{align*}
+        \iint_S(\FF\cdot \nm) dS &= \iint_R \left(y^3, (4-x^2-y^2)^2, x\right)
+            \cdot \frac{(-2x, -2y, -1)}{\sqrt{1+4x^2+4y^2}}\cdot \sqrt{1+4x^2+4y^2} dA\\
+            &= -\iint_R \left(2xy^3+2y(4-x^2-y^2)^2-x\right) dA
+            = -\iint_R x dA
+    \end{align*}
+    Notice the last step is because both $2xy^3$ and $2y(4-x^2-y^2)^2$ is {\it odd} in $y$,
+    and the region $R$, $(x+1)^2+y^2 = 2^2$, is symmetric in $y$, hence the two items 
+    equals to 0, after integration.
+
+    However, it is still difficult to find $\disp \iint_R x dA$ directly, since the 
+    area is not good, as you can see below. Then we consider using {\it substitution},
+    or {\it Jacobian}, to transform it, into a circle centered at origin.
+    \begin{center}
+        \includegraphics[scale=0.4]{images/Ch15-ex6.2.png}
+    \end{center}
+    Let $u=x+1, v=y$, then
+    $${\bf J}=\frac{\pt (x,y)}{\pt (u,v)}=
+    \left|\begin{array}{cc}
+        \dfrac{\pt x}{\pt u} & \dfrac{\pt x}{\pt v}\\
+        \dfrac{\pt y}{\pt u} & \dfrac{\pt y}{\pt v}
+    \end{array} \right|=\left|\begin{array}{cc}
+        1 & 0 \\ 0 & 1
+    \end{array} \right| = 1$$
+    $$-\iint_R x dA_{xy}=-\iint_{R_{uv}} (u-1) {\bf J} dA_{uv}=
+    -\iint_{R_{uv}}u dA_{uv} + \iint_{R_{uv}}dA_{uv}= 0+
+    \iint_{R_{uv}}dA_{uv}=4\pi$$
+
+    \vspace{\fill}
+    \begin{center}
+        {\it This is the end of Chapter 15.}
+    \end{center}
 
 \end{spacing}
 \end{document}

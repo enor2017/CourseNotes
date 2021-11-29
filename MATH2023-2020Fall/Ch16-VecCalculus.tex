@@ -47,12 +47,7 @@
     \section{Green's Theorem}
     \subsection{Green's Theorem in Line Integral}
 
-    {\blue Recall what we have talked about in line integral: 
-    \begin{enumerate}
-        \item Arc length, 
-        \item Mass:
-    \end{enumerate}
-    }
+    {\blue In this part, we will go back to {\bf line integral}, which we have done a lot.}
 
     Now consider doing line integral in a smooth simple {\bf closed curve} $C$ in the $xy$-plane,
     if $\FF(\rr)=P(\rr)\ii+Q(\rr)\jj$, then if we want to evaluate $\disp \oint_C\FF\cdot d\rr$,
@@ -200,12 +195,142 @@
 
     \newpage
     \section{Stokes’ Theorem}
+    {\blue Recall in Green's Theorem, 
+    $$\oint_C \FF\cdot d\rr =\iint_D (\nabla\times \FF)\cdot \kk dA$$
+    where $\FF(\rr)=(F_1,F_2),\ C: \rr(t)=(x(t), y(t)),\ a\le t\le b$}
 
+    Now we want to extends this theorem into 3D space.
 
+    The {\bf Stokes' Theorem} tells that if $S$ is a {\it non-closed} surface, 
+    whose boundary consists of a closed smooth curve $C$ with {\it positive orientation,} then
+    $$\oint_C \FF\cdot d\rr =\iint_S (\nabla\times \FF)\cdot \nm \ dS$$
+    where $\FF(\rr)=(F_1,F_2, F_3),\ C: \rr(t)=\bigl(x(t), y(t), z(t)\bigr),\ a\le t\le b$,
+    and $\rr(a)=\rr(b)$ since the boundary is closed. $\nm$ is unit normal vector of surface $S$.
 
-    \vspace{\fill}
+    \vspace{0.4in}
+    However, you may have noticed that the theorem doesn't tell how to find $S$. When we evaluate a 
+    line integral on $C$, there are lots of surfaces $S$ that can have boundary $C$. 
     \begin{center}
-        {\it This is the end of Chapter 16, and the end of this course!}
+        \includegraphics[scale=0.24]{images/Ch16-stoke-manysurfaces.JPG}
+    \end{center}
+
+    \newpage
+    {\blue This example gives a standard process for applying Stokes' Theorem and provides ideas of 
+    how to construct $S$.}
+
+    \eg Find $\disp \oint_C \FF\cdot d\rr$, where $\FF(\rr)=(y,x^2,y)$, $C:\ \rr(t)=(\cos t, \sin t, 1),
+    \ 0\le t\le 2\pi$
+
+    \sol {\bf Method 1: } directly compute line integral.
+    \begin{align*}
+        \oint_C \FF\cdot d\rr &= \int_0^{2\pi} (\sin t, \cos^2 t, \sin t)\cdot (-\sin t, \cos t,0)\ dt\\
+        &= \int_0^{2\pi} (-\sin^2 t+\cos^3 t)\ dt
+    \end{align*}
+    This is tedious.
+    
+    \vspace{0.3in}
+    {\bf Method 2:}
+    Notice $\rr(0)=\rr(2\pi)$, so this is a {\it closed curve} in 3D, we can use {\bf Stokes' Theorem}.
+    $$\oint_C \FF\cdot d\rr =\iint_S (\nabla\times \FF)\cdot \nm \ dS$$
+    {\blue But $S$ is not given, we need to find $S: z=f(x,y)$}
+
+    {\blue Idea: construct 2 surfaces whose {\it intersection} is the curve $C$}.
+
+    From $C$: $\disp \left\{\begin{array}{l}
+        x(t)=\cos t\\ y(t)=\sin t\\ z(t)=1
+    \end{array} \right.$
+    , we can construct 2 surfaces by observing the relationship among $x,y,z$, for example,
+    $$\left\{\begin{array}{l}
+        x^2+y^2=1\\ z=1
+    \end{array} \right. \qquad or \qquad 
+    \left\{\begin{array}{l}
+        x^2+y^2=1\\ z=x^2+y^2
+    \end{array} \right.$$
+    Their graphs are shown below:
+    \begin{center}
+        \includegraphics[scale=0.24]{images/Ch16-Stoke-eg.jpeg}
+    \end{center}
+    We can see that for the first equation, the surface $S$ is a circle, while for the second equation,
+    the surface $S$ is a ``rice bowl''. Either of them is ok for our calculation.
+
+    (1) Firstly, find the curl of vector field:
+    $$\nabla\times \FF=\left|\begin{array}{ccc}
+        \ii & \jj & \kk \\
+        \dfrac{\pt }{\pt x} & \dfrac{\pt}{\pt y} & \dfrac{\pt}{\pt z}\\
+        y & x^2 & y
+    \end{array} \right|=\ii+(2x-1)\kk$$
+
+    (2) Next, find normal vector to the surface,
+
+    \quad For (A), $z=f(x,y)=1$, hence $\nm = \kk$.
+
+    \quad For (B), let $G(x,y,z)=z-x^2-y^2=0$(constant), this is a level set in 3D, hence 
+    $${\bf n} =\nabla G=(-2x, -2y, 1),\ \nm =\frac{(-2x,-2y,1)}{\sqrt{1+4x^2+4y^2}}$$
+
+    (3) Then, find surface integral, and thereby calculating the result:
+
+    \quad For (A), $\disp ds=\sqrt{1+(f_x)^2+(f_y)^2} dA=dA$, therefore,
+    \begin{align*}
+        \iint_S(\nabla \times F)\cdot \nm \ dS &= \iint_R (1,0,2x-1)\cdot (0,0,1)\ dA\\
+        &=\iint_R (2x-1)\  dA\\
+        &= -\iint_R \ dA = -\pi \qquad {\blue (2x\ \textbf{is\ odd\ in\ {\it x},
+        \ and\ the\ region\ is\ symmetric\ w.r.t\ {\it y}})}
+    \end{align*}
+
+    \quad For (B), $\disp ds=\sqrt{1+(f_x)^2+(f_y)^2} dA=\sqrt{1+4x^2+4y^2}dA$, therefore,
+    \begin{align*}
+        \iint_S(\nabla \times F)\cdot \nm \ dS 
+        &= \iint_R (1,0,2x-1)\cdot \frac{(-2x,-2y,1)}{\sqrt{1+4x^2+4y^2}}\cdot \sqrt{1+4x^2+4y^2}dA\\
+        &=\iint_R (-2x+2x-1)\  dA\\
+        &= -\iint_R \ dA = -\pi
+    \end{align*}
+
+
+    \newpage
+    \eg Evaluate $\disp \int_{C}(y+\sin x) d x+\left(z^{2}+\cos y\right) d y+x^{3} d z$, 
+    where $C:\ \mathbf{r}(t)=(\sin t, \cos t, \sin 2 t), \quad 0 \leqslant t \leqslant 2 \pi$
+    
+    \sol Note that $C$ is a {\bf closed space curve}, we can view it as circular integration on vector field:
+    $$\oint_C (y+\sin x)dx+(z^2+\cos y)dy+x^3 dz=\oint_C \FF\cdot d\rr$$
+    where $\FF(x,y,z)=(y+\sin x, z^2+\cos y, x^3)$
+
+    {\bf Step 1:} Find curl of vector field: $\nabla \times \mathbf{F}=\left(-2 z,-3 x^{2},-1\right)$
+    
+    {\bf Step 2:} To apply Stokes' Theorem, we need to find a surface $S$,
+
+    From $C$: $\disp \left\{\begin{array}{l}
+        x(t)=\sin t\\ y(t)=\cos t\\ z(t)=\sin 2t=2\sin t\cos t
+    \end{array} \right. \Rightarrow  
+    \left\{\begin{array}{l}
+        x^2+y^2=1\\ z=1
+    \end{array} \right.$
+    
+    So $C$ can be viewed as the intersection of two surfaces $x^2+y^2=1$ and $z=2xy=f(x,y)$,
+    and $z=2xy$ is the $S$ we need, while $R:\ x^2+y^2=1$ is the the projection of $S$
+    onto $xy$-plane, which we will need in surface integral.
+    \begin{center}
+        \includegraphics[scale=0.1]{images/Ch16-ex4.5.JPG}
+    \end{center}
+
+    {\bf Step 3:} find the normal to $S$:
+    
+    $f(x, y, z)=z-2 x y=0$(constant) is a level set in 3D, so 
+    $$\mathbf{n}=\nabla f=(-2 y,-2 x, 1),\qquad \nm=\frac{(-2 y,-2 x, 1)}{\sqrt{1+4y^2+4x^2}}$$
+    
+    {\bf Step 4:} find surface integral:
+    $dS=\sqrt{1+(f_x)^2+(f_y)^2}\ dA=\sqrt{1+4y^2+4x^2}\ dA$
+    Therefore,
+    $$\begin{aligned}
+    \oint_{C} \mathbf{F} \cdot d \mathbf{r} &=\iint_{S} \nabla \times \mathbf{F} \cdot \widehat{\mathbf{n}} d S \\
+    &=\iint_{R}\left(-4 x y,-3 x^{2},-1\right) \cdot \frac{(-2 y,-2 x, 1)}{\sqrt{1+4y^2+4x^2}} \cdot \sqrt{1+4y^2+4x^2}\ dA \\
+    &=\iint_{R}\left(8 x y^{2}+6 x^{3}-1\right) d A \\
+    &=-\iint_R dA = -\pi\qquad {\blue (same\ trick\ again)}
+    \end{aligned}$$
+
+    \newpage
+    \vspace*{\fill}
+    \begin{center}
+        {\it \large This is the end of Chapter 16, and the end of this course!}
     \end{center}
 
     

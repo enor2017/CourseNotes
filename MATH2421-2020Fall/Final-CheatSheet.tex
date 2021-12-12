@@ -243,15 +243,14 @@
 
     {\bf conditional variance: }
     $\var(X|Y)=\E\bigl[(X-\E[X|Y])^2|Y\bigr],\ \ 
-    \var(X)=\E[\var(X|Y)]+\var(\E[X|Y])$
+    \var(X)=\E[\var(X|Y)]+\var(\E[X|Y])\\
+    \var(Y|X)=\E(Y^2|X)-\E(Y|X)^2$
 
     \vspace{0.3in}
     {\bf Moment Generating Function: }
     $\disp M_X(t)=\E[e^{tX}]=\sum_{X} e^{tx}p_X(x)=\int_{-\infty}^{\infty} e^{tx}f_X(x)dx,\ 
     \E(X^n)=M_X^{(n)}(0)$\\
     If $X,Y$ are independent, $M_{X+Y}(t)=M_X(t)M_Y(t)$
-
-    {\bf }
 
     {\bf MGF for dist.: }
     $\disp X\sim {\rm Be}(p),\ M(t)=1-p+pe^t,\ \ X\sim {\rm Bin}(n,p), M(t)=(1-p+pe^t)^n\\
@@ -260,6 +259,11 @@
     X\sim U(\alpha, \beta), M(t)=\frac{e^{\beta t}-e^{\alpha t}}{(\beta-\alpha)t},\ \ 
     X\sim {\rm Exp}(\lambda), M(t)=\frac{\lambda}{\lambda - t}$ for $t<\lambda,\ \ 
     X\sim N(\mu, \sigma^2), M(t)=e^{\mu t+\frac{\sigma^2t^2}{2}}$
+
+    {\bf Common Integrations:} 
+    $\disp \int xe^{ax}\ dx=\frac{1}{a^2}(ax-1)e^{ax}+C,\  
+    \int x^n e^{ax}\ dx=\frac{1}{a}x^n e^{ax}-\frac{n}{a}\int x^{n-1} e^{ax}\ dx$
+    
 
 
 \end{spacing}

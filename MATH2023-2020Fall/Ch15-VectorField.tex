@@ -320,7 +320,7 @@
 
     \sol
     \begin{align*}
-        {\vec{\omega}} &= \nabla \times \FF = \left|\begin{array}{ccc}
+        {\curl \FF} &= \nabla \times \FF = \left|\begin{array}{ccc}
             \ii & \jj & \kk \\ \dfrac{\partial}{\partial x} & \dfrac{\partial}{\partial y} & \dfrac{\partial}{\partial z} \\
             \dfrac{y}{\sqrt{x^2+y^2}} & \dfrac{-x}{\sqrt{x^2+y^2}} & 0
         \end{array} \right|\\
@@ -373,7 +373,33 @@
     (g) $\nabla \times(\nabla \times \mathbf{F})=\nabla(\nabla \cdot \mathbf{F})-\nabla^{2} \mathbf{F}$
 
     \vspace{0.2in}
-    {\bf [Proof.]} {\blue to be added.}
+    {\bf [Proof.]} {\blue The basic idea is just calculate, there is no shortcuts.}
+
+    (e) $$\nabla \times \FF = \left|\begin{array}{ccc}
+        \ii & \jj & \kk \\
+        \dfrac{\pt }{\pt x} & \dfrac{\pt }{\pt y} & \dfrac{\pt }{\pt z}\\
+        \FF_1 & \FF_2 & \FF_3
+    \end{array} \right| 
+    = \left(\frac{\pt \FF_3}{\pt y}-\frac{\pt \FF_2}{\pt z}\right) \ii -
+    \left(\frac{\pt \FF_3}{\pt x}-\frac{\pt \FF_1}{\pt z}\right) \jj + 
+    \left(\frac{\pt \FF_2}{\pt x}-\frac{\pt \FF_1}{\pt y}\right) \kk $$
+
+    $$\nabla\cdot (\nabla\times \FF)=
+    \frac{\pt^2 \FF_3}{\pt x\pt y}-\frac{\pt^2 \FF_2}{\pt x\pt z}-\frac{\pt^2 \FF_3}{\pt y \pt x}
+    +\frac{\pt^2 \FF_1}{\pt y\pt z}+\frac{\pt^2 \FF_2}{\pt z\pt x}-\frac{\pt^2 \FF_1}{\pt z \pt y}=0$$
+
+    (f) $\disp \nabla \phi=\left(\frac{\pt \phi}{\pt x},\frac{\pt \phi}{\pt y},\frac{\pt \phi}{\pt z}\right)$
+    $$\nabla \times (\nabla \phi)=\left|\begin{array}{ccc}
+        \ii & \jj & \kk \\
+        \dfrac{\pt }{\pt x} & \dfrac{\pt }{\pt y} & \dfrac{\pt }{\pt z}\\
+        \dfrac{\pt \phi}{\pt x} & \dfrac{\pt \phi}{\pt y} & \dfrac{\pt \phi}{\pt z}
+    \end{array} \right|
+    =\left(\frac{\pt^2 \phi}{\pt y \pt z}-\frac{\pt^2 \phi}{\pt z \pt y}\right)\ii -
+    \left(\frac{\pt^2 \phi}{\pt x \pt z}-\frac{\pt^2 \phi}{\pt z \pt x}\right)\jj +
+    \left(\frac{\pt^2 \phi}{\pt x \pt y}-\frac{\pt^2 \phi}{\pt y \pt x}\right)\kk
+    ={\bf 0}$$
+
+    {\blue Others: to be added.}
 
 
 
@@ -381,7 +407,9 @@
     \section{Line Integral}
     {\bf Motivation:} given a rope(parametrized space curve) $\rr(t), a\le t\le b$, if the density at 
     point $(x,y,z)$ is given by function $\rho =f(x,y,z)$, we want to find the mass of this rope.
-    $$\int_a^b f(x,y,z)\ ds=\int_C f(x,y,z)\ ds$$
+    \begin{center}
+        \boxed{$$\disp \int_a^b f(x,y,z)\ ds=\int_C f(x,y,z)\ ds$$}
+    \end{center}
 
     Recall when we computing arc length in Chapter 11, we knew that: 
     $$ds=||\rr'(t)|| dt$$
@@ -397,10 +425,9 @@
     \eg Find $\disp \int_{C} x y^{4} d s, C$ is the right half of the circle $x^{2}+y^{2}=16$.
 
     \sol In order to do this integral, we need the parametric form of the path $C$.
-    Let $x=4\cos t, t=4\sin t$, the right half of the circle means $t \in[-\pi / 2, \pi / 2]$.
+    Let $x=4\cos t, y=4\sin t$, the right half of the circle means $t \in[-\pi / 2, \pi / 2]$.
 
     Hence the parametric equation of the curve $C$ is
-    4
     $\mathbf{r}(t)=4 \cos t \mathbf{i}+4 \sin t \mathbf{j}$ with $t \in[-\pi / 2, \pi / 2]$, then
     $$\mathbf{r}^{\prime}(t)=-4 \sin t \mathbf{i}+4 \cos t \mathbf{j} \quad \text { and } \quad\left\|\mathbf{r}^{\prime}(t)\right\|=4$$
 
@@ -636,7 +663,7 @@
     \text { and } \quad h(\mathbf{r})=\frac{\partial \phi}{\partial z}$$
 
     In that case, we say $\mathbf{F}(\mathbf{r})$ is a {\bf conservative field} and $\phi$ is a 
-    {\it (scaler) potential function} of $\FF$ on $S$.
+    {\it (scalar) potential function} of $\FF$ on $S$.
     
     Then
     $$\begin{aligned}
@@ -745,7 +772,7 @@
     \newpage
     {\blue This example shows $\curl \FF={\bf 0}$ is not sufficient for $\FF$ to be conservative.}
 
-    \eg Let $\disp \mathbf{F}(x, y)=\frac{-y \mathbf{i}+x \mathbf{j}}{x^{2}+y^{2}}=f(x, y) \mathbf{i}+g(x, y) \mathbf{j}$ (see also Ex. 1.2).
+    \eg Let $\disp \mathbf{F}(x, y)=\frac{-y \mathbf{i}+x \mathbf{j}}{x^{2}+y^{2}}=f(x, y) \mathbf{i}+g(x, y) \mathbf{j}$.
     
     (a) Show that $\disp \frac{\partial f}{\partial y}=\frac{\partial g}{\partial x}$.
 
@@ -774,7 +801,7 @@
     {\blue In summary, to find a line integral, you have following methods:}
     \begin{enumerate}
         \item Carry out the integration directly: 
-        $$\int_C \FF\cdot d\rr=\int_z^b g(t) dt\cdots$$
+        $$\int_C \FF\cdot d\rr=\int_a^b g(t) dt\cdots$$
         \item If $\nabla \times \FF \ne {\bf 0}$, nothing you can do, except for 
         carrying the integration as above.
         \item If $\nabla \times \FF = {\bf 0}$, there are two simpler ways:

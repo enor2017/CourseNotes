@@ -14,6 +14,7 @@
 \usetikzlibrary{matrix}
 \usepackage[normalem]{ulem}
 \usepackage{multirow}
+\usepackage{esint}      % \varoiint
 \usepackage[linesnumbered, ruled, boxed]{algorithm2e}
 \SetKwRepeat{Do}{do}{while}
 \newcommand{\eg}{\textbf{[Example.] }}
@@ -37,9 +38,35 @@
 
     \section{The Divergence Theorem}
 
+    Let $G$ be a simple solid whose boundary surface $S$ has {\it positive (outward)} orientation.
+    When we find the {\bf flux} of $S$ in a {\it smooth} vector field
+    $\FF(x,y,z)=f(x,y,z)\ii + g(x,y,z)\jj +h(x,y,z)\kk$, 
+    the {\bf Divergence Theorem} gives:
+    \begin{center}
+        \boxed{$$\disp \varoiint_S  \FF\cdot \nm\ dS=\iiint_G \nabla\cdot \FF\ dV$$}
+    \end{center}
+    where $\nm$ is a unit normal vector pointing out of $G$.
 
-    \vspace{0.3in}
+    In other words, {\it the total divergence within $G$ equals the net flux emerging from $G$.}
+
+    \vspace{0.5in}
+    Moreover, if the volume is very small, we can assume $\nabla\cdot \FF$ is {\it constant} within 
+    the small volume, thus 
+    \begin{align*}
+        \varoiint_{\delta S}\FF\cdot \nm \ dS &= \nabla \cdot \FF \iiint_{G}\ dV \\
+        &= \nabla\cdot \FF \cdot \delta V
+    \end{align*}
+    Therefore, $$\nabla\cdot \FF =\lim_{\delta V\rightarrow 0} \frac{1}{\delta V}
+    \varoiint_{\delta S} \FF\cdot \nm \ dS$$
+
+    This is the definition of divergence given in lecture note Chapter 15.
+
+    \vspace{0.7in}
     {\it Since exam will not cover the proof, I'd like to omit here.}
+
+
+    \newpage
+    {\blue This example shows how Divergence Theorem simplifies the computation of flux.}
 
 
 

@@ -1,0 +1,53 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\babel@toc {english}{}
+\defcounter {refsection}{0}\relax 
+\contentsline {part}{\@mypartnumtocformat {I}{Foundations}}{5}{part.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {1}Asymptotic}{7}{chapter.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.1}Algorithm}{7}{section.1.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.2}Time Complexity}{7}{section.1.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {2}Divide and Conquer}{11}{chapter.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.1}Intro: Binary Search}{11}{section.2.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.2}Example: Towers of Hanoi}{14}{section.2.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.3}Merge Sort}{16}{section.2.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.4}Inversion Numbers}{20}{section.2.4}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.5}The Maximum Subarray Problem}{24}{section.2.5}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.5.1}brute force algorithm}{24}{subsection.2.5.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.5.2}prefix sum}{24}{subsection.2.5.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.5.3}divide and conquer}{25}{subsection.2.5.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.5.4}linear time?}{27}{subsection.2.5.4}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.5.5}dynamic programming}{29}{subsection.2.5.5}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.6}The Master Theorem}{30}{section.2.6}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.6.1}Theorem and its proof}{30}{subsection.2.6.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.6.2}equalities, inequalities and more}{31}{subsection.2.6.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.7}Integer Multiplication}{32}{section.2.7}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.7.1}divide and conquer: first attempt}{32}{subsection.2.7.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.7.2}Karatsuba's method}{33}{subsection.2.7.2}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.7.3}So far...}{33}{subsection.2.7.3}%
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.8}Matrix Multiplication}{34}{section.2.8}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.8.1}divide and conquer?}{34}{subsection.2.8.1}%
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.8.2}Strassen's method}{34}{subsection.2.8.2}%
+\contentsfinish 

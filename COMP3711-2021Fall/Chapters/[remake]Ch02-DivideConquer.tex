@@ -1,5 +1,5 @@
 
-\begin{spacing}{1.5}
+\begin{spacing}{1.3}
     
     \section{Intro: Binary Search}
 
@@ -659,7 +659,6 @@
     we will have already iterated all possible indices $i$ and 
     stored the max sum in $maxSum$.
     
-    \newpage
     \begin{algorithm}[H]
         \setstretch{1}
         \caption{Max-Subarray-Divide-Conquer($A$, $l$, $r$)}
@@ -746,7 +745,9 @@
     before, since each time we only use $S[j]$, we only need one
     variable to record $S[j]$ and accumulate it each time.
 
+    \newpage
     \begin{algorithm}
+        \setstretch{1}
         \caption{Max-Subarray-Linear2($A$)}
         \tcp{$S$ will be all prefix sum so far, i.e., $A[1]+\cdots+A[j]$}
         $maxSum \lar -\infty,\ minS\lar 0,\ S\lar 0$
@@ -794,7 +795,9 @@
     $d[i]=d[i-1]+A[i]$, since include $d[i-1]$ makes the sum 
     larger, and that is exactly what we want.
 
-    \begin{algorithm}
+    \newpage
+    \begin{algorithm}[H]
+        \setstretch{1}
         \caption{Max-Subarray-DP($A$)}
         $d[0]\lar 0$ \qquad \tcp{max sum of subarrays end with no item is 0}
 
@@ -819,7 +822,7 @@
     we only need a variable to record the previous $d$ value,
     that's enough! So we can slightly modify the algorithm as below:
 
-    \begin{algorithm}[h]
+    \begin{algorithm}[H]
         \setstretch{1}
         \caption{Max-Subarray-DP2($A$)}
         $previousD\lar 0$ 
@@ -875,7 +878,6 @@
     $$T(n)=c\cdot n^d\cdot \left[ 1+ \left(\dfrac{a}{b^d}\right)+\cdots + \left(\dfrac{a}{b^d}\right)^k\right]$$
 
     Recall the sum of geometric sequence:
-
     \begin{align*}
         \setstretch{0.7}
         1+p+p^2+\cdots +p^k=\left\{
@@ -901,6 +903,7 @@
     n^{\log _{b} a}$.
     \end{proof}
 
+    \newpage
     \subsection{equalities, inequalities and more}
 
     {\Large\color{red} to be added. (2021/09/05)}
@@ -1077,10 +1080,10 @@
     \end{align*}
     and,
     \begin{align*}
-        C_{11} &= (A_{11}\times B_{11}) + (A_{12}\times B_{21}) \\
-        C_{12} &= (A_{11}\times B_{12}) + (A_{12}\times B_{22}) \\
-        C_{21} &= (A_{21}\times B_{11}) + (A_{22}\times B_{21}) \\
-        C_{22} &= (A_{21}\times B_{12}) + (A_{22}\times B_{22}) 
+        C_{11} &= (A_{11}\times B_{11}) + (A_{12}\times B_{21}) \qquad 
+        C_{12} = (A_{11}\times B_{12}) + (A_{12}\times B_{22}) \\
+        C_{21} &= (A_{21}\times B_{11}) + (A_{22}\times B_{21}) \qquad 
+        C_{22} = (A_{21}\times B_{12}) + (A_{22}\times B_{22}) 
     \end{align*}
     This algorithm requires $T(n)=8T(n/2)+O(n^2)$, notice 
     here add matrices is $O(n^2)$. We can easily know 
@@ -1090,9 +1093,8 @@
 
     This is not easy to improve. But inspired by integer multiplication,
     Strassen managed to calculate that with only 7 multiplications:
-
     \begin{center}
-        \includegraphics[scale=0.20]{images/02-matrix-mult.jpg}
+        \includegraphics[scale=0.19]{images/02-matrix-mult.jpg}
     \end{center}
     
     And this reduce the running time down to 

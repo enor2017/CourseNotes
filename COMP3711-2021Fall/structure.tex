@@ -284,10 +284,10 @@ backgroundcolor=black!5,
 linecolor=ocre,
 innerleftmargin=5pt,
 innerrightmargin=5pt,
-innertopmargin=5pt,
+innertopmargin=20pt,
 leftmargin=0cm,
 rightmargin=0cm,
-innerbottommargin=5pt]{tBox}
+innerbottommargin=10pt]{tBox}
 
 % Exercise box	  
 \newmdenv[skipabove=7pt,
@@ -316,11 +316,11 @@ bottomline=false,
 linecolor=ocre,
 innerleftmargin=5pt,
 innerrightmargin=5pt,
-innertopmargin=0pt,
+innertopmargin=18pt,
 leftmargin=0cm,
 rightmargin=0cm,
 linewidth=4pt,
-innerbottommargin=0pt]{dBox}	
+innerbottommargin=10pt]{dBox}	
 
 % Corollary box
 \newmdenv[skipabove=7pt,
@@ -352,7 +352,7 @@ innerbottommargin=5pt]{cBox}
 
 \newenvironment{remark}{\par\vspace{10pt}\small % Vertical white space above the remark and smaller font size
 \begin{list}{}{
-\leftmargin=35pt % Indentation on the left
+\leftmargin=25pt % Indentation on the left
 \rightmargin=25pt}\item\ignorespaces % Indentation on the right
 \makebox[-2.5pt]{\begin{tikzpicture}[overlay]
 \node[draw=ocre!60,line width=1pt,circle,fill=ocre!25,font=\sffamily\bfseries,inner sep=2pt,outer sep=0pt] at (-15pt,0pt){\textcolor{ocre}{R}};\end{tikzpicture}} % Orange R in a circle

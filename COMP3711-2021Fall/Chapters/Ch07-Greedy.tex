@@ -255,11 +255,115 @@
     (Before we prove this is optimal, you should convince yourself that sorting by 
     finish time does not yield optimal.)
 
-    
+    Firstly, we define ``depth'' of a set of lectures(or generally, a set of open intervals).
+
+    \begin{definition}
+        The {\bf depth} of a set of open intervals is the maximum number that 
+        exist at any instant of time.
+    \end{definition}
+    Intuitively, at each second of the day, you record how many {\it simultaneous classes}
+    are being taught at that second, and the ``depth'' is the max number of all 
+    those numbers you have recorded.
+
+    Unsurprisingly, the minimum number of classrooms required must be $\ge $ depth.
+    For example, back to our example at the beginning, the {\bf depth of the lectures} 
+    is 3, so we expect we should at least use 3 classrooms. Well, interestingly, 
+    the schedule we give below uses just 3 classrooms. Thus, we are sure that this schedule
+    is optimal.
+    \begin{center}
+        \includegraphics[scale=0.5]{images/07-interval-part-demo.png}
+    \end{center}
+
+    Now, to prove our greedy algorithm is optimal, we only need to show 
+    the \# classrooms used by our greedy algorithm {\it equals to} ``depth''.
+
+    \begin{theorem}
+        The number of classrooms used by greedy, say $d$, is no more than 
+        the {\bf depth} of the set of lectures, i.e., $${\rm depth} \ge d$$
+    \end{theorem}
+
+    \begin{proof}
+        Let $d$ be the number of classrooms used by greedy.
+        \begin{itemize}
+            \item Classroom $d$ is opened because we need to schedule a lecture $j$, 
+            while $j$ is incompatible with all $d-1$ other classrooms.
+            \item Since we sorted by start time, all these incompatibilities are caused 
+            by lectures that are {\it start no later than $s_j$}, and 
+            {\it finish later than $s_j$}.
+            \item Thus, there $\exists \epsilon > 0$, where at time $s_j+\epsilon$,
+            all $d$ lectures(the $d-1$ incompatible ones and lecture $j$) are overlapping. 
+            \item Therefore, there are at least $d$ lectures at time $s_j+\epsilon$
+            \item $\Rightarrow $ depth $\ge d$ 
+        \end{itemize}
+        Since the number of classrooms used by greedy, $d$, is $\le $ depth,
+        our greedy is optimal.
+    \end{proof}
+
+    Now back to our algorithm, let's analyze its running time. (see codes below)
+
+    \begin{algorithm*}[htbp]
+        \caption{Interval-Partition($(s_1,f_1)\cdots (s_n, f_n)$)}
+        Sort intervals by starting time so that $s_1\le s_2\le \cdots \le s_n$
+
+        $d\lar 0$\quad \tcp{$d$ records \# of classrooms used so far}
+
+        \For{$j\lar 1$ to $n$}{
+            \eIf{lecture $j$ is compatible with some classroom $k$ \qquad (*)}{
+                schedule lecture $j$ in classroom $k$ \qquad (**)
+            }{
+                allocate a new classroom numbered $d+1$
+
+                schedule lecture $j$ in classroom $d+1$ \qquad (***)
+
+                $d\lar d+1$
+            }
+        }
+        return $d$
+    \end{algorithm*}
+
+    To achieve line (*), we need to maintain for each classroom, the finishing time 
+    of the last lecture placed in that classroom. So at line (*), we compare 
+    $s_j$ with those finishing times. If $s_j\ge $ any one of those finishing time,
+    we can schedule lecture $j$ into that classroom.
+
+    Therefore, line (*) uses $O(n)$ time to check, this algorithm runs in $O(n^2)$ time.
+
+    However, it is possible to improve it. Consider if the finishing time of 
+    classrooms are
+    $$[3, 5, 6, 4, 9],$$
+    and now we have a lecture $j$ such that $s_j=2$. Notice that since $s_j$ is 
+    incompatible with the first classroom, which ends at 3, then we don't bother 
+    to check all remaining ones! 3 is the {\it earliest finishing time} among all 
+    classrooms, if $j$ is not compatible with that one, it cannot be compatible
+    with any other classrooms. On the contrary, if we have a lecture $k$ such that 
+    $s_k=3$, then we also only need to check the first classroom, which ends at 3, 
+    and they are compatible! And we still need to check others.
+
+    Hence, we could maintain the classrooms in a {\bf min priority queue}, 
+    using the finishing time of the last class in that room as the key value.
+    To implement (*), we do {\bf extract-min} to get the {\it earliest finishing
+    time} among all classrooms $f_{min}$, and check whether $f_{min}\le s_j$.
+    If $f_{min}> s_j$, we need a new classroom.
+
+    For line (**), we just need to add the new finishing time $f_j$ to 
+    priority queue.
+
+    For line (***), we {\it re-insert} $f_{min}$ back to priority queue,
+    (since we extracted it before) AND 
+    insert the new finishing time $f_j$ into priority queue.
+
+    Under this implementation, all (*), (**), and (***) lines are $O(\log n)$
+    jobs, so the algorithm runs in $O(n\log n)$ time.
 
 
 
     \section{Huffman Coding}
+
+
+
+
+
+    
 
 
 

@@ -1,0 +1,247 @@
+\begin{spacing}{1.3}
+    \section{What is an Algorithm?}
+    \begin{definition}
+        An {\bf algorithm} is a recipe for doing something.
+        An {\bf algorithm} is an explicit, precise, unambiguous, mechanically-executable 
+        sequence of elementary instructions.
+    \end{definition}
+
+    Let's look at the algorithm that adding two numbers, which you use every day.
+
+    {\bf Input:} Two numbers $x$ and $y$, each consisting of $n$ digits: 
+    $x=\overline{x_nx_{n-1}\cdots x_1}, y=\overline{y_ny_{n-1}\cdots y_1}$.
+    They maybe very long.
+
+    {\bf Output}: A number $z=\overline{z_{n+1}z_n\cdots z_1}$ such that $z=x+y$.
+
+    The pseudocode is given below:
+    \begin{algorithm*}[htbp]
+        \caption{Add-Two-Numbers($x, y$)}
+        $c\lar 0$ \qquad \tcp{$c$ is carry-in}
+
+        \For{$i\lar 1$ to $n$}{
+            $z_i\lar x_i+y_i+c$
+
+            \eIf{$z_i\ge 10$}{
+                $c\lar 1,\ z_i\lar z_i-10$
+            }{
+                $c\lar 0$
+            }
+        }
+        $z_{n+1}\lar c$
+    \end{algorithm*}
+
+
+    \vspace{0.3in}
+    \section{Insertion Sort}
+
+    {\bf Problem:} Given an array $A[1\cdots n]$ of elements, sort 
+    the array in ascending order.
+
+    Well, to design an algorithm, what I typically do is to think how we will 
+    solve this problem by hand. Consider when you play poker, you already 
+    have a hand of sorted cards, and when you get a new card, you {\it choose 
+    a proper position to insert it}. For example, you currently have cards:
+    $$[1,3,4,5,9]$$
+    and then you get a new card 7, you scan over the cards, and find out 
+    that you should insert 7 between 5 and 9. This is basically how we 
+    do in insertion sort algorithm.
+
+    Let's do a more completed demo. At the beginning, you have an array
+    $$[5,1,8,3]$$
+    At step 1, you get 5, since you have no number before, 5 itself is already sorted,
+    so now in your hand, you have $$[5]$$
+
+    At step 2, you get 1, and you find out 1 should be inserted before 5, since $1<5$.
+    Now in your hand, you have $$[1,5]$$
+
+    At step 3, you get 8, and you find out 8 should be inserted after 5, so now in your hand,
+    $$[1, 5, 8]$$
+
+    At step 4, you get 3, it should be inserted between 1 and 5, so now in your hand, 
+    $$[1,3,5,8]$$
+
+    This is not difficult right? However, to translate it into a formal algorithm, 
+    we need to figure out two things:
+    \begin{itemize}
+        \item How should we find the position to insert a number, and
+        \item How should we actually ``insert'' the number into the array?
+    \end{itemize}
+
+    For the first point, when we get a new number $x$, we can scan the numbers we already had, 
+    from right to left, until we meet a number $y$ such that $y\le x$, then 
+    we know we should insert $x$ after $y$.
+
+    For the second point, since this is an array, the only thing we can do is to 
+    ``move all items one position afterwards'', and then put the new number into the vacant position.
+    For example, insert $3$ into $[1,5,8]$, we first move 5 and 8 backwards, say 
+    $$[1, \_, 5, 8]$$
+    then, put 3 inside, $$[1,3,5,8]$$
+    Alternatively, we can continuously swap from right to left, until $y\le x$ is met. 
+    Notice that this method is preferred, since we combine the process of ``finding 
+    insertion position'' and ``insert number into array'' into one!
+    As an example, insert 3 into $[1,5,8]$, we first append 3 at last,
+    $$[1,5,8,3]$$
+    since $8>3$, we swap 8 with 3, $$[1,5,3,8]$$,
+    since $5>3$, we swap 5 with 3, $$[1,3,5,8]$$,
+    since $1<3$, now 3 is at the correct position, no further swap is required.
+
+    Up to now, you should have known the basic idea as well as some different implementations 
+    of Insertion Sort algorithm. To describe it using the last method with pseudocode,
+    
+    \begin{algorithm*}[htbp]
+        \caption{Insertion-Sort($A$)}
+
+        \tcp{don't need to sort first item, so we proceed with second item, here $i$ points to 
+        the new item we get}
+
+        \For{$i\lar 2$ to $n$}{
+            $j\lar i-1$ \qquad \tcp{$j$ points to right most item}
+
+            \tcp{As long as $A[j]>A[j+1]$, we continuously swap $j$ and $j+1$}
+            \While{$j>1$ and $A[j]>A[j+1]$}{
+                swap $A[j]$ and $A[j+1]$
+
+                $j\lar j-1$\qquad \tcp{continue to move left, $j$ decreases}
+            }
+        }
+    \end{algorithm*}
+
+    After designing an algorithm, we need to prove its correctness, which, in this example,
+    is to prove this algorithm can actually sort items in ascending order.
+    The correctness of this algorithm is hopefully, obvious, and you may find a 
+    very brief proof on lecture slide, you can also prove it by induction.
+
+    Apart from correctness, we also need to examine its performance.
+    Usually, we care about its {\bf time complexity} and {\bf space complexity},
+    you can think of them as, respectively, how long will the algorithm take 
+    for a certain amount of input, and how much space/memory will the algorithm occupy
+    during execution. We will formally introduce them in next topic.
+
+    For now, (and actually most time in this course), we only examine the running time, i.e., 
+    {\bf time complexity} of Insertion Sort. Hopefully, it is not surprising that 
+    {\it line 3} above is the dominant part of running time, since it resides in the 
+    most inner part of the two loops. Thus, we can simply calculate how many times 
+    will line 3 be executed, and use it to serve as the running time of this algorithm.
+
+    Let's have a look at line 3, the ``while'' loop will repeat as long as 
+    $j\ge 1$ and $A[j]>A[j+1]$, i.e., as long as the current number is smaller than 
+    the left number, we will swap them, and continue to check next one.
+    So the extreme case is if the current number, $A[j]$, is the {\it smallest} among 
+    all previous numbers, $A[1\cdots j-1]$, then we will perform $j-1$ swaps.
+    Therefore, this line will run at most
+    $$\sum_{i=2}^{n}(i-1)=\frac{n(n-1)}{2}$$
+    times. This immediately follows that {\bf in the worst case, the running time of 
+    Insertion Sort is $\dfrac{n(n-1)}{2}$.}
+
+    However, that's the worst case, how about other cases? Let's now assume the opposite 
+    to what we assumed just now, that is, if the current number, $A[j]$, 
+    is the {\it largest} among all previous numbers, $A[1\cdots j-1]$, then we will not 
+    perform any swaps, so line 3 only run $(n-1)$ times.(every time we do a checking 
+    and quit the while loop immediately)
+
+    From above analysis, we can observe that in different cases, i.e., when the data vary,
+    the running time of an algorithm also varies. We will come back to this point 
+    in next topic. One thing worths mentioning is that in our worst case above, 
+    we assume the current item is the smallest one, so the input data is 
+    ``{\it reversely sorted}''; will in our best case above, we assume the current one is 
+    largest, so the input data is {\it already sorted}.
+    
+
+
+
+
+    \vspace{0.3in}
+    \section{About pseudocode}
+
+    In this course, we use pseudocode to explicitly describe algorithms.
+    There are lots of reasons for this. On one hand, real codes, such as 
+    Java, C++ programs, are too hard to read and implement. For example,
+    ``sort $n$ intervals according to their start time'' is not easy to 
+    implement in most programming languages, but in pseudocode, we can 
+    just write like this without any ambiguity. On the other side, 
+    if we use natural languages, they are, usually, not descriptive enough,
+    or they may be quite ambiguous sometimes.
+
+    Pseudocode codes have different styles, and in this course, we normally 
+    follow the below rules:
+    \begin{itemize}
+        \item {\bf Use standard keywords}: if/then/else, for, while, return, repeat/until 
+        \item {\bf Use standard notations}: 
+            \begin{itemize}
+                \item Use ``$variable \lar value$'' to assign value to a variable,
+                \item Use ``$variable = value$'' as an ``assertion'', which is a true-of-false 
+                statement to check if they are equal
+                \item Use ``$Array[index]$'' to represent arrays, 
+                \item Use ``$function(arguments)$'' to represents functions, $\cdots$
+            \end{itemize}
+        \item {\bf Make clear indentations}: If you know Python, you know how to do it
+        \item {\bf Use mathematical notations}:
+            \begin{itemize}
+                \item Use ``$i\lar i+1$'' instead of $i=i+1$, or $i++$
+                \item Use ``$x\cdot y, x\ {\rm mod}\ y$'' instead of $x*y, x\% y$
+                \item Use ``$\sqrt{x}, a^b$'' instead of sqrt($x$), power($a,b$)
+                \item Use ``$\lfloor n/2 \rfloor$'' instead of $n/2$: we don't have implicit truncation
+                \item Use ``remove first item from list'' instead of List.removeFirst()
+            \end{itemize}
+        \item {\bf Hide unnecessary data structures/sub-routines, make them becomes ``black-box''}:
+            \begin{itemize}
+                \item Directly say ``use Insertion Sort to sort array $A[1\cdots n]$'', instead of 
+                re-write whole procedure of Insertion Sort.
+                \item Directly say ``create a heap'', instead of re-describe how to construct 
+                and implement a heap
+                \item Directly say ``$x=$ the maximum element in $A$'' or 
+                $\disp M=\max_{1\le i\le n} A[i]$ instead of writing a loop to find.
+                (But notice this takes $O(n)$ time, not $O(1)$)
+            \end{itemize}
+    \end{itemize}
+
+    In order to write pseudocode for this course, I found it handy to type it in \LaTeX,
+    as an example, the code below 
+
+    \begin{minted}[linenos, autogobble]{tex}
+        \begin{algorithm*}[htbp]
+            \caption{Example-Pseudocode($A[1\cdots n]$)}
+
+            \tcp{This is a comment.}
+
+            $result \leftarrow 0$
+
+            \For{$i\leftarrow 1$ to $n$}{
+                \eIf{$i=1$}{
+                    $result \leftarrow result + 1$
+                }{
+                    $result \leftarrow result + i$
+                }
+                \If{$result > 1000$}{
+                    break
+                }
+            }
+            return $result$
+        \end{algorithm*}
+    \end{minted}
+
+    will be rendered as: 
+    \begin{algorithm*}[htbp]
+        \caption{Example-Pseudocode($A[1\cdots n]$)}
+
+        \tcp{This is a comment.}
+
+        $result \leftarrow 0$
+
+        \For{$i\leftarrow 1$ to $n$}{
+            \eIf{$i=1$}{
+                $result \leftarrow result + 1$
+            }{
+                $result \leftarrow result + i$
+            }
+            \If{$result > 1000$}{
+                break
+            }
+        }
+        return $result$
+    \end{algorithm*}
+    
+    I believe the syntax is relatively easy to understand.
+
+\end{spacing}

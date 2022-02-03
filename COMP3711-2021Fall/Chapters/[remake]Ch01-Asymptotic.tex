@@ -27,26 +27,26 @@
     as a function of input size: $T(n)$.
 
     There are three commonly-used asymptotic notations:
-    \begin{itemize}
-        \item {\bf Upper bounds:} $T(n)=O(f(n))$, if
-        $\exists c>0, n_0\ge 0$ such that 
-        $\forall n\ge n_0, T(n)\le c\cdot f(n)$.
-        \item {\bf Lower bounds:} $T(n)=\Omega(f(n))$, 
-        if $f(n)=O(T(n))$.
-        \item {\bf Tight bounds:} $T(n)=\Theta(f(n))$,
-        if both $T(n)=O(f(n))$ and $T(n)=\Omega (f(n))$.
-    \end{itemize}
-    % \begin{definition}[Upper bounds]
-    %     $T(n)=O(f(n))$, if
-    %         $\exists c>0, n_0\ge 0$ such that 
-    %         $\forall n\ge n_0, T(n)\le c\cdot f(n)$.
-    % \end{definition}
-    % \begin{definition}[Lower bounds]
-    %     $T(n)=\Omega(f(n))$, if $f(n)=O(T(n))$.
-    % \end{definition}
-    % \begin{definition}[Tight bounds]
-    %     $T(n)=\Theta(f(n))$, if both $T(n)=O(f(n))$ and $T(n)=\Omega (f(n))$.
-    % \end{definition}
+    % \begin{itemize}
+    %     \item {\bf Upper bounds:} $T(n)=O(f(n))$, if
+    %     $\exists c>0, n_0\ge 0$ such that 
+    %     $\forall n\ge n_0, T(n)\le c\cdot f(n)$.
+    %     \item {\bf Lower bounds:} $T(n)=\Omega(f(n))$, 
+    %     if $f(n)=O(T(n))$.
+    %     \item {\bf Tight bounds:} $T(n)=\Theta(f(n))$,
+    %     if both $T(n)=O(f(n))$ and $T(n)=\Omega (f(n))$.
+    % \end{itemize}
+    \begin{definition}[Upper bounds]
+        $T(n)=O(f(n))$, if
+            $\exists c>0, n_0\ge 0$ such that 
+            $\forall n\ge n_0, T(n)\le c\cdot f(n)$.
+    \end{definition}
+    \begin{definition}[Lower bounds]
+        $T(n)=\Omega(f(n))$, if $f(n)=O(T(n))$.
+    \end{definition}
+    \begin{definition}[Tight bounds]
+        $T(n)=\Theta(f(n))$, if both $T(n)=O(f(n))$ and $T(n)=\Omega (f(n))$.
+    \end{definition}
 
     Here are some notes for above notations: 
     First, more accurate expression should be $T(n)\in O(f(n))$,
@@ -114,7 +114,7 @@
 
     \newpage
     \noindent {\it Brief proof for average case time complexity of 
-    insertion sort:} 
+    insertion sort:(totally optional for this course)} 
 
     Firstly, one can show that the number of ``swaps'' 
     is equals to the number of {\bf inversions}.(proof by induction in 
@@ -126,20 +126,20 @@
 
     Here, we define $X_{ij}$ to be 1 if $a[i]$ and $a[j]$ form 
     an inversion and 0 otherwise. So an given input of size $n$
-    will have $n(n-1)/2$ different $X_{ij}$s.
+    will have $\dfrac{n(n-1)}{2}$ different $X_{ij}$s.
 
     Now, we can express $I$ as: $I=\sum X_{ij}$. But 
     remember we are interested in the {\bf expected number 
     of inversions} in the array, since we're looking for average 
     running time of all inputs. This is also simple by 
-    linearity of expectation: $E(I)=E(\sum X_{ij})=\sum E(X_{ij})$.
+    linearity of expectation: $$\E(I)=\E\left(\sum X_{ij}\right)=\sum \E(X_{ij})$$
 
-    That's a good one, $E(X_{ij})$ is the expected value
+    That's a good one, $\E(X_{ij})$ is the expected value
     of $X_{ij}$, of course it is $1\cdot P(X_{ij}=1)=0.5$, 
     since we have assumed $n!$ permutations are equally likely.
 
-    Thus, $E(I)=\sum (1/2)$, and there are $n(n-1)/2$ terms,
-    which gives $E(I)=n(n-1)/4=\Theta(n^2)$.
+    Thus, $\E(I)=\sum \frac{1}{2}$, and there are $\dfrac{n(n-1)}{2}$ terms,
+    which gives $\E(I)=\dfrac{n(n-1)}{4}=\Theta(n^2)$.
 
     To sum up, on expectation the runtime will be
     $\Theta(n^2+n)=\Theta(n^2)$, This explains why the average-case 

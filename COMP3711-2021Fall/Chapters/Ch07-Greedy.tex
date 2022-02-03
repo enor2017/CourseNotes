@@ -359,222 +359,245 @@
 
     \section{Huffman Coding}
 
+    Suppose we have a 100,000-character data file that we wish to store compactly. 
+    We observe that the characters in the file occur with the frequencies given by table below. 
+    (i.e., there are only 6 different characters)
+    \begin{center}
+        \begin{tabular}{c|c|c|c|c|c|c}
+            \hline
+            & a & b & c & d & e & f\\\hline
+            Frequency(in thousands) & 45 & 13 & 12 & 16 & 9 & 5\\
+            Fixed-length codeword & 000 & 001 & 010 & 011 & 100 & 101\\
+            Variable-length codeword & 0 & 101 & 100 & 111 & 1101 & 1100
+        \end{tabular}
+    \end{center}
+    To compact the file, we consider designing a {\bf binary character code}, 
+    in which each character is represented by a unique binary string, which we call a {\bf codeword}. 
+    If we use a {\bf fixed-length code}, we need 3 bits to represent 6 characters, since $2^2 < 6 <2^3$. 
+    This method requires 
+    $$(45+13+12+16+9+5)\cdot 3=300\ {\rm k\ bits}$$
+    to code the entire file. Can we do better?
+
+    Actually, instead of {\bf fixed-length code}, we can use {\bf variable-length code}. 
+    If we give frequent characters short codewords and infrequent characters long codewords,
+    as the table above shows, this method only requires
+    $$(45\cdot 1+13\cdot 3+12\cdot 3+16\cdot 3+9\cdot 4+5\cdot 4)=224\ {\rm k\ bits}$$
+    to code the entire file. Believe it or not, this is an optimal way to encode this file.
 
 
 
 
+
+
+
+    % \newpage
+    % \section{Exercises}
+
+    % {\it Those problems are extracted from COMP3711 past paper or previous assignments. 
+    % Please find solution after the problems.}
+
+    % 1. (2019Spring, Midterm, 3, 18pts) {\bf Interval Scheduling}
     
+    % In this problem you will describe and explain the correctness of the interval scheduling algorithm that was taught in class.
+    
+    % {\it The Interval Scheduling Problem}: Suppose that you are given $n$ intervals $I_{1}, I_{2}, \ldots, I_{n-1}, I_{n}$ that are sorted from left to right according to some criterion. For $1 \leq i \leq n$, the start and finish times of $I_{i}$ are denoted by $s_{i}$ and $f_{i}$, respectively. Two intervals $I_{i}$ and $I_{j}$ are compatible if their interior do not overlap, i.e., $s_{i} \geq f_{j}$ or $s_{j} \geq f_{i}$. The interval scheduling problem is to select a subset of mutually compatible intervals that has the maximum size.
+    
+    % {\it The Greedy Algorithm}: The following pseudocode describes a greedy algorithm for the interval scheduling problem.
+    
+    % 1. $A \leftarrow\left\{I_{1}\right\}$;\\
+    % 2. for $j=2$ to $n$\\
+    % 3. \quad if $I_{j}$ is compatible with the intervals in $A$\\
+    % 4. \quad \quad \quad $A \leftarrow A \cup\left\{I_{j}\right\} ; \quad /^{*}$ add $I_{j}$ to the set $A * /$\\
+    % 5. output the set $A$
+
+    % We have not specified HOW the intervals are sorted. Consider the following two ways of sorting:
+    
+    % \noindent (a) By increasing starting time, i.e., $s_{1} \leq s_{2} \leq \cdots \leq s_{n}$.\\
+    % (b) By increasing finishing time, i.e., $f_{1} \leq f_{2} \leq \cdots \leq f_{n}$.
+    
+    % Answer the following question separately for each of the two sorting orders in (a) and (b) above.
+    
+    % {\bf Will the greedy algorithm return a subset of mutually compatible intervals that has the maximum size? Explain.}
+    
+    % If the answer is yes, provide a formal proof of correctness.
+    
+    % If the answer is no, provide a counterexample. Your counterexample should specify a set of input intervals. You should state the subset returned by the greedy algorithm and explain why that subset is not a correct solution.
+
+
+    % \newpage
+    % 2. (2021Spring, Final, 3, 14pts) {\bf Greedy Classroom Scheduling}
+
+    % Recall the greedy Interval Partitioning algorithm taught in class. The input was $n$ pairs of numbers $\left(s_{i}, f_{i}\right), i=1, \ldots, n$ for which $s_{i}<f_{i}$. Each pair represented a class: $s_{i}$ is class $i$ 's starting time, $f_{i}$ is its ending time. The goal was to find the minimum number of classrooms required to schedule all lectures so that no two occur at the same time in the same room. The algorithm taught in class is given below:
+    
+    % 1) Sort intervals by starting time so that $s_{1} \leq s_{2} \leq \cdots \leq s_{n}$\\
+    % 2) $d \leftarrow 0 \quad$ \% \# classrooms used so far\\
+    % 3) for $j \leftarrow 1$ to $n$\\
+    % 4) \quad if lecture $j$ is compatible with some classroom $k$ then $\left(^{*}\right)$\\
+    % 5) \quad \qquad schedule lecture $j$ in classroom $k\left(^{* *}\right)$\\
+    % 6) \quad else\\
+    % 7) \quad \qquad allocate a new classroom $d+1$\\
+    % 8) \quad \qquad schedule lecture $j$ in classroom $d+1(* * *)$\\
+    % 9) \quad \qquad $d \leftarrow d+1$
+    
+    % (a) Prove that this algorithm gives the correct answer, i.e., it only opens the minimum number of classrooms necessary to schedule all classes.
+    
+    % (b) Explain how to implement this algorithm in $O(n \log n)$ time. You need to say
+    
+    % \qquad (i) what data structure you are using, and, in particular,
+
+    % \qquad (ii) how you use it to implement lines $4,5,8$ and
+
+    % \qquad (iii) why your algorithm requires $O(n \log n)$ time.
+
+    % \newpage
+    % 3. (2020Spring, Final, 1, 15pts) {\bf Greedy Algorithms}
+
+    % Given two sequences of characters $X=\left(x_{1}, \ldots, x_{m}\right)$ and $Y=\left(y_{1}, \ldots, y_{n}\right)$ with $m \leq n$, design an $O(n)$ time algorithm that determines if $X$ is a subsequence of $Y$.
+    
+    % Formally, $X$ is a subsequence of $Y$
+
+    % \qquad if there exists $1 \leq j_{1}<j_{2}<\cdots<j_{m} \leq n$ such that $x_{i}=y_{j_{i}}$.
+    
+    % Example: let $Y=A B B C B D A B, X_{1}=B C B A$ and $X_{2}=B D B A$.
+    
+    % Then $X_{1}$ IS a subsequence of $Y$, but $X_{2}$ is NOT a subsequence of $Y$.
+    
+    % Your algorithm should return "YES" if $X$ is a subsequence of $Y$ and "NO" if $X$ is not a subsequence of $Y$.
+    
+    % You can assume that your inputs are given as two character arrays $X[1 \ldots m]$ and $Y[1 \ldots n]$ storing $X$ and $Y$.
+    
+    % (A) Using documented psuedocode, clearly describe how your algorithm works.
+    
+    % (B) Formally prove that your algorithm is correct
+    
+    % (C) Explain why it runs in $O(n)$ time.
+    
+    % In part (B), put every argument on a separate line with space betwen the lines.
+    
+    % Write your proof clearly. If you use induction in your proof, you must clearly state what your induction hypothesis is. If you prove by contradiction, clearly identify the statement that is being assumed wrong, etc.
+
+
+    % \newpage
+    % 4. (2019Spring, Midterm, 2, 10pts) {\bf Huffman Coding}
+
+    % \includegraphics[scale=0.65]{images/07-exercise-2019s-huffman-question.png}
+
+    % \newpage
+    % 5. (2021Fall, Assignment 3, Problem 4, 29pts) {\bf Greedy Covering}
+
+    % \includegraphics[scale=1.05]{images/07-exercise-2021f-hw-question.png}
+
+    % \newpage
+    % \includegraphics[scale=1.05]{images/07-exercise-2021f-hw-question2.png}
 
 
 
-    \newpage
-    \section{Exercises}
+    % \newpage
+    % \section{Solution to Exercises}
 
-    {\it Those problems are extracted from COMP3711 past paper or previous assignments. 
-    Please find solution after the problems.}
+    % 1. (2019Spring, Midterm, 3, 18pts) {\bf Interval Scheduling} 
 
-    1. (2019Spring, Midterm, 3, 18pts) {\bf Interval Scheduling}
+    % (a) When the intervals are sorted by increasing start time the solution does not have to be correct. Consider this counterexample:
+    % $$
+    % I_{1}=(1,6), I_{2}=(2,3), I_{3}=(4,5).
+    % $$
+    % The optimal solution is $\left\{I_{2}, I_{3}\right\}$ while the greedy algorithm will return just the one interval $\left\{I_{1}\right\}$.
     
-    In this problem you will describe and explain the correctness of the interval scheduling algorithm that was taught in class.
+    % (b) When the intervals are sorted by increasing finish time the solution us optimal.
     
-    {\it The Interval Scheduling Problem}: Suppose that you are given $n$ intervals $I_{1}, I_{2}, \ldots, I_{n-1}, I_{n}$ that are sorted from left to right according to some criterion. For $1 \leq i \leq n$, the start and finish times of $I_{i}$ are denoted by $s_{i}$ and $f_{i}$, respectively. Two intervals $I_{i}$ and $I_{j}$ are compatible if their interior do not overlap, i.e., $s_{i} \geq f_{j}$ or $s_{j} \geq f_{i}$. The interval scheduling problem is to select a subset of mutually compatible intervals that has the maximum size.
+    % This is the analysis from the class notes:
     
-    {\it The Greedy Algorithm}: The following pseudocode describes a greedy algorithm for the interval scheduling problem.
-    
-    1. $A \leftarrow\left\{I_{1}\right\}$;\\
-    2. for $j=2$ to $n$\\
-    3. \quad if $I_{j}$ is compatible with the intervals in $A$\\
-    4. \quad \quad \quad $A \leftarrow A \cup\left\{I_{j}\right\} ; \quad /^{*}$ add $I_{j}$ to the set $A * /$\\
-    5. output the set $A$
+    % \setlength{\parindent}{2em}
 
-    We have not specified HOW the intervals are sorted. Consider the following two ways of sorting:
+    % (a) Assume greedy is different than OPT
     
-    \noindent (a) By increasing starting time, i.e., $s_{1} \leq s_{2} \leq \cdots \leq s_{n}$.\\
-    (b) By increasing finishing time, i.e., $f_{1} \leq f_{2} \leq \cdots \leq f_{n}$.
+    % (b) Let $i_{1}, i_{2}, \ldots, i_{k}$ denote the set of intervals selected by greedy We are ordering them so that $i_{1}<i_{2}<\cdots$
     
-    Answer the following question separately for each of the two sorting orders in (a) and (b) above.
+    % (c) Let $j_{1}, j_{2}, \ldots, j_{m}$ denote the set of intervals selected by OPT Again we are ordering them so that $j_{1}<j_{2}<\cdots$
+    % Since an interval must end before the next one starts this means $f_{j_{r}} \leq s_{j_{r+1}}$ for all $r$
     
-    {\bf Will the greedy algorithm return a subset of mutually compatible intervals that has the maximum size? Explain.}
+    % (d) Note that by the definition of OPT, $m \geq k$.
     
-    If the answer is yes, provide a formal proof of correctness.
+    % (e) Find largest possible value of $r$ such that $i_{1}=j_{1}, i_{2}=j_{2}, \ldots$, $i_{r}=j_{r}$.
+    % This means that we can write OPT as
+    % $$
+    % O P T=i_{1}, i_{2}, \ldots, i_{r}, \mathbf{j}_{\mathbf{r}+1}, j_{r+2}, \ldots, j_{m} .
+    % $$
+    % Note that it's possible that $r=0$.
     
-    If the answer is no, provide a counterexample. Your counterexample should specify a set of input intervals. You should state the subset returned by the greedy algorithm and explain why that subset is not a correct solution.
+    % (f) By the definition of the greedy algorithm $j_{r+1}$ can not finish before $i_{r+1}$, otherwise the greedy algorithm would have chosen $j_{r+1}$. This means that $f_{i_{r+1}} \leq f_{j_{r+1}}$
+    
+    % (g) From the comment in (c) above, this automatically implies that $f_{i_{r+1}} \leq f_{j_{r+1}} \leq s_{j_{r+2}}$.
+    % This simply means that we can replace $j_{r+1}$ with $i_{r+1}$ in OPT and still have a set of compatable coverings. This gives us
+    % $$
+    % O P T^{\prime}=i_{1}, i_{2}, \ldots, i_{r}, \mathbf{i}_{\mathbf{r}+\mathbf{1}}, j_{r+2}, \ldots, j_{m} .
+    % $$
+    % Now note that size $\left(O P T^{\prime}\right)=m=\operatorname{size}(O P T)$ so $O P T^{\prime}$ is also optimal.
+    
+    % (h) We have therefore found an optimal solution that agrees with OPT with at least $r+1$ places instead of $r$ places.
+    
+    % (i) We can repeat lines (a)-(g) until we have found an optimal solution OPT that agrees with greedy on all of its first $k$ places
+    
+    % (j) If $m>k$ then greedy could have chosen $j_{k+1}$ after choosing $i_{k}$. Since greedy did not choose it, $j_{k+1}$ does not exist so $m=k$.
+    
+    % (k) Since $m=k$, greedy is optimal
 
+    % \setlength{\parindent}{0em}
 
-    \newpage
-    2. (2021Spring, Final, 3, 14pts) {\bf Greedy Classroom Scheduling}
+    % \vspace{0.5in}
+    % 2. (2021Spring, Final, 3, 14pts) {\bf Greedy Classroom Scheduling} 
 
-    Recall the greedy Interval Partitioning algorithm taught in class. The input was $n$ pairs of numbers $\left(s_{i}, f_{i}\right), i=1, \ldots, n$ for which $s_{i}<f_{i}$. Each pair represented a class: $s_{i}$ is class $i$ 's starting time, $f_{i}$ is its ending time. The goal was to find the minimum number of classrooms required to schedule all lectures so that no two occur at the same time in the same room. The algorithm taught in class is given below:
-    
-    1) Sort intervals by starting time so that $s_{1} \leq s_{2} \leq \cdots \leq s_{n}$\\
-    2) $d \leftarrow 0 \quad$ \% \# classrooms used so far\\
-    3) for $j \leftarrow 1$ to $n$\\
-    4) \quad if lecture $j$ is compatible with some classroom $k$ then $\left(^{*}\right)$\\
-    5) \quad \qquad schedule lecture $j$ in classroom $k\left(^{* *}\right)$\\
-    6) \quad else\\
-    7) \quad \qquad allocate a new classroom $d+1$\\
-    8) \quad \qquad schedule lecture $j$ in classroom $d+1(* * *)$\\
-    9) \quad \qquad $d \leftarrow d+1$
-    
-    (a) Prove that this algorithm gives the correct answer, i.e., it only opens the minimum number of classrooms necessary to schedule all classes.
-    
-    (b) Explain how to implement this algorithm in $O(n \log n)$ time. You need to say
-    
-    \qquad (i) what data structure you are using, and, in particular,
+    % (a) Here is the proof we derived in class.
+    % \begin{itemize}
+    %     \item (A) The depth of a set of open intervals is the maximum number of classes that exist at any instant of time.
+    %     \item  - Let $t$ be some time at which depth classes exist simultaneously. Such a $t$ must exist from the definition of depth.
+    %     \item  - At this time $t$, at least $d$ classrooms must be open to host the depth classes.
+    %     \item  - $\Rightarrow$ (B) any class scheduling solution must open at least depth classrooms
+    %     \item - Now, let $d$ be the number of classrooms opened by the greedy algorithm.
+    %     \item - Classroom $d$ is opened because we needed to schedule a lecture, say $j$, that is incompatible with all $d-1$ other classrooms.
+    %     \item - Since we sorted by start time, all these incompatibilities are caused by lectures that all start no later than $s_{j}$ and finish later than $s_{j}$
+    %     \item - Thus, there is a time at which $d$ lectures all overlap. The time is $s_{j}+\epsilon$ for some $\epsilon>0$; the $d$ lectures are the $d-1$ incompatible ones and lecture $j$,
+    %     \item - $\Rightarrow(\mathrm{C})$ depth $\geq d$
+    %     \item - Since every schedule must use at least depth classrooms and greedy uses only $d \leq$ depth classrooms, greedy uses no more than any other solution so greedy is optimal.
+    % \end{itemize}
 
-    \qquad (ii) how you use it to implement lines $4,5,8$ and
-
-    \qquad (iii) why your algorithm requires $O(n \log n)$ time.
-
-    \newpage
-    3. (2020Spring, Final, 1, 15pts) {\bf Greedy Algorithms}
-
-    Given two sequences of characters $X=\left(x_{1}, \ldots, x_{m}\right)$ and $Y=\left(y_{1}, \ldots, y_{n}\right)$ with $m \leq n$, design an $O(n)$ time algorithm that determines if $X$ is a subsequence of $Y$.
+    % (b) We can keep the classrooms in a min-heap (min priority queue) using the finishing times of the last class in the room as the classroom's key.
     
-    Formally, $X$ is a subsequence of $Y$
-
-    \qquad if there exists $1 \leq j_{1}<j_{2}<\cdots<j_{m} \leq n$ such that $x_{i}=y_{j_{i}}$.
+    % To check in line 4 whether there is a compatible classroom we do an extract$\min$ to find the minimum finishing time currently stored in the priority queue.
     
-    Example: let $Y=A B B C B D A B, X_{1}=B C B A$ and $X_{2}=B D B A$.
+    % If line 5 is called, then just insert the new finishing time $s_{j}$ to p.queue
     
-    Then $X_{1}$ IS a subsequence of $Y$, but $X_{2}$ is NOT a subsequence of $Y$.
+    % If line 8 is called, then re-insert that minimum finishing time back into the p.queue AND insert the new finishing time $s_{j}$ into the p.queue
     
-    Your algorithm should return "YES" if $X$ is a subsequence of $Y$ and "NO" if $X$ is not a subsequence of $Y$.
+    % Note that extract-mins and inserts can be performed in $O(\log N)$ time in a min priority queue with $N$ items. Since the number of items in the queue at any specific time will be $O(n)$, each extract-min and insert operation will $\operatorname{cost} O(\log n)$ time; thus, each call to line $(*),(* *)$ or $(* * *)$ will require only $O(\log n)$ time.
     
-    You can assume that your inputs are given as two character arrays $X[1 \ldots m]$ and $Y[1 \ldots n]$ storing $X$ and $Y$.
-    
-    (A) Using documented psuedocode, clearly describe how your algorithm works.
-    
-    (B) Formally prove that your algorithm is correct
-    
-    (C) Explain why it runs in $O(n)$ time.
-    
-    In part (B), put every argument on a separate line with space betwen the lines.
-    
-    Write your proof clearly. If you use induction in your proof, you must clearly state what your induction hypothesis is. If you prove by contradiction, clearly identify the statement that is being assumed wrong, etc.
+    % Since each of lines $4,5,7$ are called at most once for each value of $j$, the total work for performing them is $O(n \log n)$ time. The sort in line (1) also requires $O(n \log n)$ time so the entire algorithm uses only $O(n \log n)$ time.
 
 
-    \newpage
-    4. (2019Spring, Midterm, 2, 10pts) {\bf Huffman Coding}
+    % \vspace{0.5in}
+    % 3. (2020Spring, Final, 1, 15pts) {\bf Greedy Algorithms} 
 
-    \includegraphics[scale=0.65]{images/07-exercise-2019s-huffman-question.png}
+    % {\it The solution to this problem is so long, please refer to past paper.}
 
-    \newpage
-    5. (2021Fall, Assignment 3, Problem 4, 29pts) {\bf Greedy Covering}
+    % \vspace{0.5in}
+    % 4. (2019Spring, Midterm, 2, 10pts) {\bf Huffman Coding}
 
-    \includegraphics[scale=1.05]{images/07-exercise-2021f-hw-question.png}
+    % \includegraphics[scale=0.55]{images/07-exercise-2019s-huffman-sol.png}
 
-    \newpage
-    \includegraphics[scale=1.05]{images/07-exercise-2021f-hw-question2.png}
+    % \newpage
+    % 5. (2021Fall, Assignment 3, Problem 4, 29pts) {\bf Greedy Covering} 
 
+    % \includegraphics[scale=1.05]{images/07-exercise-2021f-hw-sol1}
 
+    % \includegraphics[scale=1.05]{images/07-exercise-2021f-hw-sol2}
 
-    \newpage
-    \section{Solution to Exercises}
+    % \newpage
+    % \includegraphics[scale=1.05]{images/07-exercise-2021f-hw-sol3}
 
-    1. (2019Spring, Midterm, 3, 18pts) {\bf Interval Scheduling} 
+    % \newpage
+    % \includegraphics[scale=1.05]{images/07-exercise-2021f-hw-sol4}
 
-    (a) When the intervals are sorted by increasing start time the solution does not have to be correct. Consider this counterexample:
-    $$
-    I_{1}=(1,6), I_{2}=(2,3), I_{3}=(4,5).
-    $$
-    The optimal solution is $\left\{I_{2}, I_{3}\right\}$ while the greedy algorithm will return just the one interval $\left\{I_{1}\right\}$.
-    
-    (b) When the intervals are sorted by increasing finish time the solution us optimal.
-    
-    This is the analysis from the class notes:
-    
-    \setlength{\parindent}{2em}
-
-    (a) Assume greedy is different than OPT
-    
-    (b) Let $i_{1}, i_{2}, \ldots, i_{k}$ denote the set of intervals selected by greedy We are ordering them so that $i_{1}<i_{2}<\cdots$
-    
-    (c) Let $j_{1}, j_{2}, \ldots, j_{m}$ denote the set of intervals selected by OPT Again we are ordering them so that $j_{1}<j_{2}<\cdots$
-    Since an interval must end before the next one starts this means $f_{j_{r}} \leq s_{j_{r+1}}$ for all $r$
-    
-    (d) Note that by the definition of OPT, $m \geq k$.
-    
-    (e) Find largest possible value of $r$ such that $i_{1}=j_{1}, i_{2}=j_{2}, \ldots$, $i_{r}=j_{r}$.
-    This means that we can write OPT as
-    $$
-    O P T=i_{1}, i_{2}, \ldots, i_{r}, \mathbf{j}_{\mathbf{r}+1}, j_{r+2}, \ldots, j_{m} .
-    $$
-    Note that it's possible that $r=0$.
-    
-    (f) By the definition of the greedy algorithm $j_{r+1}$ can not finish before $i_{r+1}$, otherwise the greedy algorithm would have chosen $j_{r+1}$. This means that $f_{i_{r+1}} \leq f_{j_{r+1}}$
-    
-    (g) From the comment in (c) above, this automatically implies that $f_{i_{r+1}} \leq f_{j_{r+1}} \leq s_{j_{r+2}}$.
-    This simply means that we can replace $j_{r+1}$ with $i_{r+1}$ in OPT and still have a set of compatable coverings. This gives us
-    $$
-    O P T^{\prime}=i_{1}, i_{2}, \ldots, i_{r}, \mathbf{i}_{\mathbf{r}+\mathbf{1}}, j_{r+2}, \ldots, j_{m} .
-    $$
-    Now note that size $\left(O P T^{\prime}\right)=m=\operatorname{size}(O P T)$ so $O P T^{\prime}$ is also optimal.
-    
-    (h) We have therefore found an optimal solution that agrees with OPT with at least $r+1$ places instead of $r$ places.
-    
-    (i) We can repeat lines (a)-(g) until we have found an optimal solution OPT that agrees with greedy on all of its first $k$ places
-    
-    (j) If $m>k$ then greedy could have chosen $j_{k+1}$ after choosing $i_{k}$. Since greedy did not choose it, $j_{k+1}$ does not exist so $m=k$.
-    
-    (k) Since $m=k$, greedy is optimal
-
-    \setlength{\parindent}{0em}
-
-    \vspace{0.5in}
-    2. (2021Spring, Final, 3, 14pts) {\bf Greedy Classroom Scheduling} 
-
-    (a) Here is the proof we derived in class.
-    \begin{itemize}
-        \item (A) The depth of a set of open intervals is the maximum number of classes that exist at any instant of time.
-        \item  - Let $t$ be some time at which depth classes exist simultaneously. Such a $t$ must exist from the definition of depth.
-        \item  - At this time $t$, at least $d$ classrooms must be open to host the depth classes.
-        \item  - $\Rightarrow$ (B) any class scheduling solution must open at least depth classrooms
-        \item - Now, let $d$ be the number of classrooms opened by the greedy algorithm.
-        \item - Classroom $d$ is opened because we needed to schedule a lecture, say $j$, that is incompatible with all $d-1$ other classrooms.
-        \item - Since we sorted by start time, all these incompatibilities are caused by lectures that all start no later than $s_{j}$ and finish later than $s_{j}$
-        \item - Thus, there is a time at which $d$ lectures all overlap. The time is $s_{j}+\epsilon$ for some $\epsilon>0$; the $d$ lectures are the $d-1$ incompatible ones and lecture $j$,
-        \item - $\Rightarrow(\mathrm{C})$ depth $\geq d$
-        \item - Since every schedule must use at least depth classrooms and greedy uses only $d \leq$ depth classrooms, greedy uses no more than any other solution so greedy is optimal.
-    \end{itemize}
-
-    (b) We can keep the classrooms in a min-heap (min priority queue) using the finishing times of the last class in the room as the classroom's key.
-    
-    To check in line 4 whether there is a compatible classroom we do an extract$\min$ to find the minimum finishing time currently stored in the priority queue.
-    
-    If line 5 is called, then just insert the new finishing time $s_{j}$ to p.queue
-    
-    If line 8 is called, then re-insert that minimum finishing time back into the p.queue AND insert the new finishing time $s_{j}$ into the p.queue
-    
-    Note that extract-mins and inserts can be performed in $O(\log N)$ time in a min priority queue with $N$ items. Since the number of items in the queue at any specific time will be $O(n)$, each extract-min and insert operation will $\operatorname{cost} O(\log n)$ time; thus, each call to line $(*),(* *)$ or $(* * *)$ will require only $O(\log n)$ time.
-    
-    Since each of lines $4,5,7$ are called at most once for each value of $j$, the total work for performing them is $O(n \log n)$ time. The sort in line (1) also requires $O(n \log n)$ time so the entire algorithm uses only $O(n \log n)$ time.
-
-
-    \vspace{0.5in}
-    3. (2020Spring, Final, 1, 15pts) {\bf Greedy Algorithms} 
-
-    {\it The solution to this problem is so long, please refer to past paper.}
-
-    \vspace{0.5in}
-    4. (2019Spring, Midterm, 2, 10pts) {\bf Huffman Coding}
-
-    \includegraphics[scale=0.55]{images/07-exercise-2019s-huffman-sol.png}
-
-    \newpage
-    5. (2021Fall, Assignment 3, Problem 4, 29pts) {\bf Greedy Covering} 
-
-    \includegraphics[scale=1.05]{images/07-exercise-2021f-hw-sol1}
-
-    \includegraphics[scale=1.05]{images/07-exercise-2021f-hw-sol2}
-
-    \newpage
-    \includegraphics[scale=1.05]{images/07-exercise-2021f-hw-sol3}
-
-    \newpage
-    \includegraphics[scale=1.05]{images/07-exercise-2021f-hw-sol4}
-
-    \newpage
-    \includegraphics[scale=1.00]{images/07-exercise-2021f-hw-sol5}
+    % \newpage
+    % \includegraphics[scale=1.00]{images/07-exercise-2021f-hw-sol5}
 
 \end{spacing}

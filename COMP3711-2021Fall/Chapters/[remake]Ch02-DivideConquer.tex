@@ -845,19 +845,23 @@
 
     \subsection{Theorem and its proof}
 
-    {\bf The Master Theorem:} Let $a\ge 1, b>1, c\ge 0$
-    be constants, if $T(n)=aT(n/b)+n^d$, then:
-    \begin{align*}
-        \setstretch{0.7}
-        T(n)=\left\{ \begin{array}{ll}
-            O(n^d), & \text{if } d>\log_b{a}\\
-            O(n^d\log n), & \text{if } d = \log_b{a}\\
-            O(n^{\log_b{a}}), & \text{if } d < \log_b{a}\\
-        \end{array}\right.
-    \end{align*}
+    \begin{theorem}
+        {\bf The Master Theorem:} Let $a\ge 1, b>1, c\ge 0$
+        be constants, if $T(n)=aT(n/b)+n^d$, then:
+        \begin{align*}
+            \setstretch{0.7}
+            T(n)=\left\{ \begin{array}{ll}
+                O(n^d), & \text{if } d>\log_b{a}\\
+                O(n^d\log n), & \text{if } d = \log_b{a}\\
+                O(n^{\log_b{a}}), & \text{if } d < \log_b{a}\\
+            \end{array}\right.
+        \end{align*}
+    \end{theorem}
+    
 
     There is one kind of proof given in lecture slide, 
     using expansion method. But personally, I like the method below.
+    (Proof is not required in this course.)
 
     \begin{proof}
     Consider $T(n)=a\cdot T\left(\dfrac{n}{b}\right)+c\cdot n^{d}$,
@@ -906,7 +910,77 @@
     \newpage
     \subsection{equalities, inequalities and more}
 
-    {\Large\color{red} to be added. (2021/09/05)}
+    Notice that the theorem on previous page is quite restricted, it only 
+    involves the case when the form is like $n^d$, we cannot apply it 
+    to solve cases involving $\log n$, etc. 
+    Now we'd like to introduce more powerful versions of Master Theorem,
+    but actually, when you understand the below cases, you will find that
+    you only need to remember the previous simple versions, and I'll tell you why.
+
+
+    \begin{theorem}
+        {\bf The Master Theorem (for equalities):} 
+
+        If $T(n)=aT(n/b)+f(n)$, and denote $c=\log_b a$, then:
+        \begin{itemize}
+            \item If $f(n)=O(n^{c-\epsilon})$ for some $\epsilon > 0$, then $T(n)=\Theta(n^c)$
+            \item If $f(n)=\Theta(n^c)$, then $T(n)=\Theta(n^c\log n)$
+            \item If $f(n)=\Omega(n^{c+\epsilon})$ for some $\epsilon > 0$, and if 
+            $af(n/b)\le df(n)$ for some $d<1$ and large enough $n$, then $T(n)=\Theta(f(n))$.
+        \end{itemize}
+    \end{theorem}
+
+    Then we can solve the following recurrence:
+    $$T(1)=1,\ T(n)=9T(n/2)+n^3\log_2 n\ {\rm for\ }n>1.$$
+    Notice that $c=\log_2 9\approx 3.17$, hence 
+    $f(n)\le n^{3.1}=O(n^{c-\epsilon})$, where $\epsilon\approx 0.07$.
+    Thus $T(n)=\Theta(n^{\log_2 9})$.
+    Here we use the fact that $\log n$ is smaller than any positive power 
+    of $n$.
+
+    Actually, this is the only case that we cannot use the previous ``simple version
+    Master Theorem'' to solve recurrence, but since $\log$ is smaller than any 
+    power, you can simply regard it as nothing, i.e., 
+    $$T(1)=1,\ T(n)=9T(n/2)+n^3\ {\rm for\ }n>1.$$
+    and if you apply the ``simple version Master Theorem'', the result is the same, 
+    $T(n)=\Theta(n^{\log_2 9})$. See? You only need to remember the previous version.
+
+    \vspace{0.2in}
+    You may notice in the third case above, there is one extra condition 
+    ``if $af(n/b)\le df(n)$ for some $d<1$ and large enough $n$''. This is called 
+    {\bf Smoothness condition(regularity condition)}, 
+    and if you are interested, you can search on Google
+    about why we need an extra condition. Fortunately, this condition satisfies 
+    most of the time(like the example below), 
+    there are only a few weird cases where this condition fails.
+    
+    To show how we can check the {\bf Smoothness condition}, we look at the example:
+    $$T(1)=1,\ T(n)=4T(n/2)+n^2 \sqrt{n}\ {\rm for\ }n>1.$$
+    Since $c=\log_2 4=2,\ f(n)=\Theta(n^{2.5})=\Omega(n^{c+\epsilon})$ where $\epsilon=0.5$,
+    this is the third case, and we need to check the regularity condition:
+    $$4\cdot \left(\frac{n}{2}\right)^2 \sqrt{\frac{n}{2}}=\frac{\sqrt{2}}{2}\cdot n^2\sqrt{n}\le d\cdot f(n)$$
+    for $d=\dfrac{\sqrt{2}}{2}<1$ and large enough $n$.
+    Therefore we can conclude that $T(n)=\Theta(n^2\sqrt{n})$.
+
+    \vspace{0.3in}
+    There is also a version for inequalities:
+    \begin{theorem}
+        {\bf The Master Theorem (for inequalities):} 
+
+        If $T(n)\le aT(n/b)+f(n)$, and denote $c=\log_b a$, then:
+        \begin{itemize}
+            \item If $f(n)=O(n^{c-\epsilon})$ for some $\epsilon > 0$, then $T(n)=O(n^c)$
+            \item If $f(n)=O(n^c)$, then $T(n)=O(n^c\log n)$
+            \item If $f(n)=\Omega(n^{c+\epsilon})$ for some $\epsilon > 0$, and if 
+            $af(n/b)\le df(n)$ for some $d<1$ and large enough $n$, then $T(n)=O(f(n))$.
+        \end{itemize}
+    \end{theorem}
+    There is nothing new above, we just replace ``$=$'' with ``$\le $'' and 
+    changes the results to $O$ rather than $\Theta$.
+
+
+
+
 
     \newpage
     \section{Integer Multiplication}

@@ -1,0 +1,205 @@
+
+\begin{spacing}{1.3}
+
+    {\it Notice: } Insertion sort, merge sort and 
+    quick sort have been covered in Topic 00, 02, 03,
+    respectively, we will not cover them in this note.
+
+    These two algorithms are not paid much attention during this course.
+    Selection Sort is introduced in first class which is designed to give students
+    an intuition of algorithm, while Bubble Sort is introduced in Tutorial session.
+    
+    \section{Selection Sort}
+
+    This is quite a natural algorithm: to sort an array of elements, firstly, you
+    find the smallest item in the array, put it to first position, and 
+    find the smallest item in remaining of the array(i.e., except for the 
+    first element), and put it to the second position.
+
+    The real implementation of Selection Sort is just like this, only one thing 
+    to amend is that when we find the smallest one and put it to first position, 
+    what should we do to the original item that at 1st position? 
+    There are two different methods:
+    \begin{enumerate}
+        \item We put sorted items into a new array, i.e., each time we find the smallest 
+        item, we insert it into the new array, so the new array will be sorted
+        \item Or, we directly swap the two items. For example, if the smallest 
+        item is at position 4, we swap $A[1]$ and $A[4]$. This will not affect 
+        our later processes.
+    \end{enumerate}
+    Apparently, first method is simple but requires extra {\bf space complexity}
+    (remember this word?), so usually we choose the second one.
+
+    Let's have an example for this algorithm:
+    \begin{itemize}
+        \item to sort array: $(5,2,8,6,1)$ 
+        \item 1st step: find the smallest one, $1$, swap with first item, 
+        results in $(1,2,8,6,5)$
+        \item 2nd step: find the smallest except for first item, $2$, swap with second item, 
+        results in $(1,2,8,6,5)$
+        \item 3rd step: find the smallest except for first two items, $5$, swap with third item, 
+        results in $(1,2,5,6,8)$
+        \item $\cdots$
+    \end{itemize}
+
+    The pseudocode should be like this:
+    \begin{algorithm*}[htbp]
+        \caption{Selection-Sort-1($A[1\cdots n]$)}
+
+        \For{$i\lar 1$ to $n-1$}{
+            \tcp{Now we want to find the smallest item among $A[i\cdots n]$}
+
+            $minNum\lar A[i]$ \qquad \tcp{Records the smallest item we've met}
+
+            $minIndex\lar i$\qquad \tcp{Records the index of $minNum$}
+
+            \For{$j\lar i+1$ to $n$}{
+                \tcp{If a smaller one found, record it!}
+                \If{$A[j] < minNum$}{
+                    $minNum\lar A[j]$
+
+                    $minIndex\lar j$
+                }
+            }
+
+            \tcp{After finding the smallest one, swap with $A[i]$}
+
+            swap $A[i]$ and $A[minIndex]$
+        }
+    \end{algorithm*}
+
+    The lecture slides use a different implementation, instead of looking 
+    for the smallest one and, at the end, swap it with current one($i$-th item), 
+    we continuously swap $A[i]$(current one) and $A[j]$ whenever we find 
+    such an $A[j]$ that smaller than $A[i]$. For example, to sort $(5,2,8,6,7,1)$,
+    \begin{itemize}
+        \item First $i=1$, $A[i]=5$, and we loop $j$ from $2$ to $6$, to check if there 
+        is a smaller item 
+        \item when $j=2$, $A[j]=2<A[i]=5$, we swap them, results in $({\red 2},{\red 5},8,6,7,1)$
+        \item when $j=3$, $A[j]=8>A[i]=2$, don't swap
+        \item when $j=4$, $A[j]=6>A[i]=2$, don't swap
+        \item when $j=5$, $A[j]=7>A[i]=2$, don't swap
+        \item when $j=6$, $A[j]=1<A[i]=2$, swap them, results in $({\red 1},5,8,6,7,{\red 2})$
+    \end{itemize}
+
+    The pseudocode of this algorithm looks much shorter, but actually their thoughts 
+    and time complexity don't differ too much.
+    \begin{algorithm*}[htbp]
+        \caption{Selection-Sort-2($A[1\cdots n]$)}
+
+        \For{$i\lar 1$ to $n-1$}{
+            \For{$j\lar i+1$ to $n$}{
+                \tcp{Look for smaller item, and swap with $A[i]$}
+
+                \If{$A[i]>A[j]$}{
+                    swap $A[i]$ and $A[j]$
+                } 
+            }
+        }
+    \end{algorithm*}
+
+    The correctness of {\bf Selection Sort} can be proved by induction.
+    \begin{theorem}
+        When {\bf Selection Sort} terminates, the array is sorted.
+    \end{theorem}
+    \begin{proof}
+        We use induction to prove it.
+
+        {\bf Basic step:} When $n=1$, the algorithm is obviously correct.
+
+        {\bf Inductive step:} Assume the algorithm sorts {\it every array of size $n-1$} correctly,
+        then for an size $n$ array $A[1\cdots n]$, what the algorithm does is that:
+        \begin{itemize}
+            \item It first find the smallest item, and put it at $A[1]$
+            \item Then, it omits the first item, and runs {\bf Selection Sort} on $A[2\cdots n]$:
+            where by induction, this correctly sort $A[2\cdots n]$
+            \item Since $A[1]$ is the smallest, the whole array $A[1\cdots n]$ are sorted.
+        \end{itemize}
+    \end{proof}
+
+
+    The running time of Selection Sort is easy to analyze. Take the second algorithm above 
+    as example, line 3 and line 4 will run for each iteration of the two loops, so 
+    the running time is 
+    $$\sum_{i=1}^{n-1}\sum_{i+1}^n 1=\sum_{i=1}^{n-1} (n-i)=\frac{n(n-1)}{2}$$
+    which immediately follows that the running time of Selection Sort is always $\Theta(n^2)$.
+
+    \section{Bubble Sort}
+
+    The idea of {\bf Bubble Sort} is that: each time we check two adjacent items, 
+    if the left one is larger, we swap them. Then, after one iteration through the whole 
+    array $A[1\cdots n]$, the largest item will be ``bubbled'' to right-most position.
+    Then, we continuously do this on $A[1\cdots n-1]$(except for the last one, which already 
+    sorted), and now the second-largest item will be ``bubbled'' to second-rightmost position.
+
+    The pseudocode is like this:
+    \begin{algorithm*}[htbp]
+        \caption{Bubble-Sort-1($A[1\cdots n]$)}
+        \For{$i\lar 1$ to $n$}{
+            \tcp{Could you explain why $j$ terminates at $n-i$?}
+            \For{$j\lar 1$ to $n-i$}{
+                \tcp{Check adjacent, if left is larger, swap them}
+                \If{$A[j]>A[j+1]$}{
+                    swap $A[j]$ and $A[j+1]$
+                }
+            }
+        }
+    \end{algorithm*}
+
+    This algorithm looks stupid, since it requires lots of ``checking and swaps''. Consider the case 
+    where the input is already sorted, the {\bf Bubble Sort} algorithm above still 
+    perform ALL two nested loops, and check each adjacent items to see if they need swaps.
+    Inspired by this, we can directly terminates the algorithm if {\it the previous $j$ iteration 
+    does zero swaps}. If the $j$ loops from begin to end and find that no swap is required, then 
+    no surprising the array must have already been sorted.
+    
+    So now we can change the algorithm into:
+    \begin{algorithm*}[htbp]
+        \caption{Bubble-Sort-2($A[1\cdots n]$)}
+        $swapped\lar true$\qquad \tcp{Record whether we swapped last time, here initialize to true}
+        \While{$swapped$ is true}{
+            $swapped\lar false$
+            \For{$i\lar 1$ to $n-1$}{
+                \If{$A[i]>A[i+1]$}{
+                    swap $A[i]$ and $A[i+1]$
+
+                    $swapped\lar true$
+                }
+            }
+        }
+    \end{algorithm*}
+
+    The correctness of Bubble Sort can be obtained by the correctness of below two theorems:
+    \begin{theorem}
+        When Bubble Sort terminates, the array must be sorted.
+    \end{theorem}
+    \begin{proof}
+        The algorithm terminates only if the last pass did not swap any pair, i.e
+        $$A[1] \le  A[2] \le  \cdots \le A[n - 1] \le A[n],$$
+        which means that the array is sorted.
+    \end{proof}
+    \begin{theorem}
+        After the $i$-th pass, the items in locations $A[n - i + 1, \cdots , n]$ are in their proper
+        sorted locations and none of them ever move again.
+    \end{theorem}
+    \begin{proof}
+        We prove this claim by induction.
+        \begin{itemize}
+            \item This is obviously true if $n=1$ or $n=2$.
+            \item After the 1st pass, the largest element must be in location $A[n]$, 
+            and that item never moves after the first pass completes.
+            \item After the 1st pass completes, it is as if Bubble Sort is being run on array $A[1 \cdots n-1]$.
+            \item The claim then follows by induction.
+        \end{itemize}
+    \end{proof}
+
+
+    For time complexity, the best case is when the array is already sorted, $O(n)$, while 
+    the worst case is when the array is reversely sorted, $O(n^2)$, the worst case complexity
+    can be directly observed from our first Bubble Sort algorithm.
+
+    There is also a formal proof of worst case in problem set SS6. I'd like to omit details here.
+
+
+    
+\end{spacing}

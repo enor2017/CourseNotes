@@ -11,12 +11,12 @@ This lecture note is still under construction. You may find latest version in [m
 |      02      |      Divide and Conquer       |                      **Done**.                       |
 |      03      |     Randomized Algorithm      | Done **except** for Section 3.5 Randomized Selection |
 |      04      |     Selection/Bubble Sort     |                      **Done**.                       |
-|      05      |           Heap Sort           |             **In Progess**.(coming soon)             |
+|      05      |           Heap Sort           |                      **Done**.                       |
 |      06      |          Linear Sort          |                      **Done**.                       |
 |      07      |            Greedy             |         Done **except** for Huffman Coding.          |
 |      08      |    Dynamic Programming: 1D    |            **In Progess**. (coming soon)             |
 |      09      |    Dynamic Programming: 2D    |                   Not yet started.                   |
-|      10      | Dynamic Programming: interval |                   Not yet started.                   |
+|      10      | Dynamic Programming: interval |            **In Progess**. (coming soon)             |
 |     TBA      |              TBA              |                         TBA                          |
 
 

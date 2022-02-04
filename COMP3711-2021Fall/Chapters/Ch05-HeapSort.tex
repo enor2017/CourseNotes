@@ -156,9 +156,124 @@
 
     \vspace{0.3in}
     \section{Extract-Min}
-    
-    
 
+    Inspired by {\bf Insert} operation above, you may have already come up with 
+    an idea that, we can remove the root(which is the min element), and then let 
+    its children pop up. The image below shows the idea.
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[scale=0.32]{images/05-min-wrong.png}
+    \end{figure}
+
+    As you may notice, the ``min-heap property'' is successfully preserved, however, 
+    the result is no longer a heap: it is not ``left-packed''.
+
+    In order to keep it ``left-packed'', we can only remove the right-most node 
+    in lowest level. Therefore, we modify our previous idea into:
+    \begin{itemize}
+        \item Still, remove the root, which is the min element
+        \item Then, let the right-most node in lowest level replace the original root
+    \end{itemize}
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[scale=0.3]{images/05-min-1.png}\qquad 
+        \includegraphics[scale=0.3]{images/05-min-2.png}
+    \end{figure}
+
+    By now, it only (possibly)violates the ``min-heap property'', and similar to what we've done 
+    in {\bf Insert}, we can perform ``{\bf percolate down(or bubble down)}'', to 
+    let the new root descent, until the ``min-heap property'' is satisfied.
+    Notice that no matter how we bubble up/down, the shape of heap will not change,
+    meaning that as long as the current heap is ``left-packed'', it will 
+    still be ``left-packed'' after several bubble up/down operations.
+
+    Use the same example above, we continue the process to bubble down new root:
+    (notice that if the element is larger than both of its children, 
+    we interchange it with the {\it smaller} children.)
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics[scale=0.3]{images/05-min-3.png}\qquad
+        \includegraphics[scale=0.3]{images/05-min-4.png}\qquad 
+        \includegraphics[scale=0.3]{images/05-min-5.png}
+    \end{figure}
+    
+    The {\it correctness} can be verified in a similar manner as {\bf Insertion}:
+    after each {\bf bubble down}, the min-heap property is satisfied for all
+    nodes except the ``subtree'' containing the new root. And as we previously 
+    mentioned, since the heap is ``left-packed'' before bubble down, 
+    it will still be ``left-packed'' after those bubble operations.
+
+    For {\it time complexity}, we still examine the number of swaps it performs,
+    which at most, equals to the height of heap, i.e., $O(\log n)$.
+
+
+    We ends up this section with the pseudocode of {\bf Extract-Min} operation.
+
+    \begin{algorithm*}[htbp]
+        \caption{Extract-Min($A[1\cdots i]$)}
+        \tcp{Remove smallest item($A[i]$) in Heap, results in a new heap $A[1\cdots i-1]$}
+
+        output($A[1]$) \qquad \tcp{$A[1]$ is the smallest one}
+
+        swap $A[1]$ and $A[i]$\qquad \tcp{Let last element replace original root}
+
+        $A[i]\lar nil$\qquad \tcp{Now $A[i]$ is empty}
+
+        \tcp{Now we Bubble down from root}
+
+        $j\lar 1,\ l\lar A[2j],\ r\lar A[2j+1]$ \qquad \tcp{$l,r$ are two children}
+        \While{$A[j]>\min (l,r)$}{
+            \tcp{Swap $A[j]$ with the smaller child }
+            \eIf{$l<r$}{
+                swap $A[j]$ with $A[2j]$
+
+                $j\lar 2j$\qquad \tcp{contiuously bubble down}
+            }{
+                swap $A[j]$ with $A[2j+1]$
+
+                $j\lar 2j+1$
+            }
+            $l\lar A[2j],\ r\lar A[2j+1]$\qquad \tcp{update values of two children for later bubble down}
+        }
+    \end{algorithm*}
+
+
+    \vspace{0.3in}
+    \section{Heap Sort}
+
+    With the help of {\bf heap}, we can come up with a brand new sorting algorithm:
+    \begin{itemize}
+        \item Firstly, we {\bf Insert} $n$ elements one by one, which costs $O(n\log n)$
+        \item Then, we perform $n$ {\bf Extract-Min} operations, which costs $O(n\log n)$ as well
+        \item The elements we extracted above is sorted in ascending order.
+    \end{itemize}
+
+    So the total {\bf time complexity} for {\bf Heap Sort} is still $O(n\log n)$. 
+    In tutorial, you will learn a cleverer method that can build a heap of $n$ elements 
+    in $O(n)$, but this still cannot reduce the total running time.
+
+    \vspace{0.3in}
+    \section{Priority Queue}
+
+    {\bf Priority Queue} is an abstract data structure that supports {\bf Insert} and 
+    {\bf Extract-Min}, usually we consider priority queues are implemented using 
+    heaps, so these two operations requires $O(\log n)$ time.
+
+    Sometimes there is another operation {\bf Decrease-Key} supported in priority queues,
+    which is useful when we talk about {\bf Dijkstra's Algorithm} for finding 
+    Shortest Paths on a graph.
+
+    \begin{definition}
+        {\bf Decrease-Key:} decreases the value of one specified element.
+    \end{definition}
+
+    The way we implement {\bf Decrease-Key} is similar to previous operations, namely:
+    \begin{itemize}
+        \item Change the key of that node
+        \item Continuously Bubble Up if necessary, until reaching root or ``min-heap property''
+        holds.
+    \end{itemize}
+    We will not elaborate here.
 
 
 

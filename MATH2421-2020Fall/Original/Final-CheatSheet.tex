@@ -1,0 +1,270 @@
+\documentclass[10pt, a4paper]{article}
+\usepackage{geometry}
+\geometry{left=0.6in, right=0.6in, top=0.6in, bottom=0.6in}
+\usepackage{setspace}
+\usepackage{amsmath,mathrsfs}
+\usepackage{multicol}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{multirow}
+\usepackage{amsthm}
+
+\newtheorem*{theorem}{Theorem}
+\newcommand{\eg}{{\bf {Example: }}}
+\newcommand{\sol}{{\bf {Solution: }}}
+\renewcommand\qedsymbol{$\blacksquare$}
+\newcommand{\E}{{\mathbb{E}}}
+\newcommand{\var}{{\rm var}}
+\newcommand{\disp}{\displaystyle}
+
+\begin{document}
+\begin{spacing}{1}
+    \begin{center}
+        {\bf MATH2421 Final} Cheat Sheet
+    \end{center}
+    \setlength{\parindent}{0em}
+    \parskip=6pt
+
+    \normalsize
+    {\bf Inclusion-Exclusion Principle:} 
+
+    $\disp P(A_1\cup A_2\cup \cdots \cup A_n)=
+    \sum_{i=1}^{n}P(A_i)-\sum_{i\le i_1<i_2\le n}P(A_{i_1}A_{i_2})+\cdots +
+    (-1)^{r+1}\sum_{1\le i_1<\cdots<i_r\le n}P(A_{i_1}\cdots A_{i_r})+\cdots +
+    (-1)^{n+1}P(A_1\cdots A_n)$
+
+    {\bf General Multiplication Rule:} $P(A_1A_2\cdots A_n)=
+    P(A_1)P(A_2|A_1)P(A_3|A_1A_2)\cdots P(A_n|A_1A_2\cdots A_{n-1})$
+
+    {\bf Total Probability:} $P(B)=P(B|A)P(A)+P(B|A^C)P(A^C)$
+
+    {\bf Bayes' formula:} Events $A_1,\cdots ,A_n$ partitions sample space, assume 
+    $P(A_i)>0$ for $1\le i\le n$. Let $B$ be any event, then for any $1\le i\le n$, we have
+    $\disp P(A_i|B)=\frac{P(B|A_i)P(A_i)}{P(B|A_1)P(A_1)+\cdots +P(B|A_n)P(A_n)}$
+
+    \vspace{0.3in}
+    {\bf Probability mass function:} $\disp p_X(x)=
+    \left\{ \begin{array}{ll} 
+        P(X=x) & {\rm if\ } x=x_1,x_2,\cdots \\ 0 & {\rm otherwise}
+    \end{array} \right.$
+
+    {\bf Cumulative distribution function:} $F_X(x)=P(X\le x)$ for $x\in \mathbb{R}$
+
+    {\bf Expected Value:} $\disp E(X)=\sum_{x} xp_X(x)$, 
+    $\disp E[g(x)]=\sum_{i}g(x_i)p_X(x_i)=\sum_x g(x)p_X(x)$
+
+    {\bf Tail Sum Formula:} $\disp E(X)=\sum_{k=1}^{\infty} P(X\ge k)=\sum_{k=0}^{\infty}P(X>k)$
+
+    {\bf Variance:} $\var (X)=E(X-\mu)^2=E(X^2)-[E(X)]^2$
+
+    {\bf Expected Value of Sum of RV:} $\disp E\left[\sum_{i=1}^n X_i\right]
+    =\sum_{i=1}^n E[X_i]$
+
+    \vspace{0.3in}
+    {\bf Bernoulli random variable:} $Be(p)$, $X=1$ if success, $0$ if failure. 
+
+    $P(X=1)=p, P(X=0)=1-p,\qquad \E(X)=p, \var(X)=p(1-p)$
+
+    {\bf Binomial random variable:} $Bin(n,p)$, $X=$ \# of successes in $n$ 
+    Bernoulli($p$) trials.
+
+    For $0\le k\le n$, $\disp P(X=k)={n\choose k} p^k q^{n-k}
+    \qquad \E(X)=np, \var(X)=np(1-p)$
+
+    {\bf Geometric random variable:} $Geom(p)$, $X=$ \# of Bernoulli($p$)
+    trials required to obtain the first success.
+
+    For $k\ge 1$, $P(X=k)=pq^{k-1}\qquad \E(X)=\dfrac{1}{p}, \var(X)=\dfrac{1-p}{p^2}$.
+
+    {\bf OR, }$X'=$ \# of failures in Bernoulli($p$) trials to obtain 1st success.
+    $X=X'+1$
+
+    For $k\ge 0$, $P(X'=k)=pq^k,\qquad \E(X')=\dfrac{1-p}{p}, \var(X')=\dfrac{1-p}{p^2}$
+
+    {\bf Negative Binomial random variable:} $NB(r,p)$, $X=$ \# of Bernoulli($p$) trials
+    required to obtain $r$ success.
+
+    For $k\ge r$, $\disp P(X=k)={k-1\choose r-1}p^r q^{k-r}$,
+    \qquad $\E(X)=\dfrac{r}{p}, \var(X)=\dfrac{r(1-p)}{p^2}$
+
+    Note that $Geom(p)=NB(1,p)$, $\disp {k-1\choose r-1}=(-1)^{r-1}{-(k-r+1)\choose r-1}$
+
+    {\bf Poisson Random Variable:} $X\sim$ Poisson($\lambda$) 
+    \qquad For $k\ge 0$, $\disp P(X=k)=\frac{e^{-\lambda}\lambda^k}{k!},\qquad \E(X)=\lambda, 
+    \var(x)=\lambda$
+
+    Usually if $n>20$ and $np<15$, Bin$(n,p)\approx $Poisson($np$).
+
+    {\bf Hypergeometric Random Variable:} $H(n,N,m)$, a set of $N$ balls, 
+    of which $m$ are red and $N-m$ are blue. We choose $n$ of these balls 
+    {\it without replacement}, $X=$ \# of red balls in sample.
+
+    For $0\le x\le \min(m,n)$, $\disp P(X=x)=\frac{{m\choose x}{N-m\choose n-x}}{{N\choose n}}$
+    \qquad $\disp \E(X)=\dfrac{nm}{N}, \var(X)=\frac{nm}{N}
+    \left[\frac{(n-1)(m-1)}{N-1}+1-\frac{nm}{N}\right]$
+
+    \newpage
+    {\bf Expectation and Variance of Continuous RV:}\\
+    $\disp \E(X)=\int_{-\infty}^{\infty} xf_X(x)dx,\ 
+    \var (X)=\int_{-\infty}^{\infty} (x-\E(X))^2 f_X(x) dx=\E[(x-\mu_X)^2]$
+
+    {\bf Tail sum formula:} 
+    $\disp \E(X)=\int_0^{\infty}P(X>x) dx=\int_0^{\infty}P(X\ge x) dx$
+
+    {\bf Uniform Distribution:}
+    $\disp X\sim U(a,b),\ f(x)=\frac{1}{b-a},\ a< x< b,\ \E(X)=\frac{a+b}{2},\ 
+    \var(x)=\frac{(b-a)^2}{12}\\
+    F_X(x)=0,\ if\ x<a;\ \ \frac{x-a}{b-a},\ if\ a\le x<b;\ \ 1,\ if\ b\le x$
+
+
+    {\bf Normal distribution: } $\disp X\sim N(\mu, \sigma^2),\  
+    f_X(x)=\frac{1}{\sqrt{2\pi}\sigma}e^{-\dfrac{(x-\mu)^2}{2\sigma^2}},
+    \ -\infty < x < \infty,\ \E(X)=\mu, \var(X)=\sigma^2$
+
+    {\bf Standard normal distribution: } $\disp X\sim N(0,1),\ 
+    \phi(x)=\frac{1}{\sqrt{2\pi}} e^{-\frac{x^2}{2}},\ 
+    \Phi(x)=\frac{1}{\sqrt{2\pi}} \int_{-\infty}^{x} e^{-\frac{y^2}{2}} dy\\
+    P(a<Z<b)=\Phi(b)-\Phi(a),\ P(Z<b)=\Phi(b),\ \Phi(-x)=1-\Phi(x)\\
+    \frac{X-\mu}{\sigma}\sim N(0,1),\ \therefore Y\sim N(\mu, \sigma^2)\Rightarrow 
+    P(a<Y\le b)=\Phi\left(\frac{b-\mu}{\sigma}\right)-\Phi\left(\frac{a-\mu}{\sigma}\right)$
+
+    {\bf Exponential distribution:} $\disp X\sim Exp(\lambda),\ 
+    f_X(x)=\lambda e^{-\lambda x},\ x\ge 0$,
+    the c.d.f is $\disp F_X(x)=1-e^{-\lambda x},\ x> 0\\
+    \E(X)=\frac{1}{\lambda},\ \var(X)=\frac{1}{\lambda^2}$
+    
+    {\bf memoryless property of exp dist:} 
+    $P(X>s+t|X>s)=P(X>t),\ s,t>0$
+
+    {\bf Gamma distribution: } $\disp X\sim \Gamma(\alpha, \lambda),\ 
+    f_X(x)=\frac{\lambda e^{-\lambda x}(\lambda x)^{\alpha - 1}}{\Gamma (\alpha)},\ x\ge 0,\ $
+    where $\disp \lambda, \alpha > 0,\ \Gamma(\alpha)=\int_0^{\infty} e^{-y}y^{\alpha - 1}dy\\ 
+    \E(X)=\frac{\alpha}{\lambda},\ \var(X)=\frac{\alpha}{\lambda^2},\ 
+    \Gamma(1)=1,\ \Gamma(\alpha) = (\alpha - 1)\Gamma(\alpha - 1),\ 
+    \Gamma(n)=(n-1)!,\ \Gamma(1,\lambda) = {\rm Exp}(\lambda),\ \Gamma(1/2)=\sqrt{\pi}$
+
+    {\bf Beta distribution:} $\disp X\sim {\rm Beta}(a,b),\ 
+    f(x)=\frac{1}{B(a,b)}x^{a-1}(1-x)^{b-1},\ 0<x<1$, where
+    {\bf beta function} $\disp B(a,b)=\int_0^1 x^{a-1}(1-x)^{b-1}dx,\ 
+    \E(X)=\frac{a}{a+b},\ \var(X)=\frac{ab}{(a+b)^2(a+b+1)},\ 
+    B(a,b)=\frac{\Gamma(a)\Gamma(b)}{\Gamma(a+b)}$
+
+    {\bf Cauchy distribution: } $\disp X\sim {\rm Cauchy}(\theta),\ 
+    f(x)=\frac{1}{\pi}\frac{1}{1+(x-\theta)^2},\ -\infty < x < \infty,\
+    \E(X)=\infty,\ \var(X)=\infty$
+
+    {\bf De Moivre-Laplace Limit Thm:} $X\sim {\rm Bin}(n,p)$, then for any $a<b$,
+    ${\rm Bin}(n,p)\approx N(np, npq)$\\
+    $\disp P\left(a<\frac{X-np}{\sqrt{npq}}\le b\right)\approx \Phi(b)-\Phi(a)$
+
+    {\bf Continuity Correction: } $X\sim {\rm Bin}(n, p),\ Z\sim N(0,1)$, then\\
+    $\disp P(a\le X\le b)\approx P\left(\frac{a-0.5-np}{\sqrt{npq}}\le Z\le \frac{b+0.5-np}{\sqrt{npq}}\right),\ 
+    \disp P(a< X< b)\approx P\left(\frac{a+0.5-np}{\sqrt{npq}}\le Z\le \frac{b-0.5-np}{\sqrt{npq}}\right)$
+
+    {\bf Dist of a func of a RV: } For monotonic $\disp Y=g(X),\ 
+    f_Y(y)=f_X\left(g^{-1}(y)\right)\left|\frac{d}{dy} g^{-1}(y)\right|$\\
+    If $X$ is a RV with c.d.f $F$, then $F(X)\sim U(0,1)$.
+
+    \vspace{0.3in}
+    {\bf Marginal distribution function:} 
+    $\disp F_X(x)=\lim_{y\rightarrow \infty}F_{X,Y}(x,y)=
+    \lim_{y\rightarrow \infty}P(X\le x, Y\le y)=P(X\le x).$ (c.d.f of $X$)
+
+    {\bf Marginal p.m.f:} 
+    $\disp p_X(x)=P(X=x)=\sum_{y\in \mathbb{R}} p_{X,Y}(x,y)$\qquad 
+    {\bf Marginal p.d.f:}
+    $\disp f_X(x)=\int_{-\infty}^{\infty} f_{X,Y}(x,y)dy$
+
+    \newcommand{\pt}{\partial}
+    {\bf Relation between p.d.f and c.d.f:}
+    $\disp f_{X,Y}(x,y)=\frac{\pt^2}{\pt x\pt y}F_{X,Y}(x,y)$.
+
+    {\bf Independent: }
+    $\disp p_{X,Y}(x,y)=p_X(x)p_Y(y),\ F_{X,Y}(x,y)=F_X(x)F_Y(y)$
+
+    {\bf Sum of Indep: }
+    $\disp F_{X+Y}(x)=\int_{-\infty}^{\infty}F_X(x-t)f_Y(t)dt=\int_{-\infty}^{\infty}F_Y(x-t)f_X(t)dt,
+    \\f_{X+Y}(x)=\int_{-\infty}^{\infty}f_X(x-t)f_Y(t)dt=\int_{-\infty}^{\infty}f_Y(x-t)f_X(t)dt$
+
+    {\bf Some conclusions: }
+    $X_1,\cdots, X_n$ be $n$ independent RV$\sim {\rm Exp}(\lambda)$, then 
+    $\disp \sum_{i=1}^{n}X_i\sim {\rm Gamma}(n,\lambda)$.\\
+    $X_1,\cdots, X_n$ be $n$ independent RV$\sim N(\mu_i,\sigma_i^2)$, then 
+    $\disp \sum_{i=1}^{n}X_i\sim N\left(\sum_{i=1}^n \mu_i,\sum_{i=1}^n \sigma_i^2\right)$.
+    (used to approx Binominal Dist.)
+
+    {\bf Sum of Discrete RV: }
+    $X\sim {\rm Poisson}(\lambda), Y\sim {\rm Poisson}(\mu)$, then $X+Y\sim {\rm Poisson}(\lambda+\mu)$\\
+    $X\sim {\rm Bin}(n,p), Y\sim {\rm Bin}(m,p)$, then $X+Y\sim {\rm Bin}(n+m,p)$\quad 
+    $X\sim {\rm Geom}(p), Y\sim {\rm Geom}(p)$, then $X+Y\sim NB(2,p)$
+
+    {\bf Conditional Dist.: }
+    (Discrete:) $\disp p_{X|Y}(x|y)=\frac{p_{X,Y}(x,y)}{p_Y(y)},\ 
+    F_{X|Y}(x|y)=P(X\le x|Y=y)$\\
+    (Cont.:) $\disp f_{X|Y}(x|y)=\frac{f_{X,Y}(x,y)}{f_Y(y)},\ 
+    F_{X|Y}(x|y)=P(X\le x|Y=y)=\int_{-\infty}^x f_{X|Y}(t|y)dt$
+
+    {\bf Joint p.d.f of Func of RV: }
+    $\disp J(x,y)=\frac{\pt (u,v)}{\pt (x,y)}=
+    \frac{\pt g}{\pt x}\frac{\pt h}{\pt y}-\frac{\pt g}{\pt y}\frac{\pt h}{\pt x},\ 
+    f_{U,V}(u,v)=f_{X,Y}(x,y)|J(x,y)|^{-1}$
+
+    \vspace{0.25in}
+    {\bf Expectation of Sum of RV: }
+    $\disp \E[g(X,Y)]=\sum_y \sum_x g(x,y)p_{X,Y}(x,y),\ 
+    \E[g(X,Y)]=\int_{-\infty}^{\infty} \int_{-\infty}^{\infty} g(x,y) f_{X,Y}(x,y)dxdy$
+
+    \newcommand{\cov}{{\rm cov}}
+    {\bf Covariance: } ${\rm cov}(X,Y)=\E(X-\mu_X)(Y-\mu_Y)$, 
+    if ${\rm cov}(X,Y)\ne 0$, then $X, Y$ are correlated.\\
+    $\disp \cov(X,Y)=\E(XY)-\E(X)\E(Y),\ 
+    \cov\left(\sum_{i=1}^n a_iX_i, \sum_{j=1}^m b_jY_j\right)=
+    \sum_{i=1}^n \sum_{j=1}^m a_ib_j\cov(X_i,Y_j),\\ 
+    \var\left(\sum_{k=1}^n X_k\right)=\sum_{k=1}^n \var(X_k)+
+    2\sum_{1\le i<j\le n} \cov(X_i,X_j)$,\qquad under {\bf indep.},
+    $\disp \var\left(\sum_{k=1}^n X_k\right)=\sum_{k=1}^n \var(X_k)$
+
+    {\bf Independent Case: } $X,Y$ independent, then 
+    $\E[g(X)h(Y)]=\E[g(X)]\E[h(Y)],\ \cov(X,Y)=0$(reverse not true)
+
+    {\bf correlation coefficient:} $\disp \rho(X,Y)=\frac{\cov(X,Y)}{\sqrt{\var(X)\var(Y)}}$
+
+    {\bf Conditional Expectation:} 
+    $\disp \E[X|Y=y]=\sum_{x} xp_{X|Y}(x|y)=\int_{-\infty}^{\infty} xf_{X|Y}(x|y) dx,\ 
+    \E\left[\sum_{k=1}^n X_k|Y=y\right]=\sum_{k=1}^n \E[X_k|Y=y]$
+
+    {\bf Expectation by Conditioning:} 
+    $\disp \E[X]=\E[\E(X|Y)]=\sum_{y} \E(X|Y=y)P(Y=y)=\int_{-\infty}^{\infty}\E(X|Y=y)f_Y(y)dy$
+
+    {\bf Probability by Conditioning:}
+    $\disp P(A)=\sum_y P(A|Y=y)P(Y=y)=\int_{-\infty}^{\infty}P(A|Y=y)f_Y(y)dy$
+
+    {\bf conditional variance: }
+    $\var(X|Y)=\E\bigl[(X-\E[X|Y])^2|Y\bigr],\ \ 
+    \var(X)=\E[\var(X|Y)]+\var(\E[X|Y])\\
+    \var(Y|X)=\E(Y^2|X)-\E(Y|X)^2$
+
+    \vspace{0.3in}
+    {\bf Moment Generating Function: }
+    $\disp M_X(t)=\E[e^{tX}]=\sum_{X} e^{tx}p_X(x)=\int_{-\infty}^{\infty} e^{tx}f_X(x)dx,\ 
+    \E(X^n)=M_X^{(n)}(0)$\\
+    If $X,Y$ are independent, $M_{X+Y}(t)=M_X(t)M_Y(t)$
+
+    {\bf MGF for dist.: }
+    $\disp X\sim {\rm Be}(p),\ M(t)=1-p+pe^t,\ \ X\sim {\rm Bin}(n,p), M(t)=(1-p+pe^t)^n\\
+    X\sim {\rm Geom}(p), M(t)=\frac{pe^t}{1-(1-p)e^t},\ \ 
+    X\sim {\rm Poisson}(\lambda), M(t)={\rm exp}(\lambda(e^t-1))\\
+    X\sim U(\alpha, \beta), M(t)=\frac{e^{\beta t}-e^{\alpha t}}{(\beta-\alpha)t},\ \ 
+    X\sim {\rm Exp}(\lambda), M(t)=\frac{\lambda}{\lambda - t}$ for $t<\lambda,\ \ 
+    X\sim N(\mu, \sigma^2), M(t)=e^{\mu t+\frac{\sigma^2t^2}{2}}$
+
+    {\bf Common Integrations:} 
+    $\disp \int xe^{ax}\ dx=\frac{1}{a^2}(ax-1)e^{ax}+C,\  
+    \int x^n e^{ax}\ dx=\frac{1}{a}x^n e^{ax}-\frac{n}{a}\int x^{n-1} e^{ax}\ dx$
+    
+
+
+\end{spacing}
+\end{document}
